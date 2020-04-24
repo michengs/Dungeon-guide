@@ -9,8 +9,6 @@ catch(e) { voice = null; }
 const TANK_CLASS_IDS = [1, 10];
 // Dps class ids(not counting warrior)
 const DPS_CLASS_IDS = [2, 3, 4, 5, 8, 9, 11, 12];
-const MapID_TW = require('./StrSheet_TW_Dungeon.json').String;
-const MapID = require('./StrSheet_Dungeon.json').String;
 // Healer class ids
 const HEALER_CLASS_IDS = [6, 7];
 // Warrior Defence stance abnormality ids
@@ -84,10 +82,18 @@ class TeraGuide{
         // All of the timers, where the key is the id
         let random_timer_id = 0xFFFFFFFA; // Used if no id is specified
         let timers = {};	
-		let StrSheet_Dungeon_String = [];
-		let StrSheet_TW_Dungeon_String = [];		
+		let entered_zone_data = {};		
+		let is_event = false;		
         /** HELPER FUNCTIONS **/
-
+		// Find index for dungeons settings param
+		function find_dungeon_index(id) {
+			for (let i in dispatch.settings.dungeons) {
+				if (dispatch.settings.dungeons[i].id == id) {
+					return i;
+				}
+			}
+			return false;
+		}
         // Write generic debug message used when creating guides
         function debug_message(d, ...args) {
             if(d) {
@@ -281,107 +287,207 @@ class TeraGuide{
         /** MISC **/
 
         // Load guide and clear out timers
-        dispatch.hook('S_LOAD_TOPO', 3, e=> {
-            // Clear out the timers
-            for(let key in timers) clearTimeout(timers[key]);
-            timers = {};
 
-            // Clear out previous hooks, that our previous guide module hooked
-            fake_dispatch._remove_all_hooks();
-
-            // Send debug message
-            debug_message(debug.debug, 'Entered zone:', e.zone);
-
-            // Remove potential cached guide from require cache, so that we don't need to relog to refresh guide
-            try {
-                delete require.cache[require.resolve('./guides/' + e.zone)];
-            }catch(e) {}
-            
-            // Try loading a guide
-            try {
-                active_guide = require('./guides/' + e.zone);
- 
-            if ([3126,3026,9750,9066,9050,9054,9754,9916,9781,3017,9044,9070,9920,9970,9981].includes(e.zone)) { 
-			spguide = true;   //skill  1000-3000 
-			esguide = false;
-            }else if([9000,3023,9759].includes(e.zone)) { 
-			spguide = false; //skill  100-200-3000 
-			esguide = true;
-            }else{
-            spguide = false; //skill  100-200 
-			esguide = false;				
+		function entry_zone(zone) {
+			// Enable errors debug
+			let debug_errors = true;
+			// Disable trigger event flag
+			is_event = false;
+			// Clear out the timers
+			for (let key in timers) clearTimeout(timers[key]);
+			timers = {};
+			// Clear out previous hooks, that our previous guide module hooked
+			fake_dispatch._remove_all_hooks();
+			// Send debug message
+			debug_message(debug.debug, 'Entered zone:', zone);
+			// Remove potential cached guide from require cache, so that we don't need to relog to refresh guide
+			try {
+				delete require.cache[require.resolve('./guides/' + zone)];
+			} catch(e) {}
+			// Try loading a guide
+			try {
+				// Find and load zone data from settings
+				entered_zone_data = {};
+				for (const i of dispatch.settings.dungeons) {
+					if (i.id == zone) {
+						entered_zone_data = i;
+						break;
+					}
+				}
+				if (zone == "test") {
+					entered_zone_data = {"id": "test", "name": "Test Guide","name_TW": "测试副本", "name_RU": "Test Guide", "verbose": true, "spawnObject": true};
+				}
+				if (!entered_zone_data.id) {
+					debug_errors = debug.debug;
+					throw 'Guide for zone ' + zone + ' not found in config';
+				}
+				active_guide = require('./guides/' + zone);
+				if ([3126, 3026, 9750, 9066, 9050, 9054, 9754, 9916, 9781, 3017, 9044, 9070, 9920, 9970, 9981].includes(zone)) {
+					spguide = true;   // skill  1000-3000 
+					esguide = false;
+				} else if ([9000, 3023, 9759].includes(zone)) {
+					spguide = false; // skill  100-200-3000 
+					esguide = true;
+				} else {
+					spguide = false; // skill  100-200 
+					esguide = false;
+				}
+				guide_found = true;
+				if (entered_zone_data.name) {
+					if (spguide) {
+                		speak_voice('：', 8000)	;	
+						text_handler({
+							"sub_type": "PRMSG",
+							"delay": 8000,
+							"message_RU": 'Вы вошли в ' + cr + entered_zone_data.name_RU + cw + ' [' + zone + ']', 
+							"message_TW": '进入SP副本 ' + cr + entered_zone_data.name_TW + cw + ' [' + zone + ']', 							
+							"message": ' Enter SP  Dungeon： ' +  cr + entered_zone_data.name + cw + ' [' + zone + ']'
+						});					
+					} else if (esguide) {
+                		speak_voice('：', 8000)	;							
+						text_handler({
+							"sub_type": "PRMSG",
+							"delay": 8000,
+							"message_RU": 'Вы вошли в ' + cr + entered_zone_data.name_RU + cw + ' [' + zone + ']',
+							"message_TW": '进入ES副本 ' + cr + entered_zone_data.name_TW + cw + ' [' + zone + ']', 							
+							"message": ' Enter ES  Dungeon： ' + cr + entered_zone_data.name + cw + ' [' + zone + ']'
+						 });
+						 
+					} else {
+                		speak_voice('：', 8000)	;						
+						text_handler({
+							"sub_type": "PRMSG",
+							"delay": 8000,
+							"message_RU": 'Вы вошли в ' + cr + entered_zone_data.name_RU + cw + ' [' + zone + ']',
+							"message_TW": '进入副本 ' + cr + entered_zone_data.name_TW + cw + ' [' + zone + ']', 							
+							"message": ' Enter   Dungeon： ' + cr + entered_zone_data.name + cw + ' [' + zone + ']'
+						});
+						
+					}
+				}
+			} catch(e) {
+				entered_zone_data = {};
+				active_guide = {};
+				guide_found = false;
+				debug_message(debug_errors, e);
 			}
-            guide_found = true;
-		StrSheet_Dungeon_String = MapID.find(obj => obj.id === e.zone);
-		StrSheet_TW_Dungeon_String = MapID_TW.find(obj => obj.id === e.zone);		
-		if (StrSheet_TW_Dungeon_String) {
-        if( spguide ) {
-				 text_handler({"sub_type": "alert","delay": 8000,"message_TW": '进入SP副本： ' +  cr +  StrSheet_TW_Dungeon_String.string, "message": ' Enter SP  Dungeon： ' +  cr + StrSheet_Dungeon_String.string});  
-                		speak_voice('：', 8000)	;
-            }else if( esguide ) {
-				 text_handler({"sub_type": "alert","delay": 8000,"message_TW": '进入ES副本： ' +  cr + StrSheet_TW_Dungeon_String.string, "message": ' Enter ES  Dungeon： ' + cr +  StrSheet_Dungeon_String.string}); 
-                		speak_voice('：', 8000)	;		 
-            }else{				 text_handler({"sub_type": "alert","delay": 8000,"message_TW": '进入副本： ' +  cr + StrSheet_TW_Dungeon_String.string, "message": ' Enter   Dungeon： ' +  cr + StrSheet_Dungeon_String.string}); 
-                		speak_voice('：', 8000)	;
+			if (guide_found) {
+				// Try calling the "load" function
+				try {
+					active_guide.load(fake_dispatch);
+				} catch(e) {
+					debug_message(debug_errors, e);
+				}
 			}
-		} 
-            }catch(e) {
-                active_guide = {};
-                guide_found = false;
-                debug_message(debug.debug, e);
-            }
-
-            // Try calling the "load" function
-            try {
-                active_guide.load(fake_dispatch);
-            }catch(e) { debug_message(debug.debug, e); }
-        });
+		}
+		dispatch.hook('S_LOAD_TOPO', 3, e => { entry_zone(e.zone) });
 
         // Guide command
-        command.add(['guide','補助','辅助'], {
+        command.add(['guide','副本'], {
             // Toggle debug settings
-            debug(arg1) {
-                if(!arg1 || debug[arg1] === undefined) return command.message(`Invalid sub command for debug mode. ${arg1}`);
-                debug[arg1] = !debug[arg1];
-                command.message(`Guide module debug(${arg1}) mode has been ${debug[arg1]?"enabled":"disabled"}.`);
-            },
+			debug(arg1) {
+				if (!arg1) {
+					arg1 = 'debug';
+				} else if (arg1 === 'status') {
+					for (let [key, value] of Object.entries(debug)) {
+						command.message(`debug(${key}): ${value ? "enabled" : "disabled"}.`);
+					}
+					return;
+				} else if (debug[arg1] === undefined) {
+					return command.message(`Invalid sub command for debug mode. ${arg1}`);
+				}
+				debug[arg1] = !debug[arg1];
+				command.message(`Guide module debug(${arg1}) mode has been ${debug[arg1] ? "enabled" : "disabled"}.`);
+			},
             // Testing events
-            event(arg1, arg2) {
-                // If we didn't get a second argument or the argument value isn't an event type, we return
-                if(arg1 === "trigger" ? (!active_guide[arg2]) : (!arg1 || !function_event_handlers[arg1] || !arg2)) return command.message(`Invalid values for sub command "event" ${arg1} | ${arg2}`);
-
-                // if arg2 is "trigger". It means we want to trigger a event
-                if(arg1 === "trigger")
-                    start_events(active_guide[arg2], player);
-                else
-                    // Call a function handler with the event we got from arg2 with yourself as the entity
-                    function_event_handlers[arg1](JSON.parse(arg2), player);
-            },
+			event(arg1, arg2) {
+				// Enable trigger event flag
+				is_event = true;
+				// Clear library cache
+				try {
+					delete require.cache[require.resolve('./lib')];
+				} catch(e) {}
+				// If arg1 is "load", load guide from arg2 specified
+				if (arg1 === "load") {
+					if (!arg2) return command.message(`Invalid values for sub command "event" ${arg1}`);
+					return entry_zone(arg2);
+				}
+				// If arg1 is "reload", reload current loaded guide
+				if (arg1 === "reload") {
+					if (!entered_zone_data.id) return command.message("Guide not loaded");
+					return entry_zone(entered_zone_data.id);
+				}
+				// If we didn't get a second argument or the argument value isn't an event type, we return
+				if (arg1 === "trigger" ? (!active_guide[arg2]) : (!arg1 || !function_event_handlers[arg1] || !arg2)) return command.message(`Invalid values for sub command "event" ${arg1} | ${arg2}`);
+				// if arg2 is "trigger". It means we want to trigger a event
+				if (arg1 === "trigger") {
+					start_events(active_guide[arg2], player);
+				} else {
+					try {
+						// Call a function handler with the event we got from arg2 with yourself as the entity
+						function_event_handlers[arg1](JSON.parse(arg2), player);
+					} catch(e) {
+						// Disable trigger event flag
+						is_event = false;
+						debug_message(true, e);
+					}
+				}
+			},                      
            voice() {
-         if(!voice){
-      	command.message(`need voice Dependencies`);
-			 return;		
-			}
             	dispatch.settings.speaks = !dispatch.settings.speaks;
-				text_handler({"sub_type": "PRMSG","message_TW": `语音通知 ${dispatch.settings.speaks?"开启":"关闭"}.`, "message": `text-to-speech ${dispatch.settings.speaks?"on":"off"}.` }); 				
+				text_handler({"sub_type": "PRMSG","message_RU": `Голосовое сообщение ${dispatch.settings.speaks?"Вкл":"Выкл"}.`,"message_TW": `语音通知 ${dispatch.settings.speaks?"开启":"关闭"}.`, "message": `text-to-speech ${dispatch.settings.speaks?"on":"off"}.` }); 				
             },			
             stream() {
             	dispatch.settings.stream = !dispatch.settings.stream;
-				text_handler({"sub_type": "PRMSG","message_TW": `主播模式 ${dispatch.settings.stream?"开启":"关闭"}.`, "message": `stream ${dispatch.settings.stream?"on":"off"}.` }); 				
+				text_handler({"sub_type": "PRMSG","message_RU": `Стрим, скрытие сообщений ${dispatch.settings.stream?"Вкл":"Выкл"}.`, "message_TW": `主播模式 ${dispatch.settings.stream?"开启":"关闭"}.`, "message": `stream ${dispatch.settings.stream?"on":"off"}.` }); 				
             },
-            spawnObject() {
-            	dispatch.settings.spawnObject = !dispatch.settings.spawnObject;
-				text_handler({"sub_type": "PRMSG","message_TW": `仅文本提示 ${dispatch.settings.spawnObject?"关闭":"开启"}.`, "message": `spawn object ${dispatch.settings.spawnObject?"on":"off"}.` });  				
-            },				
-            alert() {
-            	dispatch.settings.notice = !dispatch.settings.notice;
-				text_handler({"sub_type": "PRMSG","message_TW": `虚拟队长通知已 ${dispatch.settings.notice?"开启":"关闭"}.`, "message": `Virtual captain has been ${dispatch.settings.notice?"on":"off"}.` });  				
+			
+			spawnObject(arg1) {
+						let sd_id;
+						if (arg1) {
+							sd_id = find_dungeon_index(arg1);
+							if (sd_id) {
+								dispatch.settings.dungeons[sd_id].spawnObject = !dispatch.settings.dungeons[sd_id].spawnObject;
+								text_handler({"sub_type": "PRMSG",
+									"message_RU": `Спавн объектов для данжа ${dispatch.settings.dungeons[sd_id].name_RU} [${dispatch.settings.dungeons[sd_id].id}]: ${dispatch.settings.dungeons[sd_id].spawnObject?"Вкл":"Выкл"}.`, 
+									"message_TW": `标记物品位于 ${dispatch.settings.dungeons[sd_id].name_TW} [${dispatch.settings.dungeons[sd_id].id}]: ${dispatch.settings.dungeons[sd_id].spawnObject?"开启":"关闭"}.`, 									
+									"message": `Spawning objects for dungeon ${dispatch.settings.dungeons[sd_id].name} [${dispatch.settings.dungeons[sd_id].id}] has been ${dispatch.settings.dungeons[sd_id].spawnObject?"on":"off"}.`
+								});
+							} else {
+								text_handler({"sub_type": "PRMSG","message_RU": `Данж с таким id не найден.`,"message_TW": `没有添加该副本.`, "message": `Dungeon not found.` });
+							}
+						} else {
+							dispatch.settings.spawnObject = !dispatch.settings.spawnObject;
+							text_handler({"sub_type": "PRMSG","message_RU": `Спавн объектов: ${dispatch.settings.spawnObject?"Вкл":"Выкл"}.`,"message_TW": `地面提示物品: ${dispatch.settings.spawnObject?"开启":"关闭"}.`, "message": `Spawn objects ${dispatch.settings.spawnObject?"on":"off"}.` });
+						}
+					},			
+			verbose(arg1) {
+						let sd_id;
+						if (arg1) {
+							sd_id = find_dungeon_index(arg1);
+							if (sd_id) {
+								dispatch.settings.dungeons[sd_id].verbose = !dispatch.settings.dungeons[sd_id].verbose;
+								text_handler({"sub_type": "PRMSG",
+									"message_RU": `Показ сообщений для данжа ${dispatch.settings.dungeons[sd_id].name_RU} [${dispatch.settings.dungeons[sd_id].id}]: ${dispatch.settings.dungeons[sd_id].verbose?"Вкл":"Выкл"}.`,
+									"message_TW": `副本消息 ${dispatch.settings.dungeons[sd_id].name_TW} [${dispatch.settings.dungeons[sd_id].id}]: ${dispatch.settings.dungeons[sd_id].verbose?"开启":"关闭"}.`,	
+									"message": `Messaging for dungeon ${dispatch.settings.dungeons[sd_id].name} [${dispatch.settings.dungeons[sd_id].id}] has been ${dispatch.settings.dungeons[sd_id].verbose?"on":"off"}.`
+								});
+							} else {
+								text_handler({"sub_type": "PRMSG","message_RU": `Данж с таким id не найден.`,"message_TW": `没有添加该副本.`, "message": `Dungeon not found.`});
+							}
+						} else {
+							text_handler({"sub_type": "PRMSG","message_RU": `Не указан id данжа.`,"message_TW": `没有输入指定副本id.`, "message": `Dungeon id not specified.`});
+						}
+					},	
+
+            lNotice() {
+            	dispatch.settings.lNotice = !dispatch.settings.lNotice;
+				text_handler({"sub_type": "PRMSG","message_RU": `Сообщения в чат: ${dispatch.settings.lNotice?"Вкл":"Выкл"}.`,"message_TW": `虚拟团队长通知已 ${dispatch.settings.lNotice?"开启":"关闭"}.`, "message": `Virtual captain has been ${dispatch.settings.lNotice?"on":"off"}.` });  				
+            },	
+            gNotice() {
+            	dispatch.settings.gNotice = !dispatch.settings.gNotice;
+				text_handler({"sub_type": "PRMSG","message_RU": `Сообщения в чат: ${dispatch.settings.gNotice?"Вкл":"Выкл"}.`,"message_TW": `虚拟组队长通知已 ${dispatch.settings.gNotice?"开启":"关闭"}.`, "message": `Virtual captain has been ${dispatch.settings.gNotice?"on":"off"}.` });  				
             },		
-            systemNotice() {
-            	dispatch.settings.systemNotice = !dispatch.settings.systemNotice;
-            	command.message(`system Notice ${dispatch.settings.systemNotice?"on":"off"}.`);
-				text_handler({"sub_type": "PRMSG","message_TW": `组队通知已 ${dispatch.settings.systemNotice?"开启":"关闭"}.`, "message": `system Notice ${dispatch.settings.systemNotice?"on":"off"}.` });  				
-            },
             1() {          	
 			   text_handler({"sub_type": "PRMSG","message_TW": `语音速度1`, "message": `Voice speed 1` });  				
 	           dispatch.settings.rate.splice(0,1, rate1);			
@@ -423,86 +529,94 @@ class TeraGuide{
 	           dispatch.settings.rate.splice(0,1, rate10);					
             },
             cr() {
-				text_handler({"sub_type": "CRMSG","message_TW": `系统消息通知颜色红色`, "message": `system message notification color is red` }); 		   
+				text_handler({"sub_type": "CRMSG","message_RU": `Цвет системного сообщения: красный`,"message_TW": `系统消息通知颜色红色`, "message": `system message notification color is red` }); 		   
 	           dispatch.settings.cc.splice(0,1, cr );		   
             },
             cc() {
-				text_handler({"sub_type": "PRMSG","message_TW": `查看系统消息通知颜色`, "message": `View the current system message notification color` }); 							   
+				text_handler({"sub_type": "PRMSG","message_RU": `Текущий цвет системного сообщения`,"message_TW": `查看系统消息通知颜色`, "message": `View the current system message notification color` }); 							   
             },			
             co() {
-				text_handler({"sub_type": "COMSG","message_TW": `系统消息通知颜色橘色`, "message": `system message notification color is  ORANGE` }); 			
+				text_handler({"sub_type": "COMSG","message_RU": `Цвет системного сообщения: оранжевый`,"message_TW": `系统消息通知颜色橘色`, "message": `system message notification color is  ORANGE` }); 			
 	           dispatch.settings.cc.splice(0,1, co);					
             },
             cy() {
-				text_handler({"sub_type": "CYMSG","message_TW": `系统消息通知颜色黄色`, "message": `system message notification color is YELLOW` }); 			
+				text_handler({"sub_type": "CYMSG","message_RU": `Цвет системного сообщения: желтый`,"message_TW": `系统消息通知颜色黄色`, "message": `system message notification color is YELLOW` }); 			
 	           dispatch.settings.cc.splice(0,1, cy);					
             },
             cg() {
-				text_handler({"sub_type": "CGMSG","message_TW": `系统消息通知颜色绿色`, "message": `system message notification color is GREEN` }); 			
+				text_handler({"sub_type": "CGMSG","message_RU": `Цвет системного сообщения: зеленый`,"message_TW": `系统消息通知颜色绿色`, "message": `system message notification color is GREEN` }); 			
 	           dispatch.settings.cc.splice(0,1, cg);					
             },
             cdb() {
-				text_handler({"sub_type": "CDBMSG","message_TW": `系统消息通知颜色深蓝色`, "message": `system message notification color is DARK BLUE` }); 			
+				text_handler({"sub_type": "CDBMSG","message_RU": `Цвет системного сообщения: темно-синий`,"message_TW": `系统消息通知颜色深蓝色`, "message": `system message notification color is DARK BLUE` }); 			
 	           dispatch.settings.cc.splice(0,1, cr);					
             },
             cb() {
-				text_handler({"sub_type": "CBMSG","message_TW": `系统消息通知颜色蓝色`, "message": `system message notification color is BLUE` }); 			
+				text_handler({"sub_type": "CBMSG","message_RU": `Цвет системного сообщения: синий`,"message_TW": `系统消息通知颜色蓝色`, "message": `system message notification color is BLUE` }); 			
 	           dispatch.settings.cc.splice(0,1, cb);				
             },
             cv() {
-				text_handler({"sub_type": "CVMSG","message_TW": `系统消息通知颜色紫色`, "message": `system message notification color is VIOLET` }); 			
+				text_handler({"sub_type": "CVMSG","message_RU": `Цвет системного сообщения: фиолетовый`,"message_TW": `系统消息通知颜色紫色`, "message": `system message notification color is VIOLET` }); 			
 	           dispatch.settings.cc.splice(0,1, cv);				
             },
             cp() {
-				text_handler({"sub_type": "CPMSG","message_TW": `系统消息通知颜色粉色`, "message": `system message notification color is PINK` }); 			
+				text_handler({"sub_type": "CPMSG","message_RU": `Цвет системного сообщения: розовый`,"message_TW": `系统消息通知颜色粉色`, "message": `system message notification color is PINK` }); 			
 	           dispatch.settings.cc.splice(0,1, cp);				
             },
             clp() {
-				text_handler({"sub_type": "CLPMSG","message_TW": `系统消息通知颜色浅粉色`, "message": `system message notification color is LIGHT PINK` }); 			
+				text_handler({"sub_type": "CLPMSG","message_RU": `Цвет системного сообщения: светло-розовый`,"message_TW": `系统消息通知颜色浅粉色`, "message": `system message notification color is LIGHT PINK` }); 			
 	           dispatch.settings.cc.splice(0,1, clp);				
             },
             clb() {
-				text_handler({"sub_type": "CLBMSG","message_TW": `系统消息通知颜色浅蓝色`, "message": `system message notification color is LIGHT BLUE` }); 			
+				text_handler({"sub_type": "CLBMSG","message_RU": `Цвет системного сообщения: светло-синий`,"message_TW": `系统消息通知颜色浅蓝色`, "message": `system message notification color is LIGHT BLUE` }); 			
 	           dispatch.settings.cc.splice(0,1, clb);				
             },
             cbl() {
-				text_handler({"sub_type": "CBLMSG","message_TW": `系统消息通知颜色黑色`, "message": `system message notification color is  BLACK` }); 			
+				text_handler({"sub_type": "CBLMSG","message_RU": `Цвет системного сообщения: черный`,"message_TW": `系统消息通知颜色黑色`, "message": `system message notification color is  BLACK` }); 			
 	           dispatch.settings.cc.splice(0,1, cbl);				
             },
             cgr() {
-				text_handler({"sub_type": "CGRMSG","message_TW": `系统消息通知颜色灰色`, "message": `system message notification color is  BLACK` }); 			
+				text_handler({"sub_type": "CGRMSG","message_RU": `Цвет системного сообщения: серый`,"message_TW": `系统消息通知颜色灰色`, "message": `system message notification color is  BLACK` }); 			
 	           dispatch.settings.cc.splice(0,1, cgr);				
             },	
             cw() {
-				text_handler({"sub_type": "CWMSG","message_TW": `系统消息通知颜色白色`, "message": `system message notification color is  BLACK` }); 			
+				text_handler({"sub_type": "CWMSG","message_RU": `Цвет системного сообщения: белый`,"message_TW": `系统消息通知颜色白色`, "message": `system message notification color is  BLACK` }); 			
 	           dispatch.settings.cc.splice(0,1, cw);				
-            },			
+            },	
+			dungeons() {
+						for (const i of dispatch.settings.dungeons) {
+							text_handler({"sub_type": "CWMSG","message_RU": `${i.id} - ${i.name_RU}`,"message_TW": `${i.id} - ${i.name_TW}`, "message": `${i.id} - ${i.name}`});
+						}
+					},			
             help() {
-			   text_handler({"sub_type": "PRMSG","message_TW": 'guide ，副本補助开/关 ，默认系统通知，通知颜色为黄色', "message": 'guide,  on/off, default system notification, notification color yellow ' });  					
-			   text_handler({"sub_type": "PRMSG","message_TW": 'guide voice，副本補助语音开/关', "message": 'guide  voice，text-to-speech on/off' });  
-			   text_handler({"sub_type": "PRMSG","message_TW": 'guide systemNotice， 组队通知开/关', "message": 'guide systemNotice，system Notice on/off' });  	
-			   text_handler({"sub_type": "PRMSG","message_TW": 'guide alert ，组队长通知开/关', "message": 'guide alert， Virtual captain  notifie on/off' });  	
-			   text_handler({"sub_type": "PRMSG","message_TW": 'guide 1~10，调节语音速度10为最快语速，默认为1正常速度', "message": 'guide 1~10，to settings Voice speed' });  
-			   text_handler({"sub_type": "PRMSG","message_TW": 'guide spawnObject，地面提示开/关', "message": 'guide spawnObject，spawn Object on/off' }); 
-			   text_handler({"sub_type": "PRMSG","message_TW": 'guide stream，主播模式开关', "message": 'guide stream，(stream)on/off' }); 	
-			   text_handler({"sub_type": "PRMSG","message_TW": 'guide cc，查看当前系统消息通知颜色', "message": 'guide cc，View the current system message notification color' }); 	
-			   text_handler({"sub_type": "CRMSG","message_TW": 'guide cr，消息通知颜色为红色', "message": 'guide cr，message color is red' }); 				   
-			   text_handler({"sub_type": "COMSG","message_TW": 'guide co，消息通知颜色为橙色', "message": 'guide co，message color is ORANGE' }); 	
-			   text_handler({"sub_type": "CYMSG","message_TW": 'guide cy，消息通知颜色为黄色', "message": 'guide cy，message color is YELLOW' }); 	
-			   text_handler({"sub_type": "CGMSG","message_TW": 'guide cg，消息通知颜色为绿色', "message": 'guide cg，message color is GREEN' }); 	
-			   text_handler({"sub_type": "CDBMSG","message_TW": 'guide cdb，消息通知颜色为青色', "message": 'guide cdb，message color is DARK BLUE' }); 	
-			   text_handler({"sub_type": "CBMSG","message_TW": 'guide cb，消息通知颜色为蓝色', "message": 'guide cb，message color is BLUE' }); 	
-			   text_handler({"sub_type": "CVMSG","message_TW": 'guide cv，消息通知颜色为紫色', "message": 'guide cv，message color is VIOLET' }); 	
-			   text_handler({"sub_type": "CPMSG","message_TW": 'guide cp，消息通知颜色为粉红色', "message": 'guide cp，message color is PINK' }); 	
-			   text_handler({"sub_type": "CLPMSG","message_TW": 'guide clp，消息通知颜色为浅粉色', "message": 'guide clp，message color is LIGHT PINK' }); 	
-			   text_handler({"sub_type": "CLBMSG","message_TW": 'guide clb，消息通知颜色为浅蓝色', "message": 'guide clb，message color is LIGHT BLUE' }); 	
-			   text_handler({"sub_type": "CBLMSG","message_TW": 'guide cbl，消息通知颜色为黑色', "message": 'guide cbl，message color is BLACK' }); 	
-			   text_handler({"sub_type": "CGRMSG","message_TW": 'guide cgr，消息通知颜色为灰色', "message": 'guide cgr，message color is GRAY' }); 				   
-			   text_handler({"sub_type": "CWMSG","message_TW": 'guide cw，消息通知颜色为白色', "message": 'guide cw，message color is WHITE' }); 				   
+			   text_handler({"sub_type": "PRMSG","message_TW": 'guide ，副本補助开/关 ，默认系统通知，通知颜色为黄色',"message_RU": 'guide, вкл./выкл. модуля', "message": 'guide,  on/off, default system notification, notification color yellow'});				
+			   text_handler({"sub_type": "PRMSG","message_TW": 'guide voice，副本语音开/关',"message_RU": 'guide voice, Голосовое включение/выключение', "message": 'guide  voice，text-to-speech on/off' });  
+			   text_handler({"sub_type": "PRMSG","message_TW": 'guide lNotice， 团队长通知开/关',"message_RU": 'guide lNotice, вкл./выкл. сообщений в Виртуальный командир.', "message": 'guide lNotice，Virtual commander Notice on/off' });  	
+			   text_handler({"sub_type": "PRMSG","message_TW": 'guide gNotice ，组队长通知开/关',"message_RU": 'guide gNotice, вкл./выкл. сообщений в Виртуальный капита', "message": 'guide gNotice， Virtual captain  notifie on/off' });  	
+			   text_handler({"sub_type": "PRMSG","message_TW": 'guide 1~10，调节语音速度10为最快语速，默认为1正常速度',"message_RU": 'guide 1~10, Регулировать скорость речи', "message": 'guide 1~10，to settings Voice speed' });  
+			   text_handler({"sub_type": "PRMSG","message_TW": 'guide spawnObject，地面提示开/关',"message_RU": 'guide spawnObject, вкл./выкл. спавна объектов', "message": 'guide spawnObject，spawn Object on/off' }); 
+			   text_handler({"sub_type": "PRMSG","message_TW": 'guide stream，主播模式开关',"message_RU": 'guide stream, вкл./выкл. режима стрима (скрытие сообщений)', "message": 'guide stream，(stream)on/off' }); 	
+			   text_handler({"sub_type": "PRMSG","message_TW": 'guide dungeons，查询目前支持副本',"message_RU": 'guide dungeons, список всех поддерживаемых данжей и их id', "message": 'guide dungeons, list of all supported dungeons'}); 			   
+			   text_handler({"sub_type": "PRMSG","message_TW": 'guide verbose id，单独设置指定副本消息开/关',"message_RU": 'guide verbose id, вкл./выкл. всех сообщений для данжа, где id - идентификатор данжа', "message": 'verbose id, messaging for dungeon on/off'});
+			   text_handler({"sub_type": "PRMSG","message_TW": 'guide spawnObject id，单独设置指定副本地面提示开/关',"message_RU": 'guide spawnObject id, вкл./выкл. спавна объектов для данжа, где id - идентификатор данжа', "message": 'guide spawnObject id, spawn objects for dungeon on/off'});			   
+			   text_handler({"sub_type": "PRMSG","message_TW": 'guide cc，查看当前系统消息通知颜色',"message_RU": 'guide cc, отобразить текущий цвет системного сообщения', "message": 'guide cc，View the current system message notification color' }); 	
+			   text_handler({"sub_type": "CRMSG","message_TW": 'guide cr，消息通知颜色为红色',"message_RU": 'guide cr, установить цвет сообщения: красный', "message": 'guide cr，message color is red' }); 				   
+			   text_handler({"sub_type": "COMSG","message_TW": 'guide co，消息通知颜色为橙色',"message_RU": 'guide co, установить цвет сообщения: оранжевый', "message": 'guide co，message color is ORANGE' }); 	
+			   text_handler({"sub_type": "CYMSG","message_TW": 'guide cy，消息通知颜色为黄色',"message_RU": 'guide cy, установить цвет сообщения: желтый', "message": 'guide cy，message color is YELLOW' }); 	
+			   text_handler({"sub_type": "CGMSG","message_TW": 'guide cg，消息通知颜色为绿色',"message_RU": 'guide cg, установить цвет сообщения: зеленый', "message": 'guide cg，message color is GREEN' }); 	
+			   text_handler({"sub_type": "CDBMSG","message_TW": 'guide cdb，消息通知颜色为青色',"message_RU": 'guide cdb, установить цвет сообщения: темно-синий', "message": 'guide cdb，message color is DARK BLUE' }); 	
+			   text_handler({"sub_type": "CBMSG","message_TW": 'guide cb，消息通知颜色为蓝色',"message_RU": 'guide cb, установить цвет сообщения: синий', "message": 'guide cb，message color is BLUE' }); 	
+			   text_handler({"sub_type": "CVMSG","message_TW": 'guide cv，消息通知颜色为紫色',"message_RU": 'guide cv, установить цвет сообщения: фиолетовый', "message": 'guide cv，message color is VIOLET' }); 	
+			   text_handler({"sub_type": "CPMSG","message_TW": 'guide cp，消息通知颜色为粉红色',"message_RU": 'guide cp, установить цвет сообщения: розовый', "message": 'guide cp，message color is PINK' }); 	
+			   text_handler({"sub_type": "CLPMSG","message_TW": 'guide clp，消息通知颜色为浅粉色',"message_RU": 'guide clp, установить цвет сообщения: светло-розовый', "message": 'guide clp，message color is LIGHT PINK' }); 	
+			   text_handler({"sub_type": "CLBMSG","message_TW": 'guide clb，消息通知颜色为浅蓝色',"message_RU": 'guide clb, установить цвет сообщения: светло-синий', "message": 'guide clb，message color is LIGHT BLUE' }); 	
+			   text_handler({"sub_type": "CBLMSG","message_TW": 'guide cbl，消息通知颜色为黑色',"message_RU": 'guide cbl, установить цвет сообщения: черный', "message": 'guide cbl，message color is BLACK' }); 	
+			   text_handler({"sub_type": "CGRMSG","message_TW": 'guide cgr，消息通知颜色为灰色',"message_RU": 'guide cgr, установить цвет сообщения: серый', "message": 'guide cgr，message color is GRAY' }); 				   
+			   text_handler({"sub_type": "CWMSG","message_TW": 'guide cw，消息通知颜色为白色',"message_RU": 'guide cw, установить цвет сообщения: белый', "message": 'guide cw，message color is WHITE' }); 	
             },
             $default() {
               dispatch.settings.enabled = !dispatch.settings.enabled;
-				text_handler({"sub_type": "PRMSG","message_TW": `副本補助已 ${dispatch.settings.enabled?"on":"off"}.`, "message": `guide ${dispatch.settings.enabled?"on":"off"}.` });  				
+				text_handler({"sub_type": "PRMSG","message_RU": `Модуль: ${dispatch.settings.enabled?"Вкл":"Выкл"}.`,"message_TW": `副本補助已 ${dispatch.settings.enabled?"on":"off"}.`, "message": `guide ${dispatch.settings.enabled?"on":"off"}.` });  				
             }
         });
 		
@@ -511,7 +625,8 @@ class TeraGuide{
         // Spawn handler
         function spawn_handler(event, ent, speed=1.0) {
             if(dispatch.settings.stream) return;
-            if(!dispatch.settings.spawnObject) return;			
+            if(!dispatch.settings.spawnObject) return;
+	        if (!entered_zone_data.spawnObject && !is_event) return;			
             // Make sure id is defined
             if(!event['id']) return debug_message(true, "Spawn handler needs a id");
             // Make sure sub_delay is defined
@@ -650,10 +765,8 @@ class TeraGuide{
 				//混合通知
                 case "message": {
 	     timers[event['id'] || random_timer_id--] = setTimeout(()=> {					
-				    if(voice){
 		            if(dispatch.settings.speaks){	
                    voice.speak(message,dispatch.settings.rate)
-					};
 					};		
            }, (event['delay'] || 0 ) - 600 /speed);					
 	     timers[event['id'] || random_timer_id--] = setTimeout(()=> {	
@@ -695,7 +808,11 @@ class TeraGuide{
 
 				//组队长通知
                 case "alert": {
-				  if(dispatch.settings.stream) return;
+			        if (!entered_zone_data.verbose && !is_event) return;
+					if (dispatch.settings.stream) {
+						command.message(dispatch.settings.cc + message);
+						return;
+					}
                     sending_event = {
 					channel: 21,
 					authorName: 'guide',
@@ -704,14 +821,17 @@ class TeraGuide{
                     break;
                 }
                 case "MSG": {
-                 if(dispatch.settings.stream) return;
-	                        timers[event['id'] || random_timer_id--] = setTimeout(()=> {
-              command.message( cr + message );
-              console.log( cr + message );			  
-                        }, (event['delay'] || 0 ) - 600 /speed);		  
-		  
-                    break;
-                }
+			if (!entered_zone_data.verbose && !is_event) return;
+					if (dispatch.settings.stream) {
+						command.message(dispatch.settings.cc +  message);
+						return;
+					}
+					timers[event['id'] || random_timer_id--] = setTimeout(()=> {
+						command.message(cr + message);
+						console.log(cr + message);
+					}, (event['delay'] || 0 ) - 600 / speed);
+					break;
+				}
                 case "COMSG": {
               command.message( co + message );	             
                     break;
@@ -765,8 +885,10 @@ class TeraGuide{
                     break;
                 }					
                 case "PRMSG": {
-				  if(dispatch.settings.stream) return;	
-              command.message( dispatch.settings.cc + message );	             
+				 // if(dispatch.settings.stream) return;			
+	       timers[event['id'] || random_timer_id--] = setTimeout(()=> {	
+            command.message( dispatch.settings.cc + message );	
+           }, (event['delay'] || 0 )   /speed);					
                     break;
                 }					
 				//语音通知
@@ -781,15 +903,19 @@ class TeraGuide{
                     break;
                 }	
                  //团队长通知				
-                case "notification": {
-					if(dispatch.settings.stream) return;
-                    sending_event = {
-					channel: 25,
-					authorName: 'guide',
-					message
-                    };
-                    break;				
-                }
+		case "notification": {
+					if (!entered_zone_data.verbose && !is_event) return;
+					if (dispatch.settings.stream) {
+						command.message(dispatch.settings.cc + message);
+						return;
+					}
+					sending_event = {
+						channel: 25,
+						authorName: 'guide',
+						message
+					};
+					break;
+				}
                 default: {
                     return debug_message(true, "Invalid sub_type for text handler:", event['sub_type']);
                 }
@@ -813,41 +939,41 @@ class TeraGuide{
 				*/
             }, (event['delay'] || 0 ) / speed);
         }
-	 function sendMessage(message) {
-	    if(dispatch.settings.stream){
-		command.message( dispatch.settings.cc +  message );	
-		return;	
-		} 
-        if (dispatch.settings.notice) {
-            dispatch.toClient('S_CHAT', 3, {
-                channel: 21, //21 = p-notice, 1 = party, 2 = guild
-                message
-            });
-        } else if(dispatch.settings.systemNotice) {
-            dispatch.toClient('S_CHAT', 3, {
-                channel: 1, //21 = p-notice, 1 = party, 2 = guild
-                message
-            });				
-        } else {
-			
-            dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 2, {
-                type: 42,
-                chat: 0,
-                channel: 27,
-                message: ( dispatch.settings.cc +  message  ) //----------------------------------------------------------------------
-            });
-        }
-    }	
-	 function sendspMessage(message,spcc) {
-             if(dispatch.settings.stream) return;
-            dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 2, {
-                type: 42,
-                chat: 0,
-                channel: 27,
-                message: ( spcc +  message  )   //----------------------------------------------------------------------
-            });
-        
-    }	
+		function sendMessage(message) {
+				if (!entered_zone_data.verbose && !is_event) return;
+				if (dispatch.settings.stream) {
+					command.message(dispatch.settings.cc + message);
+					return;
+				}
+				if (dispatch.settings.lNotice) {
+					dispatch.toClient('S_CHAT', 3, {
+						channel: 25,
+						message
+					});
+				} else if (dispatch.settings.gNotice) {
+					dispatch.toClient('S_CHAT', 3, {
+						channel: 21, //21 = p-notice, 1 = party, 2 = guild
+						message
+					});
+				} else {
+					dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 2, {
+						type: 42,
+						chat: 0,
+						channel: 27,
+						message: (dispatch.settings.cc + message)
+					});
+				}
+			}	
+		function sendspMessage(message, spcc) {
+					if (!entered_zone_data.verbose && !is_event) return;
+					if (dispatch.settings.stream) return;
+					dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 2, {
+						type: 42,
+						chat: 0,
+						channel: 27,
+						message: (spcc + message)
+					});
+				}	
         // Sound handler
         function sound_handler(event, ent, speed=1.0) {
             // Make sure id is defined
@@ -875,7 +1001,17 @@ class TeraGuide{
             // clearout the timer
             clearTimeout(timers[event['id']]);
         }
-
+		function speak_voice ( alerts, delay) {
+        setTimeout(()=> { 
+						text_handler({
+							"sub_type": "CGMSG",
+							"message_RU": 'Введите "guide help" для большего использования', 
+							"message_TW": '输入："guide help" 获取更多使用资料', 							
+							"message": 'Enter "guide help" for more information'
+						});		  
+						
+          }, delay );				
+        }		
         // Func handler
         function func_handler(event, ent, speed=1.0) {
             // Make sure func is defined
@@ -884,19 +1020,6 @@ class TeraGuide{
             // Start the timer for the function call
             timers[event['id'] || random_timer_id--] = setTimeout(event['func'], (event['delay'] || 0) / speed, function_event_handlers, event, ent, fake_dispatch);
         }
-		function speak_voice ( alerts, delay) {
-        setTimeout(()=> {
-			if(voice){
-          voice.speak(alerts,1)
-         // command.message( cg + alerts + cr +'（输入"guide help"可获取更多使用信息）\n ：（Enter "guide help" for more information）');	 
-         text_handler({"sub_type": "CRMSG","message_TW": '（输入"guide help"可获取更多使用信息）', "message": '（Enter "guide help" for more information）' });  		  
-			} else {
-         // command.message( cr + alerts + cr +'（输入"guide help"可获取更多使用信息）\n ：（Enter "guide help" for more information）' );
-         text_handler({"sub_type": "PRMSG","message_TW": '（输入"guide help"可获取更多使用信息）', "message": '（Enter "guide help" for more information）' });  	  
-			}			
-          }, delay );				
-        }			
-	
     }
 }
 

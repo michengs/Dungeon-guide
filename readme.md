@@ -22,23 +22,24 @@ DO NOT INSTALLED IT AS "library-master" MAKE SURE IT'S NAMED "library"
 Note: All commands starts with "guide"
 
 
-    - guide to toggle module (DEFAULT: ON)
-    - guide spawnObject   to toggle spawn Ground object (DEFAULT: ON)	
-    - guide voice to toggle text-to-speech (DEFAULT: ON)
-    - guide notice to toggle  party notice  (DEFAULT: OFF)
-    - guide alert to toggle Virtual captain  notifie (DEFAULT: OFF)
-    - guide systemNotice to toggle system Notice (DEFAULT: OFF)
-    - guide 1to10 to settings Voice speed (DEFAULT: 1)
-    - guide cr to cw to settings message color (DEFAULT: yellow)	
-    - guide help to show what commands are there in the tera-guide guide module
+    - guide - module on/off(default system notification, notification color yellow)
+    - guide spawnObject - spawn Ground object (DEFAULT: ON)
+    - guide spawnObject id - spawn area marker objects for specified by id dungeon on/off
+    - guide verbose id	- messaging for specified by id dungeon on/off
+    - guide voice - text-to-speech (DEFAULT: ON)
+    - guide lNotice - Virtual commander Notice on/off(DEFAULT: OFF)
+    - guide gNotice - Virtual captain  notifie on/off (DEFAULT: OFF)
+    - guide 1to10 - settings Voice speed (DEFAULT: 1)
+    - guide cr to cw - settings message color (DEFAULT: yellow)
+    - guide stream - streamer mode (hide all messages and objects) on/off
+    - guide dungeons - list of all supported dungeons and its ids	
+    - guide help - show what commands are there in the tera-guide guide module
 
 
 proxy频道输入:補助 help，获取更多使用信息。 
 
-<img src=https://i.imgur.com/M8jqiBJ.png>
-
-
-
+<img src=https://i.imgur.com/iCPqTsz.png>
+<img src=https://i.imgur.com/5LMpyp4.png>
 
 
 
@@ -87,7 +88,7 @@ RK9-机库               RK9 NM
 
 贝尔亚克城堡            Akalath Quarantine
 
-金鳞号                  Golden Scale (Sailing Instance)
+金鳞号                  Golden Scale (Sailing Instance)       Золотая чешуя
 
 狂气竞技场              Forbidden Arena
 

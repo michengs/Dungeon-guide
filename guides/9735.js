@@ -8,6 +8,7 @@ let Level = 0;
 let notice = true;
 let powerMsg = null;
 let steptwo = false ;	
+const {SpawnMarker, SpawnVector, SpawnCircle,SpawnSemicircle} = require("../lib");
 function guid_voice(handlers) {   
 if(notice_guide) {
 handlers['text']({
@@ -145,7 +146,49 @@ function start_skills(handlers, event, entity, dispatch) {
 
 
 
+function skilld_event(skillid, handlers, event, entity, dispatch) {
+	
+	
+if ([1123].includes(skillid)) {
 
+	
+	if 	(notice = false)  return;
+	
+	SpawnMarker(false,323,125,0,253300,false,["火神","safe"],handlers,event,entity);	
+	SpawnMarker(false,217,125,0,253300,false,["火神","safe"],handlers,event,entity);	
+    SpawnVector(553,270,75,0,500,0,253300,handlers,event,entity);//左前直线
+    SpawnVector(551,270,50,0,500,0,2533,handlers,event,entity);//左前直线	
+	SpawnVector(551,90,50,0,500,2533,800,handlers,event,entity);//右前直线	
+    SpawnVector(551,270,50,0,500,3333,500,handlers,event,entity);//左前直线		
+	SpawnVector(551,90,50,0,500,3833,2000,handlers,event,entity);//右前直线	
+	
+    SpawnVector(553,270,75,180,500,0,253300,handlers,event,entity);//左后直线		
+    SpawnVector(551,270,50,180,500,0,2533,handlers,event,entity);//左后直线	
+	SpawnVector(551,90,50,180,500,2533,800,handlers,event,entity);//右后直线	
+    SpawnVector(551,270,50,180,500,3333,500,handlers,event,entity);//左后直线		
+	SpawnVector(551,90,50,180,500,3833,2000,handlers,event,entity);//右后直线	
+	
+	
+SpawnSemicircle(0,180,912,0,0,20,160,0,200000,handlers,event,entity);
+SpawnSemicircle(0,180,912,0,0,12,220,0,200000,handlers,event,entity);
+SpawnSemicircle(0,180,912,0,0,10,300,0,200000,handlers,event,entity);
+SpawnSemicircle(0,180,912,0,0,8,360,0,200000,handlers,event,entity)	;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    handlers['text']({"type": "text","sub_type": "message","delay": 60000,"message":  'Waves soon...',"message_TW": "半月准备"}); 
+	notice = false;
+}	
+	
+}
 
 
 
@@ -173,14 +216,14 @@ module.exports = {
 
 
 
-   // "h-735-1000-100": [{"type": "func","func": start_skills}],	
+    "h-735-1000-100": [{"type": "func","func":skilld_event.bind(null, 1123)}],	
 
 
     "s-735-1000-111-0": [{"type": "text","sub_type": "message","message": "BACK ATTACK","message_TW": "BOSS 攻击身后打手请注意！" }],	
     "s-735-1000-112-0": [{"type": "text","sub_type": "message","message": "BACK ATTACK","message_TW": "BOSS 攻击身后打手请注意！" }],
     "s-735-1000-205-0": [{"type": "text","sub_type": "message","message": "wind","message_TW": "即将开启通风系统，请离开中间！" }],	
-    "s-735-1000-304-0": [{"type": "text","sub_type": "message","message": "OUT","message_TW": "出去！" }],
-    "s-735-1000-305-0": [{"type": "text","sub_type": "message","message": "IN","message_TW": "进！" }],	
+   // "s-735-1000-304-0": [{"type": "text","sub_type": "message","message": "OUT","message_TW": "出去！" },{"type": "func","func":skilld_event.bind(null, 1123)}],
+   // "s-735-1000-305-0": [{"type": "text","sub_type": "message","message": "IN","message_TW": "进！" },{"type": "func","func":skilld_event.bind(null, 1123)}],	
     "s-735-1000-306-0": [{"type": "text","sub_type": "message","message": "Incoming Summon","message_TW": "召唤地雷！快打！" }], 	
     "s-735-1000-307-0": [{"type": "text","sub_type": "message","message": "PULL","message_TW": "BOSS 拉人，注意无敌躲避！" }],	
 	

@@ -1,5 +1,5 @@
 {
-    "disableAutoUpdate": false,
+    "disableAutoUpdate": true,
     "name": "TG",
     "options": {
         "niceName": "Dungeon-guide",

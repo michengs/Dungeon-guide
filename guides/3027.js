@@ -74,7 +74,7 @@ module.exports = {
 "h-3027-1000-89": [{"type": "func","func": skilld_event.bind(null, 90)}],	
 "h-3027-1000-59": [{"type": "func","func": skilld_event.bind(null, 60)}],	
 "h-3027-1000-29": [{"type": "func","func": skilld_event.bind(null, 30)}],	
-"h-3027-1000-69": [{"type": "func","func": skilld_event.bind(null, 69)}],	
+"h-3027-1000-74": [{"type": "func","func": skilld_event.bind(null, 69)}],	
 "h-3027-1000-39": [{"type": "func","func": skilld_event.bind(null, 39)}],	
 	
 	
@@ -101,7 +101,11 @@ module.exports = {
 "s-3027-1000-114-0": [{"type": "text","sub_type": "message","message": "Split strike","message_TW": "劈擊"}],
 
 "s-3027-1000-350-0": [{"type": "text","sub_type": "message","message": "Donuts","message_TW": "吸 | 炸圈"},
-        {"type": "text","sub_type": "message","delay": 3750,"message":  'Waves soon...',"message_TW": "進"},
+ 		{"type": "func","func": SpawnMarker.bind(null,false,180,100,3800,1000,false,["中心","进"])},  
+ 		{"type": "func","func": SpawnMarker.bind(null,false,0,100,3800,1000,false,["中心","进"])},  		
+ 		{"type": "func","func": SpawnMarker.bind(null,false,90,100,3800,1000,false,["中心","进"])},  		
+ 		{"type": "func","func": SpawnMarker.bind(null,false,270,100,3800,1000,false,["中心","进"])},  
+ 		{"type": "func","func": SpawnMarker.bind(null,false,0,0,3800,1000,true,["中心","进"])},  		
 		{"type": "func","func": SpawnCircle.bind(null,false,445,0,0,12,240,0,5000)},
 		{"type": "func","func": SpawnCircle.bind(null,false,445,0,0,8,480,0,5000)},
 		{"type": "func","func": SpawnCircle.bind(null,false,445,0,0,3,950,0,5000)},
@@ -146,9 +150,9 @@ module.exports = {
 "s-3027-1000-143-0": [{"type": "text","sub_type": "message","message": "Overhand Strike","message_TW": "一刀"}],					  
 					  
 "s-3027-1000-116-0": [{"type": "text","sub_type": "message","message": "Jump","message_TW": "大跳"},{"type": "func","func": SpawnCircle.bind(null,true,413,0,180,8,560,0,1000)}],	
-//"s-3027-1000-116-1": [{"type": "text","sub_type": "message","message": "dodge","message_TW": "闪"},{"type": "func","func": SpawnCircle.bind(null,true,912,0,180,8,460,0,3000)}],
+"s-3027-1000-116-1": [{"type": "func","func": SpawnCircle.bind(null,true,912,0,180,8,460,0,3000)}],
 
-"s-3027-1000-402-0": [{"type": "text","sub_type": "message","message": "Jump","message_TW": "大跳| 插地"}],
+"s-3027-1000-402-0": [{"type": "text","sub_type": "message","message": "Jump","message_TW": "大跳| 插地"},{"type": "func","func": SpawnMarker.bind(null,true,0,0,0,5000,true,["中心","warning"])}],
 "s-3027-1000-109-0": [{"type": "text","sub_type": "message","message": "Forward Jump","message_TW": "前跳 | 一刀"}],
 					  
 "s-3027-1000-351-0": [{"type": "text","sub_type": "message","message": "SHIELD!","message_TW": "破盾"},{"type": "func","func": skilld_event.bind(null, 351)}],

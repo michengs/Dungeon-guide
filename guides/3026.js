@@ -196,6 +196,7 @@ clearTimeout(timer2);
 		case 2105:
         case 1105: 
 		         {
+                    handlers['text']({"type": "text","sub_type": "message","delay": 600,"message":  'blast',"message_TW": "爆炸"}); 					
 					SpawnCircle(false,553,135,500,8,270,0,3000,handlers,event,entity);						
 					SpawnCircle(false,553,315,500,8,270,0,3250,handlers,event,entity);
 					SpawnCircle(false,553,45,500,8,270,0,3500,handlers,event,entity);	
@@ -223,6 +224,7 @@ clearTimeout(timer2);
          case 2155:
 		         {
                   handlers['text']({"type": "text","sub_type": "message","message": "Knock down","message_TW": "火焰柱(击倒)"});
+                  handlers['text']({"type": "text","sub_type": "message","delay": 1200,"message":  'dodge',"message_TW": "閃"}); 					  
                     break;
                  }			 
 				 
@@ -286,6 +288,24 @@ function start_debuff(handlers, event, entity, dispatch) {
                   debuff = null
 				}
 		}
+			if (player.isMe(event.target.toString()) && [30261701,31261701].includes(event.id)) {
+			if (added) {
+				let shield_loc = entity['loc'].clone();
+				shield_loc.w = entity['loc'].w;
+				handlers['spawn']({ // spawn teleport mark
+					"sub_type": "item",
+					"id": 110684,
+					"sub_delay": 50000,
+					"pos": {
+						x: 53192,
+						y: 100761,
+						z: 14833
+					}
+				}, {
+					loc: shield_loc
+				});
+			}
+		}		
 	};
 	if (!debuff_tracker_started) {
 		dispatch.hook('S_ABNORMALITY_BEGIN', 4, abnormality_change.bind(null, true));
