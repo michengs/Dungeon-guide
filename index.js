@@ -36,13 +36,11 @@ const rate7 = 7;
 const rate8 = 8;
 const rate9 = 9;
 const rate10 = 10;
-
 class TeraGuide{
     constructor(dispatch) {
         const fake_dispatch = new DispatchWrapper(dispatch);
         const { player, entity, library, effect } = dispatch.require.library;
         const command = dispatch.command;
-
         // An object of types and their corresponding function handlers
         const function_event_handlers = {
             "spawn": spawn_handler,
@@ -63,15 +61,11 @@ class TeraGuide{
 			}
 		}
 	}		
-
         // export functionality for 3rd party modules
         this.handlers = function_event_handlers;
-
         // A boolean for if the module is enabled or not
-
         // A boolean for the debugging settings
         let debug = dbg['debug'];
-
         // A boolean indicating if a guide was found
         let guide_found = false;
         let spguide = false;
@@ -98,11 +92,9 @@ class TeraGuide{
         function debug_message(d, ...args) {
             if(d) {
                 console.log(`[${Date.now() % 100000}][Guide]`, ...args);
-
                 if(debug.chat) command.message(args.toString());
             }
         }
-
         // Makes sure the event passes the class position check
         function class_position_check(class_position) {
             // if it's not defined we assume that it's for everyone
@@ -111,11 +103,9 @@ class TeraGuide{
             if(Array.isArray(class_position)) {
                 // If one of the class_positions pass, we can accept it
                 for(let ent of class_position) if(class_position_check(ent)) return true;
-
                 // All class_positions failed, so we return false
                 return false;
             }
-
             switch(class_position) {
                 case "tank": {
                     // if it's a warrior with dstance abnormality
@@ -126,7 +116,6 @@ class TeraGuide{
                             if(effect.hasAbnormality(id)) return true;
                         }
                     }
-
                     // if it's a tank return true
                     if(TANK_CLASS_IDS.includes(player.job)) return true;
                     break;
@@ -142,7 +131,6 @@ class TeraGuide{
                         // warrior didn't have tank abnormality
                         return true;
                     }
-
                     // if it's a dps return true
                     if(DPS_CLASS_IDS.includes(player.job)) return true;
                     break;
@@ -158,24 +146,19 @@ class TeraGuide{
             }
             return false;
         }
-
         // Handle events such as boss skill and abnormalities triggered
         function handle_event(ent, id, called_from_identifier, prefix_identifier, d, speed=1.0, stage=false) {
             const unique_id = `${prefix_identifier}-${ent['huntingZoneId']}-${ent['templateId']}`;
             const key = `${unique_id}-${id}`;
             const stage_string = (stage===false ? '' : `-${stage}`);
-
             debug_message(d, `${called_from_identifier}: ${id} | Started by: ${unique_id} | key: ${key + stage_string}`);
-
             if(stage !== false) {
                 const entry = active_guide[key + stage_string];
                 if(entry) start_events(entry, ent, speed);
             }
-
             const entry = active_guide[key];
             if(entry) start_events(entry, ent, speed);
         }
-
         // This is where all the magic happens
         function start_events(events=[], ent, speed=1.0) {
             // Loop over the events
@@ -187,9 +170,7 @@ class TeraGuide{
                 else if(class_position_check(event['class_position'])) func(event, ent, speed=1.0);
             }
         }
-
         /** S_ACTION_STAGE **/
-
         // Boss skill action
         function s_action_stage(e) {
 			let skillid = e.skill.id % 1000;
@@ -216,38 +197,30 @@ class TeraGuide{
         dispatch.hook('S_ACTION_STAGE', 9, {order: 15}, s_action_stage);
 		
         /** ABNORMALITY **/
-
         // Boss abnormality triggered
         function abnormality_triggered(e) {
             // If the guide module is active and a guide for the current dungeon is found
             if(dispatch.settings.enabled && guide_found) {
                 // avoid errors ResidentSleeper (neede for abnormality refresh)
                 if(!e.source) e.source = 0n;
-
                 // If the boss/mob get's a abnormality applied to it
                 const target_ent = entity['mobs'][e.target.toString()];
-
                 // If the boss/mob is the cause for the abnormality
                 const source_ent = entity['mobs'][e.source.toString()];
-
                 // If the mob/boss applies an abnormality to me, it's plausible we want to act on this
                 if(source_ent && player.isMe(e.target)) handle_event(source_ent, e.id, 'Abnormality', 'am', debug.debug || debug.abnormal);
-
                 // If "nothing"/server applies an abnormality to me, it's plausible we want to act on this. (spam rip)
                 if(player.isMe(e.target) && 0 == (e.source || 0)) handle_event({
                     huntingZoneId: 0,
                     templateId: 0
                 }, e.id, 'Abnormality', 'ae', debug.debug || debug.abnormal);
-
                 // If it's a mob/boss getting an abnormality applied to itself, it's plausible we want to act on it
                 if(target_ent) handle_event(target_ent, e.id, 'Abnormality', 'ab', debug.debug || debug.abnormal);
             }
         }
         dispatch.hook('S_ABNORMALITY_BEGIN', 4, {order: 15}, abnormality_triggered);
         dispatch.hook('S_ABNORMALITY_REFRESH', 2, {order: 15}, abnormality_triggered);
-
         /** HEALTH **/
-
         // Boss health bar triggered
         dispatch.hook('S_BOSS_GAGE_INFO', 3, e=> {
              // If the guide module is active and a guide for the current dungeon is found
@@ -257,9 +230,7 @@ class TeraGuide{
                 if(ent) return handle_event(ent, Math.floor(Number(e.curHp) / Number(e.maxHp) * 100), 'Health', 'h', debug.debug || debug.hp);
             }
         });
-
         /** S_DUNGEON_EVENT_MESSAGE **/
-
         dispatch.hook('S_DUNGEON_EVENT_MESSAGE', 2, e=> {
             if (dispatch.settings.enabled && guide_found) {
                 const result = /@dungeon:(\d+)/g.exec(e.message);
@@ -271,9 +242,7 @@ class TeraGuide{
                 }
             }
         });
-
         /** S_QUEST_BALLOON **/
-
         dispatch.hook('S_QUEST_BALLOON', 1, e=> {
             if (dispatch.settings.enabled && guide_found) {
                 const source_ent = entity['mobs'][e.source.toString()];
@@ -283,11 +252,8 @@ class TeraGuide{
                 }
             }
         });
-
         /** MISC **/
-
         // Load guide and clear out timers
-
 		function entry_zone(zone) {
 			// Enable errors debug
 			let debug_errors = true;
@@ -381,7 +347,6 @@ class TeraGuide{
 			}
 		}
 		dispatch.hook('S_LOAD_TOPO', 3, e => { entry_zone(e.zone) });
-
         // Guide command
         command.add(['guide','副本'], {
             // Toggle debug settings
@@ -479,7 +444,6 @@ class TeraGuide{
 							text_handler({"sub_type": "PRMSG","message_RU": `Не указан id данжа.`,"message_TW": `没有输入指定副本id.`, "message": `Dungeon id not specified.`});
 						}
 					},	
-
             lNotice() {
             	dispatch.settings.lNotice = !dispatch.settings.lNotice;
 				text_handler({"sub_type": "PRMSG","message_RU": `Сообщения в чат: ${dispatch.settings.lNotice?"Вкл":"Выкл"}.`,"message_TW": `虚拟团队长通知已 ${dispatch.settings.lNotice?"开启":"关闭"}.`, "message": `Virtual captain has been ${dispatch.settings.lNotice?"on":"off"}.` });  				
@@ -621,7 +585,6 @@ class TeraGuide{
         });
 		
         /** Function/event handlers for types **/
-
         // Spawn handler
         function spawn_handler(event, ent, speed=1.0) {
             if(dispatch.settings.stream) return;
@@ -634,35 +597,26 @@ class TeraGuide{
             // Make sure distance is defined
             //if(!event['distance']) return debug_message(true, "Spawn handler needs a distance");
             // Ignore if dispatch.settings.streamer mode is enabled
-
-
             // Set sub_type to be collection as default for backward compatibility
             const sub_type =  event['sub_type'] || 'collection';
-
             // The unique spawned id this item will be using.
             const item_unique_id = event['force_gameId'] || random_timer_id--;
-
             // The location of the item spawned
             let loc = ent['loc'].clone();
-
             // if pos is set, we use that
             if(event['pos']) loc = event['pos'];
-
             loc.w = (ent['loc'].w || 0) + (event['offset'] || 0);
             library.applyDistance(loc, event['distance'] || 0 ,event['degrees'] || 0);
-
             let sending_event = {
                 gameId: item_unique_id,
                 loc: loc,
                 w: loc.w
             };
-
             const despawn_event = {
                 gameId: item_unique_id,
                 unk: 0, // used in S_DESPAWN_BUILD_OBJECT
                 collected: false // used in S_DESPAWN_COLLECTION
             };
-
             // Create the sending event
             switch(sub_type) {
                 // If it's type collection, it's S_SPAWN_COLLECTION
@@ -705,7 +659,6 @@ class TeraGuide{
                     return debug_message(true, "Invalid sub_type for spawn handler:", event['sub_type']);
                 }
             }
-
             // Create the timer for spawning the item
             timers[item_unique_id] = setTimeout(()=> {
                 switch(sub_type) {
@@ -714,7 +667,6 @@ class TeraGuide{
                     case "build_object": return dispatch.toClient('S_SPAWN_BUILD_OBJECT', 2, sending_event);
                 }
             }, event['delay'] || 0 / speed);
-
             // Create the timer for despawning the item
             timers[random_timer_id--] = setTimeout(()=> {
                 switch(sub_type) {
@@ -724,7 +676,6 @@ class TeraGuide{
                 }
             }, event['sub_delay'] / speed);
         }
-
          // Despawn handler
          function despawn_handler(event) {
             // Make sure id is defined
@@ -734,13 +685,11 @@ class TeraGuide{
             if(!dispatch.settings.spawnObject) return;	
             // Set sub_type to be collection as default for backward compatibility
             const sub_type =  event['sub_type'] || 'collection';
-
             const despawn_event = {
                 gameId: event['id'],
                 unk: 0, // used in S_DESPAWN_BUILD_OBJECT
                 collected: false // used in S_DESPAWN_COLLECTION
             };
-
             switch(sub_type) {
                 case "collection": return dispatch.toClient('S_DESPAWN_COLLECTION', 2, despawn_event);
                 case "item": return dispatch.toClient('S_DESPAWN_DROPITEM', 4, despawn_event);
@@ -756,7 +705,6 @@ class TeraGuide{
             if(!event['sub_type']) return debug_message(true, "Text handler needs a sub_type");
             // Make sure message is defined
             if(!message) return debug_message(true, "Text handler needs a message");
-
             let sending_event = {};
 			let sending_events = {};
             // Create the sending event
@@ -770,7 +718,6 @@ class TeraGuide{
 					};		
            }, (event['delay'] || 0 ) - 600 /speed);					
 	     timers[event['id'] || random_timer_id--] = setTimeout(()=> {	
-
 		      sendMessage(message);		
            }, (event['delay'] || 0 )   /speed);
                     break;		
@@ -784,7 +731,6 @@ class TeraGuide{
 					};		
            }, (event['delay'] || 0 ) - 600 /speed);					
 	     timers[event['id'] || random_timer_id--] = setTimeout(()=> {	
-
 		
 		      sendspMessage(message,cp);		
            }, (event['delay'] || 0 )   /speed);
@@ -799,13 +745,11 @@ class TeraGuide{
 					};		
            }, (event['delay'] || 0 ) - 600 /speed);					
 	     timers[event['id'] || random_timer_id--] = setTimeout(()=> {	
-
 		
 		      sendspMessage(message,cg);		
            }, (event['delay'] || 0 )   /speed);
                     break;		
                 }				
-
 				//组队长通知
                 case "alert": {
 			        if (!entered_zone_data.verbose && !is_event) return;
@@ -920,7 +864,6 @@ class TeraGuide{
                     return debug_message(true, "Invalid sub_type for text handler:", event['sub_type']);
                 }
             }
-
             // Create the timer
             timers[event['id'] || random_timer_id--] = setTimeout(()=> {
          
@@ -980,7 +923,6 @@ class TeraGuide{
             if(!event['id']) return debug_message(true, "Sound handler needs a id");
             // Ignore if dispatch.settings.streamer mode is enabled
             if(dispatch.settings.stream) return;
-
             // Create the timer
             timers[event['id']] = setTimeout(()=> {
                 // Send the sound
@@ -989,15 +931,12 @@ class TeraGuide{
                 });
             });
         }
-
         // Stop timer handler
         function stop_timer_handler(event, ent, speed=1.0) {
             // Make sure id is defined
             if(!event['id']) return debug_message(true, "Stop timer handler needs a id");
-
             // Check if that entry exists, if it doesn't print out a debug message. This is because users can make mistakes
             if(!timers[event['id']]) return debug_message(true, `There isn't a timer with tie id: ${event['id']} active`);
-
             // clearout the timer
             clearTimeout(timers[event['id']]);
         }
@@ -1016,11 +955,9 @@ class TeraGuide{
         function func_handler(event, ent, speed=1.0) {
             // Make sure func is defined
             if(!event['func']) return debug_message(true, "Func handler needs a func");
-
             // Start the timer for the function call
             timers[event['id'] || random_timer_id--] = setTimeout(event['func'], (event['delay'] || 0) / speed, function_event_handlers, event, ent, fake_dispatch);
         }
     }
 }
-
 module.exports = TeraGuide;
