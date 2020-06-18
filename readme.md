@@ -96,7 +96,7 @@ RK9-机库               RK9 NM
 
 不灭凯尔塞克隐藏地      Corrupted Skynest (Hard) Entrance
 
-
+憤怒的司令官修練場(TEST ING)      Draakon Arena (Hard) 
 
 Add Dungeon for other modules ....
 
