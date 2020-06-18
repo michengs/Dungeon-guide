@@ -145,6 +145,7 @@ handlers['text']({
   }, 65000);   
 }
 if ([213,214].includes(skillid)) {   // //蓝内
+ setTimeout(() => {
  if  (debuff != null) {
 handlers['text']({
 "sub_type": "message",
@@ -159,8 +160,10 @@ red  = true;
   }, 6600);   
 setTimeout(() => red  = false, 9400);	
  } 
+  }, 500);   
 }
 if ([212,215].includes(skillid)) {   // //红内
+ setTimeout(() => {
  if  (debuff != null) {
 handlers['text']({
 "sub_type": "message",
@@ -175,6 +178,7 @@ red  = false;
   }, 6600);   
 setTimeout(() => blue  = false, 9400);	
  }
+  }, 500);  
 }
 if (skillid === 99020020) { //死亡解除debuff
 //debuff = null;

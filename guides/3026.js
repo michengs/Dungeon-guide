@@ -92,7 +92,7 @@ handlers['text']({
 if ([213,214].includes(skillid)) {   // //蓝内
 
 SpawnCircle(false,413,0,0,8,440,0,6000,handlers,event,entity);
-
+ setTimeout(() => {
  if  (debuff != null) {
 handlers['text']({
 "sub_type": "message",
@@ -103,11 +103,12 @@ blue = true;
 red  = false;
 setTimeout(() => blue  = false, 6500);	    //6700
  } 
+  }, 500);  
 }
 if ([212,215].includes(skillid)) {   // //红内
 
 SpawnCircle(false,413,0,0,8,440,0,6000,handlers,event,entity);
-
+ setTimeout(() => {
  if  (debuff != null) {
 handlers['text']({
 "sub_type": "message",
@@ -118,6 +119,7 @@ blue = false;
 red  = true; 
 setTimeout(() => red  = false, 6500);
  }
+	}, 500); 
 }
 if (skillid === 99020020) { //死亡解除debuff
 //debuff = null;
