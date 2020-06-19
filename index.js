@@ -959,9 +959,9 @@ class TeraGuide{
         setTimeout(()=> { 
 						text_handler({
 							"sub_type": "CGMSG",
-							"message_RU": 'Введите "guide help" для большего использования', 
-							"message_TW": '输入："guide help" 获取更多使用资料' + `stream mode ${dispatch.settings.stream?"开启":"关闭"}.` , 							
-							"message": 'Enter "guide help" for more information'
+							"message_RU": `'Введите "guide help" для большего использования'\n` + `Голосовое сообщение ${dispatch.settings.speaks?"Вкл":"Выкл"}.\n` + `Стрим, скрытие сообщений ${dispatch.settings.stream?"Вкл":"Выкл"}.`, 
+							"message_TW": `'输入："guide help" 获取更多使用资料'\n` + `当前主播模式 ${dispatch.settings.stream?"开启":"关闭"}.\n` +  `当前声音辅助 ${dispatch.settings.speaks?"开启":"关闭"}.`, 							
+							"message": `'Enter "guide help" for more information\n`  + `The current stream mode ${dispatch.settings.stream?"on":"off"}.\n` +  `The current guide voice ${dispatch.settings.speaks?"on":"off"}.`
 						});		  
 						
           }, delay );				
