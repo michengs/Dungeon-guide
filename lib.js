@@ -1,5 +1,8 @@
 const HIGHLIGHT_ITEM_ID = 110684; // 88850 - Keen Bahaar's Mask; 98260 - Vergos's Head; 209904 - Skill Advancement Tome IV
-
+const HIGHLIGHT_ITEM_BLUE   = 89542;  // Annihilation Disc (x1 effect)
+const HIGHLIGHT_ITEM_PURPLE = 89543;  // Annihilation Disc (x2 effect)
+const HIGHLIGHT_ITEM_RED    = 89544;  // Annihilation Disc (x3 effect)
+const MARKER_ITEM           = 88704;  // Velika Banquet Coin
 //构建告示牌/高光   (1目标   2角度   3距离    4延迟  5持续时间 6光柱      7标签)
 function SpawnMarker(target, angle, distance, delay, duration, highlight, label, handlers, event, entity) {
 	if (!label)
@@ -22,7 +25,28 @@ function SpawnMarker(target, angle, distance, delay, duration, highlight, label,
 			handlers, event, entity
 		);
 	}
+	
+	if (highlight) {
+		let item = HIGHLIGHT_ITEM;
+
+		switch (highlight) {
+			case "blue":   item = HIGHLIGHT_ITEM_BLUE;   break;
+			case "purple": item = HIGHLIGHT_ITEM_PURPLE; break;
+			case "red":    item = HIGHLIGHT_ITEM_RED;    break;
+		}
+
+		SpawnObject("item", target, item,
+			0, 0,
+			angle, distance,
+			delay, duration,
+			null,
+			handlers, event, entity
+		);
+	}	
+	
+	
 }
+
 
 //构建标识物      (1物品 2角度  3距离     4延迟  5持续时间) 
 function SpawnItem(item, angle, distance, delay, duration, handlers, event, entity) {
@@ -35,6 +59,19 @@ function SpawnItem(item, angle, distance, delay, duration, handlers, event, enti
 		handlers, event, entity
 	);
 }
+
+function SpawnPoint(item, angle, distance, delay, duration, handlers, event, entity) {
+	angle =  Math.PI * angle / 180;
+
+	SpawnObject("collection", false, item,
+		0, 0,
+		angle, distance,
+		delay, duration,
+		null,
+		handlers, event, entity
+	);
+}
+
 
 //构建直线          (1物品  2偏角         3偏距         4角度   5长度  6延迟  7持续时间) 
 function SpawnVector(item, offsetAngle, offsetDistance, angle, length, delay, duration, handlers, event, entity) {
@@ -188,8 +225,14 @@ function applyDistance(loc, offsetDistance, offsetAngle) {
 }
 
 module.exports = {
+	HIGHLIGHT_ITEM,
+	HIGHLIGHT_ITEM_BLUE,
+	HIGHLIGHT_ITEM_PURPLE,
+	HIGHLIGHT_ITEM_RED,
+	MARKER_ITEM,	
 	SpawnMarker,
 	SpawnItem,
+	SpawnPoint,	
 	SpawnVector,
 	SpawnCircle,
 	SpawnSemicircle,

@@ -65,6 +65,9 @@ class TeraGuide{
         this.handlers = function_event_handlers;
         // A boolean for if the module is enabled or not
         // A boolean for the debugging settings
+		let languages = {0: 'en', 1: 'kr', 3: 'jp', 4: 'de', 5: 'fr', 7: 'tw', 8: 'ru'};
+		// Detected language
+		let language = languages[0];		
         let debug = dbg['debug'];
         // A boolean indicating if a guide was found
         let guide_found = false;
@@ -77,7 +80,14 @@ class TeraGuide{
         let random_timer_id = 0xFFFFFFFA; // Used if no id is specified
         let timers = {};	
 		let entered_zone_data = {};		
-		let is_event = false;		
+		let is_event = false;	
+		
+		/** C_LOGIN_ARBITER **/
+		dispatch.hook('C_LOGIN_ARBITER', 2, event => {
+			// Set client language
+			language = languages[event.language] || languages[0];
+		});
+		
         /** HELPER FUNCTIONS **/
 		// Find index for dungeons settings param
 		function find_dungeon_index(id) {
@@ -446,11 +456,11 @@ class TeraGuide{
 					},	
             lNotice() {
             	dispatch.settings.lNotice = !dispatch.settings.lNotice;
-				text_handler({"sub_type": "PRMSG","message_RU": `Сообщения в чат: ${dispatch.settings.lNotice?"Вкл":"Выкл"}.`,"message_TW": `虚拟团队长通知已 ${dispatch.settings.lNotice?"开启":"关闭"}.`, "message": `Virtual captain has been ${dispatch.settings.lNotice?"on":"off"}.` });  				
+				text_handler({"sub_type": "PRMSG","message_RU": `Сообщения в чат: ${dispatch.settings.lNotice?"Вкл":"Выкл"}.`,"message_TW": `虚拟团队长通知已 ${dispatch.settings.lNotice?"开启":"关闭"}.`, "message": `Virtual commander Notice has been ${dispatch.settings.lNotice?"on":"off"}.` });  				
             },	
             gNotice() {
             	dispatch.settings.gNotice = !dispatch.settings.gNotice;
-				text_handler({"sub_type": "PRMSG","message_RU": `Сообщения в чат: ${dispatch.settings.gNotice?"Вкл":"Выкл"}.`,"message_TW": `虚拟组队长通知已 ${dispatch.settings.gNotice?"开启":"关闭"}.`, "message": `Virtual captain has been ${dispatch.settings.gNotice?"on":"off"}.` });  				
+				text_handler({"sub_type": "PRMSG","message_RU": `Сообщения в группе: ${dispatch.settings.gNotice?"Вкл":"Выкл"}.`,"message_TW": `虚拟组队长通知已 ${dispatch.settings.gNotice?"开启":"关闭"}.`, "message": `Virtual captain has been ${dispatch.settings.gNotice?"on":"off"}.` });  				
             },		
             1() {          	
 			   text_handler({"sub_type": "PRMSG","message_TW": `语音速度1`, "message": `Voice speed 1` });  				
@@ -578,9 +588,13 @@ class TeraGuide{
 			   text_handler({"sub_type": "CGRMSG","message_TW": 'guide cgr，消息通知颜色为灰色',"message_RU": 'guide cgr, установить цвет сообщения: серый', "message": 'guide cgr，message color is GRAY' }); 				   
 			   text_handler({"sub_type": "CWMSG","message_TW": 'guide cw，消息通知颜色为白色',"message_RU": 'guide cw, установить цвет сообщения: белый', "message": 'guide cw，message color is WHITE' }); 	
             },
-            $default() {
-              dispatch.settings.enabled = !dispatch.settings.enabled;
-				text_handler({"sub_type": "PRMSG","message_RU": `Модуль: ${dispatch.settings.enabled?"Вкл":"Выкл"}.`,"message_TW": `副本補助已 ${dispatch.settings.enabled?"on":"off"}.`, "message": `guide ${dispatch.settings.enabled?"on":"off"}.` });  				
+            $default(arg1) {
+				if (arg1 === undefined) {
+					dispatch.settings.enabled = !dispatch.settings.enabled;
+				text_handler({"sub_type": "PRMSG","message_RU": `Модуль: ${dispatch.settings.enabled?"Вкл":"Выкл"}.`,"message_TW": `副本補助已 ${dispatch.settings.enabled?"on":"off"}.`, "message": `guide ${dispatch.settings.enabled?"on":"off"}.` });
+				} else {
+					text_handler({"sub_type": "PRMSG","message_RU": 'Невереная команда, введите guide help',"message_TW": '错误命令, 输入： "guide help"', "message": 'Unknown command, type "guide help"'});
+				}	
             }
         });
 		
@@ -700,7 +714,8 @@ class TeraGuide{
         // Text handler
         function text_handler(event, ent, speed=1.0) {
             // Fetch the message(with region tag)
-            const message = event[`message_${dispatch.region}`] || event[`message_${dispatch.region.toUpperCase()}`] || event['message'];
+          //  const message = event[`message_${dispatch.region}`] || event[`message_${dispatch.region.toUpperCase()}`] || event['message'];
+			const message = event[`message_${language}`] || event[`message_${language.toUpperCase()}`] || event['message'];			
             // Make sure sub_type is defined
             if(!event['sub_type']) return debug_message(true, "Text handler needs a sub_type");
             // Make sure message is defined
@@ -945,7 +960,7 @@ class TeraGuide{
 						text_handler({
 							"sub_type": "CGMSG",
 							"message_RU": 'Введите "guide help" для большего использования', 
-							"message_TW": '输入："guide help" 获取更多使用资料', 							
+							"message_TW": '输入："guide help" 获取更多使用资料' + `stream mode ${dispatch.settings.stream?"开启":"关闭"}.` , 							
 							"message": 'Enter "guide help" for more information'
 						});		  
 						
