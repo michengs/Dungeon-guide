@@ -1,4 +1,4 @@
-const HIGHLIGHT_ITEM_ID = 110684; // 88850 - Keen Bahaar's Mask; 98260 - Vergos's Head; 209904 - Skill Advancement Tome IV
+const HIGHLIGHT_ITEM        = 110684; // Tier 21 Superior Twin Swords
 const HIGHLIGHT_ITEM_BLUE   = 89542;  // Annihilation Disc (x1 effect)
 const HIGHLIGHT_ITEM_PURPLE = 89543;  // Annihilation Disc (x2 effect)
 const HIGHLIGHT_ITEM_RED    = 89544;  // Annihilation Disc (x3 effect)
