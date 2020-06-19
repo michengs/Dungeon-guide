@@ -41,7 +41,7 @@ module.exports = {
 "s-3202-1000-304-0": [{"type": "text","sub_type": "MSG","message": "TEST","message_TW": "칼리가르_전멸기_축해대응 시작_LongAtk01[start][loop]"}],          
 "s-3202-1000-305-0": [{"type": "text","sub_type": "MSG","message": "TEST","message_TW": "칼리가르_전멸기_축해대응 실패 전멸기 발동_UltraAtk02[end]"}],          
 "s-3202-1000-306-0": [{"type": "text","sub_type": "MSG","message": "TEST","message_TW": "칼리가르_전멸기_축해대응 성공_리액션_Reaction[start][loop][end]"}],
-"s-3202-1000-307-0": [{"type": "text","sub_type": "MSG","message": "TEST","message_TW": "칼리가르_인원체크_유저 사망시 자신 강화"}]
+"s-3202-1000-307-0": [{"type": "text","sub_type": "MSG","message": "TEST","message_TW": "칼리가르_인원체크_유저 사망시 자신 강화"}],
 
 
 
