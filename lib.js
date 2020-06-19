@@ -18,15 +18,6 @@ function SpawnMarker(target, angle, distance, delay, duration, highlight, label,
 	);
 
 	if (highlight) {
-		SpawnObject("item", target, HIGHLIGHT_ITEM_ID, 0, 0,
-			angle, distance,
-			delay, duration,
-			null,
-			handlers, event, entity
-		);
-	}
-	
-	if (highlight) {
 		let item = HIGHLIGHT_ITEM;
 
 		switch (highlight) {
