@@ -6,7 +6,7 @@
         "guiName": "副本补助",
         "settingsFile": "config.json",
         "settingsMigrator": "settings_migrator.js",
-        "settingsVersion": "1.06"
+        "settingsVersion": "1.07"
     },
     "author": "Kasea/michengs/HSDN / ZC / ",
     "description": "副本补助，教玩副本",
