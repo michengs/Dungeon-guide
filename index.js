@@ -960,7 +960,7 @@ class TeraGuide{
 						text_handler({
 							"sub_type": "CGMSG",
 							"message_RU": `'Введите "guide help" для большего использования'\n` + `Голосовое сообщение ${dispatch.settings.speaks?"Вкл":"Выкл"}.\n` + `Стрим, скрытие сообщений ${dispatch.settings.stream?"Вкл":"Выкл"}.`, 
-							"message_TW": `'输入："guide help" 获取更多使用资料'\n` + `当前主播模式 ${dispatch.settings.stream?"开启":"关闭"}.\n` +  `当前声音辅助 ${dispatch.settings.speaks?"开启":"关闭"}.`, 							
+							"message_TW": `'输入："guide help" 获取更多使用资料'\n` + `st ${dispatch.settings.stream?"on":"off"}.\n` +  `vo ${dispatch.settings.speaks?"on":"off"}.`, 							
 							"message": `'Enter "guide help" for more information\n`  + `The current stream mode ${dispatch.settings.stream?"on":"off"}.\n` +  `The current guide voice ${dispatch.settings.speaks?"on":"off"}.`
 						});		  
 						
