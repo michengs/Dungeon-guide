@@ -334,7 +334,7 @@ module.exports = {
  "h-444-2000-100": [
  // {"type": "func","func": Spawnitem1.bind(null,542,0,0,0,3000,6000000)},
   //{"type": "func","func": Spawnitem1.bind(null,542,0,0,180,3000,6000000)}
-   {"type": "func","func": SpawnMarker.bind(null,false,0,-700,0,60000000,true,["火神","王座方位"])},
+   {"type": "func","func": SpawnMarker.bind(null,false,0,-700,0,60000000,false,["火神","王座方位"])},
         {
             "type": "spawn",
             "id": 513,
@@ -371,7 +371,7 @@ module.exports = {
  "s-444-1000-2116-0": [{"type": "text","sub_type": "message","message":  'Donuts',"message_TW": "甜甜圈" },
 	      {"type": "func","func": Spawnitem2.bind(null,445,0,0,8,290,100,6000)}			
  ],   
- "s-444-1000-2117-0": [{"type": "text","sub_type": "message","message":  'Jump (Bait)',"message_TW": "随仇->跳劈 (击倒)" },{"type": "func","func": SpawnMarker.bind(null,true,0,0,0,5000,true,["中心","扩散圈"])}],  
+ "s-444-1000-2117-0": [{"type": "text","sub_type": "message","message":  'Jump (Bait)',"message_TW": "随仇->跳劈 (击倒)" }],  
  "s-444-1000-2118-0": [{"type": "text","sub_type": "message","message":  'Jump (Tank)',"message_TW": "主仇->跳劈 (击倒)" }
  //{"type": "func","func": skillds_event.bind(null, 118)}
  ],  
@@ -507,7 +507,7 @@ module.exports = {
  "s-444-2000-1116-0": [{"type": "text","sub_type": "message","message":  'Donuts',"message_TW": "甜甜圈" },
 	      {"type": "func","func": Spawnitem2.bind(null,445,0,0,8,290,100,6000)}			
  ],   
- "s-444-2000-1117-0": [{"type": "text","sub_type": "message","message":  'Jump (Bait)',"message_TW": "随仇->跳劈 (击倒)" },{"type": "func","func": SpawnMarker.bind(null,true,0,0,0,5000,true,["中心","扩散圈"])}],  
+ "s-444-2000-1117-0": [{"type": "text","sub_type": "message","message":  'Jump (Bait)',"message_TW": "随仇->跳劈 (击倒)" }],  
  "s-444-2000-1118-0": [{"type": "text","sub_type": "message","message":  'Jump (Tank)',"message_TW": "主仇->跳劈 (击倒)" }
  // {"type": "func","func": skillds_event.bind(null, 118)}
  ],  
@@ -612,7 +612,7 @@ module.exports = {
  "s-444-2000-2116-0": [{"type": "text","sub_type": "message","message":  'Donuts',"message_TW": "甜甜圈" },
 	      {"type": "func","func": Spawnitem2.bind(null,445,0,0,8,290,100,6000)}			
  ],   
- "s-444-2000-2117-0": [{"type": "text","sub_type": "message","message":  'Jump (Bait)',"message_TW": "随仇->跳劈 (击倒)" },{"type": "func","func": SpawnMarker.bind(null,true,0,0,0,5000,true,["中心","扩散圈"])}],  
+ "s-444-2000-2117-0": [{"type": "text","sub_type": "message","message":  'Jump (Bait)',"message_TW": "随仇->跳劈 (击倒)" }],  
  "s-444-2000-2118-0": [{"type": "text","sub_type": "message","message":  'Jump (Tank)',"message_TW": "主仇->跳劈 (击倒)" }
   //{"type": "func","func": skillds_event.bind(null, 118)}
  ],  
