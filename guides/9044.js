@@ -195,33 +195,50 @@ if ([1121,2121].includes(skillid)) {
 	
 	SpawnMarker(false,37,125,0,2533,false,["火神","safe"],handlers,event,entity);	
 	SpawnMarker(false,143,125,0,2533,false,["火神","safe"],handlers,event,entity);
-    SpawnVector(553,90,75,0,500,0,2533,handlers,event,entity);//右前直线
-    SpawnVector(551,90,50,0,500,0,2533,handlers,event,entity);//右前直线	
-	SpawnVector(551,270,50,0,500,2533,800,handlers,event,entity);//左前直线	
-    SpawnVector(551,90,50,0,500,3333,800,handlers,event,entity);//右前直线		
-	SpawnVector(551,270,50,0,500,4116,2000,handlers,event,entity);//左前直线
+  //  SpawnVector(553,90,75,0,500,0,2533,handlers,event,entity);//右前直线
+  //  SpawnVector(551,90,50,0,500,0,2533,handlers,event,entity);//右前直线	
+	//SpawnVector(551,270,50,0,500,2533,800,handlers,event,entity);//左前直线	
+   // SpawnVector(551,90,50,0,500,3333,800,handlers,event,entity);//右前直线		
+	//SpawnVector(551,270,50,0,500,4116,2000,handlers,event,entity);//左前直线
 	
-    SpawnVector(553,90,75,180,500,0,2533,handlers,event,entity);//右后直线		
-    SpawnVector(551,90,50,180,500,0,2533,handlers,event,entity);//右后直线	
-	SpawnVector(551,270,50,180,500,2533,800,handlers,event,entity);//左后直线	
-    SpawnVector(551,90,50,180,500,3333,800,handlers,event,entity);//右后直线		
-	SpawnVector(551,270,50,180,500,4116,2000,handlers,event,entity);//左后直线	
+  //  SpawnVector(553,90,75,180,500,0,2533,handlers,event,entity);//右后直线		
+  //  SpawnVector(551,90,50,180,500,0,2533,handlers,event,entity);//右后直线	
+	//SpawnVector(551,270,50,180,500,2533,800,handlers,event,entity);//左后直线	
+  //  SpawnVector(551,90,50,180,500,3333,800,handlers,event,entity);//右后直线		
+	//SpawnVector(551,270,50,180,500,4116,2000,handlers,event,entity);//左后直线	
+	
+	
+    SpawnVector(553,90,50,0,500,0,6000,handlers,event,entity);//右前直线	
+	SpawnVector(553,270,50,0,500,0,6000,handlers,event,entity);//左前直线	
+    SpawnVector(553,90,50,180,500,0,6000,handlers,event,entity);//右后直线	
+	SpawnVector(553,270,50,180,500,0,6000,handlers,event,entity);//左后直线	
+
+	SpawnCircle(false,445,0,0,6,400,0,6000,handlers,event,entity);
+
+
+	
     handlers['text']({"type": "text","sub_type": "message","delay": 60000,"message":  'Waves soon...',"message_TW": "半月准备"}); 	
 }
 //右邊
 if ([1140,2140].includes(skillid)) {   
 	SpawnMarker(false,323,125,0,2533,false,["火神","safe"],handlers,event,entity);	
 	SpawnMarker(false,217,125,0,2533,false,["火神","safe"],handlers,event,entity);	
-    SpawnVector(553,270,75,0,500,0,2533,handlers,event,entity);//左前直线		
-    SpawnVector(551,270,50,0,500,0,2533,handlers,event,entity);//左前直线	
-	SpawnVector(551,90,50,0,500,2533,800,handlers,event,entity);//右前直线	
-    SpawnVector(551,270,50,0,500,3333,800,handlers,event,entity);//左前直线		
-	SpawnVector(551,90,50,0,500,4116,2000,handlers,event,entity);//右前直线	
-    SpawnVector(553,270,75,180,500,0,2533,handlers,event,entity);//左后直线		
-    SpawnVector(551,270,50,180,500,0,2533,handlers,event,entity);//左后直线	
-	SpawnVector(551,90,50,180,500,2533,800,handlers,event,entity);//右后直线	
-    SpawnVector(551,270,50,180,500,3333,800,handlers,event,entity);//左后直线		
-	SpawnVector(551,90,50,180,500,4116,2000,handlers,event,entity);//右后直线			
+//    SpawnVector(553,270,75,0,500,0,2533,handlers,event,entity);//左前直线		
+ //   SpawnVector(551,270,50,0,500,0,2533,handlers,event,entity);//左前直线	
+//	SpawnVector(551,90,50,0,500,2533,800,handlers,event,entity);//右前直线	
+ //   SpawnVector(551,270,50,0,500,3333,800,handlers,event,entity);//左前直线		
+//	SpawnVector(551,90,50,0,500,4116,2000,handlers,event,entity);//右前直线	
+  //  SpawnVector(553,270,75,180,500,0,2533,handlers,event,entity);//左后直线		
+  //  SpawnVector(551,270,50,180,500,0,2533,handlers,event,entity);//左后直线	
+//	SpawnVector(551,90,50,180,500,2533,800,handlers,event,entity);//右后直线	
+ //   SpawnVector(551,270,50,180,500,3333,800,handlers,event,entity);//左后直线		
+//	SpawnVector(551,90,50,180,500,4116,2000,handlers,event,entity);//右后直线
+    SpawnVector(553,90,50,0,500,0,6000,handlers,event,entity);//右前直线	
+	SpawnVector(553,270,50,0,500,0,6000,handlers,event,entity);//左前直线	
+    SpawnVector(553,90,50,180,500,0,6000,handlers,event,entity);//右后直线	
+	SpawnVector(553,270,50,180,500,0,6000,handlers,event,entity);//左后直线		
+	SpawnCircle(false,445,0,0,6,400,0,6000,handlers,event,entity);
+	
     handlers['text']({"type": "text","sub_type": "message","delay": 60000,"message":  'Waves soon...',"message_TW": "半月准备"}); 	
 }
 //2加速 123 142
@@ -229,34 +246,46 @@ if ([1140,2140].includes(skillid)) {
 if ([1123,2123].includes(skillid)) {   
 	SpawnMarker(false,37,125,0,2500,false,["火神","safe"],handlers,event,entity);	
 	SpawnMarker(false,143,125,0,2500,false,["火神","safe"],handlers,event,entity);
-    SpawnVector(553,90,75,0,500,0,2500,handlers,event,entity);//右前直线	
-    SpawnVector(551,90,50,0,500,0,2500,handlers,event,entity);//右前直线	
-	SpawnVector(551,270,50,0,500,2500,500,handlers,event,entity);//左前直线	
-    SpawnVector(551,90,50,0,500,3000,800,handlers,event,entity);//右前直线		
-	SpawnVector(551,270,50,0,500,3800,2000,handlers,event,entity);//左前直线
+  //  SpawnVector(553,90,75,0,500,0,2500,handlers,event,entity);//右前直线	
+ //   SpawnVector(551,90,50,0,500,0,2500,handlers,event,entity);//右前直线	
+//	SpawnVector(551,270,50,0,500,2500,500,handlers,event,entity);//左前直线	
+  //  SpawnVector(551,90,50,0,500,3000,800,handlers,event,entity);//右前直线		
+	//SpawnVector(551,270,50,0,500,3800,2000,handlers,event,entity);//左前直线
 	
-    SpawnVector(553,90,75,180,500,0,2500,handlers,event,entity);//右后直线		
-    SpawnVector(551,90,50,180,500,0,2500,handlers,event,entity);//右后直线	
-	SpawnVector(551,270,50,180,500,2500,500,handlers,event,entity);//左后直线	
-    SpawnVector(551,90,50,180,500,3000,800,handlers,event,entity);//右后直线		
-	SpawnVector(551,270,50,180,500,3800,2000,handlers,event,entity);//左后直线		
+   // SpawnVector(553,90,75,180,500,0,2500,handlers,event,entity);//右后直线		
+  //  SpawnVector(551,90,50,180,500,0,2500,handlers,event,entity);//右后直线	
+	//SpawnVector(551,270,50,180,500,2500,500,handlers,event,entity);//左后直线	
+  //  SpawnVector(551,90,50,180,500,3000,800,handlers,event,entity);//右后直线		
+//	SpawnVector(551,270,50,180,500,3800,2000,handlers,event,entity);//左后直线	
+    SpawnVector(553,90,50,0,500,0,6000,handlers,event,entity);//右前直线	
+	SpawnVector(553,270,50,0,500,0,6000,handlers,event,entity);//左前直线	
+    SpawnVector(553,90,50,180,500,0,6000,handlers,event,entity);//右后直线	
+	SpawnVector(553,270,50,180,500,0,6000,handlers,event,entity);//左后直线	
+	SpawnCircle(false,445,0,0,6,400,0,6000,handlers,event,entity);
+    handlers['text']({"type": "text","sub_type": "notification","message":  '2',"message_TW": "2加速"}); 	
     handlers['text']({"type": "text","sub_type": "message","delay": 60000,"message":  'Waves soon...',"message_TW": "半月准备"}); 	
 }
 //右邊
 if ([1142,2142].includes(skillid)) {   
 	SpawnMarker(false,323,125,0,2500,false,["火神","safe"],handlers,event,entity);	
 	SpawnMarker(false,217,125,0,2500,false,["火神","safe"],handlers,event,entity);	
-    SpawnVector(553,270,75,0,500,0,2500,handlers,event,entity);//左前直线	
-    SpawnVector(551,270,50,0,500,0,2500,handlers,event,entity);//左前直线	
-	SpawnVector(551,90,50,0,500,2500,500,handlers,event,entity);//右前直线	
-    SpawnVector(551,270,50,0,500,3000,800,handlers,event,entity);//左前直线		
-	SpawnVector(551,90,50,0,500,3800,2000,handlers,event,entity);//右前直线
+  //  SpawnVector(553,270,75,0,500,0,2500,handlers,event,entity);//左前直线	
+  //  SpawnVector(551,270,50,0,500,0,2500,handlers,event,entity);//左前直线	
+//	SpawnVector(551,90,50,0,500,2500,500,handlers,event,entity);//右前直线	
+  //  SpawnVector(551,270,50,0,500,3000,800,handlers,event,entity);//左前直线		
+	//SpawnVector(551,90,50,0,500,3800,2000,handlers,event,entity);//右前直线
 	
-    SpawnVector(553,270,75,180,500,0,2500,handlers,event,entity);//左后直线		
-    SpawnVector(551,270,50,180,500,0,2500,handlers,event,entity);//左后直线	
-	SpawnVector(551,90,50,180,500,2500,500,handlers,event,entity);//右后直线	
-    SpawnVector(551,270,50,180,500,3000,800,handlers,event,entity);//左后直线		
-	SpawnVector(551,90,50,180,500,3800,2000,handlers,event,entity);//右后直线		
+  //  SpawnVector(553,270,75,180,500,0,2500,handlers,event,entity);//左后直线		
+  //  SpawnVector(551,270,50,180,500,0,2500,handlers,event,entity);//左后直线	
+//	SpawnVector(551,90,50,180,500,2500,500,handlers,event,entity);//右后直线	
+ //   SpawnVector(551,270,50,180,500,3000,800,handlers,event,entity);//左后直线		
+//	SpawnVector(551,90,50,180,500,3800,2000,handlers,event,entity);//右后直线
+    SpawnVector(553,90,50,0,500,0,6000,handlers,event,entity);//右前直线	
+	SpawnVector(553,270,50,0,500,0,6000,handlers,event,entity);//左前直线	
+    SpawnVector(553,90,50,180,500,0,6000,handlers,event,entity);//右后直线	
+	SpawnVector(553,270,50,180,500,0,6000,handlers,event,entity);//左后直线		
+	SpawnCircle(false,445,0,0,6,400,0,6000,handlers,event,entity);
+    handlers['text']({"type": "text","sub_type": "notification","message":  '2',"message_TW": "2加速"}); 
     handlers['text']({"type": "text","sub_type": "message","delay": 60000,"message":  'Waves soon...',"message_TW": "半月准备"}); 	
 }
 //3加速 122 141
@@ -264,34 +293,46 @@ if ([1142,2142].includes(skillid)) {
 if ([1122,2122].includes(skillid)) {   
 	SpawnMarker(false,37,125,0,2533,false,["火神","safe"],handlers,event,entity);	
 	SpawnMarker(false,143,125,0,2533,false,["火神","safe"],handlers,event,entity);
-    SpawnVector(553,90,75,0,500,0,2533,handlers,event,entity);//右前直线
-    SpawnVector(551,90,50,0,500,0,2533,handlers,event,entity);//右前直线	
-	SpawnVector(551,270,50,0,500,2533,800,handlers,event,entity);//左前直线	
-    SpawnVector(551,90,50,0,500,3333,500,handlers,event,entity);//右前直线		
-	SpawnVector(551,270,50,0,500,3833,2000,handlers,event,entity);//左前直线
+//    SpawnVector(553,90,75,0,500,0,2533,handlers,event,entity);//右前直线
+ //   SpawnVector(551,90,50,0,500,0,2533,handlers,event,entity);//右前直线	
+//	SpawnVector(551,270,50,0,500,2533,800,handlers,event,entity);//左前直线	
+ //   SpawnVector(551,90,50,0,500,3333,500,handlers,event,entity);//右前直线		
+//	SpawnVector(551,270,50,0,500,3833,2000,handlers,event,entity);//左前直线
 	
-    SpawnVector(553,90,75,180,500,0,2533,handlers,event,entity);//右后直线	
-    SpawnVector(551,90,50,180,500,0,2533,handlers,event,entity);//右后直线	
-	SpawnVector(551,270,50,180,500,2533,800,handlers,event,entity);//左后直线	
-    SpawnVector(551,90,50,180,500,3333,500,handlers,event,entity);//右后直线		
-	SpawnVector(551,270,50,180,500,3833,2000,handlers,event,entity);//左后直线	
+ //   SpawnVector(553,90,75,180,500,0,2533,handlers,event,entity);//右后直线	
+ //   SpawnVector(551,90,50,180,500,0,2533,handlers,event,entity);//右后直线	
+//	SpawnVector(551,270,50,180,500,2533,800,handlers,event,entity);//左后直线	
+ //   SpawnVector(551,90,50,180,500,3333,500,handlers,event,entity);//右后直线		
+//	SpawnVector(551,270,50,180,500,3833,2000,handlers,event,entity);//左后直线	
+    SpawnVector(553,90,50,0,500,0,6000,handlers,event,entity);//右前直线	
+	SpawnVector(553,270,50,0,500,0,6000,handlers,event,entity);//左前直线	
+    SpawnVector(553,90,50,180,500,0,6000,handlers,event,entity);//右后直线	
+	SpawnVector(553,270,50,180,500,0,6000,handlers,event,entity);//左后直线	
+	SpawnCircle(false,445,0,0,6,400,0,6000,handlers,event,entity);
+    handlers['text']({"type": "text","sub_type": "notification","message":  '3',"message_TW": "3加速"}); 
     handlers['text']({"type": "text","sub_type": "message","delay": 60000,"message":  'Waves soon...',"message_TW": "半月准备"}); 	
 }
 //右邊
 if ([1141,2141].includes(skillid)) {   
 	SpawnMarker(false,323,125,0,2533,false,["火神","safe"],handlers,event,entity);	
 	SpawnMarker(false,217,125,0,2533,false,["火神","safe"],handlers,event,entity);	
-    SpawnVector(553,270,75,0,500,0,2533,handlers,event,entity);//左前直线
-    SpawnVector(551,270,50,0,500,0,2533,handlers,event,entity);//左前直线	
-	SpawnVector(551,90,50,0,500,2533,800,handlers,event,entity);//右前直线	
-    SpawnVector(551,270,50,0,500,3333,500,handlers,event,entity);//左前直线		
-	SpawnVector(551,90,50,0,500,3833,2000,handlers,event,entity);//右前直线	
+  //  SpawnVector(553,270,75,0,500,0,2533,handlers,event,entity);//左前直线
+  //  SpawnVector(551,270,50,0,500,0,2533,handlers,event,entity);//左前直线	
+	//SpawnVector(551,90,50,0,500,2533,800,handlers,event,entity);//右前直线	
+ //   SpawnVector(551,270,50,0,500,3333,500,handlers,event,entity);//左前直线		
+//	SpawnVector(551,90,50,0,500,3833,2000,handlers,event,entity);//右前直线	
 	
-    SpawnVector(553,270,75,180,500,0,2533,handlers,event,entity);//左后直线		
-    SpawnVector(551,270,50,180,500,0,2533,handlers,event,entity);//左后直线	
-	SpawnVector(551,90,50,180,500,2533,800,handlers,event,entity);//右后直线	
-    SpawnVector(551,270,50,180,500,3333,500,handlers,event,entity);//左后直线		
-	SpawnVector(551,90,50,180,500,3833,2000,handlers,event,entity);//右后直线	
+  //  SpawnVector(553,270,75,180,500,0,2533,handlers,event,entity);//左后直线		
+  //  SpawnVector(551,270,50,180,500,0,2533,handlers,event,entity);//左后直线	
+	//SpawnVector(551,90,50,180,500,2533,800,handlers,event,entity);//右后直线	
+   // SpawnVector(551,270,50,180,500,3333,500,handlers,event,entity);//左后直线		
+	//SpawnVector(551,90,50,180,500,3833,2000,handlers,event,entity);//右后直线
+    SpawnVector(553,90,50,0,500,0,6000,handlers,event,entity);//右前直线	
+	SpawnVector(553,270,50,0,500,0,6000,handlers,event,entity);//左前直线	
+    SpawnVector(553,90,50,180,500,0,6000,handlers,event,entity);//右后直线	
+	SpawnVector(553,270,50,180,500,0,6000,handlers,event,entity);//左后直线		
+	SpawnCircle(false,445,0,0,6,400,0,6000,handlers,event,entity);
+    handlers['text']({"type": "text","sub_type": "notification","message":  '3',"message_TW": "3加速"}); 		
     handlers['text']({"type": "text","sub_type": "message","delay": 60000,"message":  'Waves soon...',"message_TW": "半月准备"}); 	
 }
 					
@@ -367,7 +408,7 @@ module.exports = {
       {"type": "func","func": Spawnitem2.bind(null,445,356,260,10,320,100,4000)}				
 				
  ],  
- "s-444-1000-2115-0": [{"type": "text","sub_type": "message","message":  'Knockup',"message_TW": "右 蓄力(击飞)" }],  
+ "s-444-1000-2115-0": [{"type": "text","sub_type": "message","delay": 234,"message":  'Knockup',"message_TW": "击飞闪避" }],  
  "s-444-1000-2116-0": [{"type": "text","sub_type": "message","message":  'Donuts',"message_TW": "甜甜圈" },
 	      {"type": "func","func": Spawnitem2.bind(null,445,0,0,8,290,100,6000)}			
  ],   
@@ -396,7 +437,7 @@ module.exports = {
 {"type": "text","sub_type": "message","message":  'Hammer back ',"message_TW": "后砸 " },
      {"type": "func","func": Spawnitem2.bind(null,445,180,500,8,480,100,2000)}], 
  
- "s-444-1000-2138-0": [{"type": "text","sub_type": "message","message":  'Knockup (Bait)',"message_TW": "左 蓄力(击飞)" }],  
+ "s-444-1000-2138-0": [{"type": "text","sub_type": "message","delay": 234,"message":  'Knockup (Bait)',"message_TW": "击飞闪避" }],  
  "s-444-1000-2139-0": [{"type": "text","sub_type": "message","message":  'Dodge!!',"message_TW": "转圈 (击倒)" }],  
  "s-444-1000-2140-0": [{"type": "text","sub_type": "message","message":  'Waves (Right)',"message_TW": "右  (4连半月)" },
   {"type": "func","func": SpawnMarker.bind(null,false,323,125,0,2533,false,["火神","safe"])},		
@@ -421,7 +462,7 @@ module.exports = {
       {"type": "func","func": Spawnitem2.bind(null,445,356,260,10,320,100,4000)}				
 				
  ],  
- "s-444-1000-1115-0": [{"type": "text","sub_type": "message","message":  'Knockup',"message_TW": "右 蓄力(击飞)" }],  
+ "s-444-1000-1115-0": [{"type": "text","sub_type": "message","delay": 1300,"message":  'Knockup',"message_TW": "击飞闪避" }],  
  "s-444-1000-1116-0": [{"type": "text","sub_type": "message","message":  'Donuts',"message_TW": "甜甜圈" },
 	      {"type": "func","func": Spawnitem2.bind(null,445,0,0,8,290,100,6000)}			
  ],   
@@ -451,7 +492,7 @@ module.exports = {
 {"type": "text","sub_type": "message","message":  'Hammer back ',"message_TW": "后砸 " },
      {"type": "func","func": Spawnitem2.bind(null,445,180,500,8,480,100,2000)}], 
  
- "s-444-1000-1138-0": [{"type": "text","sub_type": "message","message":  'Knockup (Bait)',"message_TW": "左 蓄力(击飞)" }],  
+ "s-444-1000-1138-0": [{"type": "text","sub_type": "message","delay": 1300,"message":  'Knockup (Bait)',"message_TW": "击飞闪避" }],  
  "s-444-1000-1139-0": [{"type": "text","sub_type": "message","message":  'Dodge!!',"message_TW": "转圈 (击倒)" }],  
  "s-444-1000-1140-0": [{"type": "text","sub_type": "message","message":  'Waves (Right)',"message_TW": "右  (4连半月)" },
   {"type": "func","func": SpawnMarker.bind(null,false,323,125,0,2533,false,["火神","safe"])},		
@@ -503,7 +544,7 @@ module.exports = {
       {"type": "func","func": Spawnitem2.bind(null,445,356,260,10,320,100,4000)}				
 				
  ],  
- "s-444-2000-1115-0": [{"type": "text","sub_type": "message","message":  'Knockup',"message_TW": "右 蓄力(击飞)" }],  
+ "s-444-2000-1115-0": [{"type": "text","sub_type": "message","delay": 1300,"message":  'Knockup',"message_TW": "击飞闪避" }],  
  "s-444-2000-1116-0": [{"type": "text","sub_type": "message","message":  'Donuts',"message_TW": "甜甜圈" },
 	      {"type": "func","func": Spawnitem2.bind(null,445,0,0,8,290,100,6000)}			
  ],   
@@ -558,7 +599,7 @@ module.exports = {
 {"type": "text","sub_type": "message","message":  'Hammer back ',"message_TW": "后砸 " },
      {"type": "func","func": Spawnitem2.bind(null,445,180,500,8,480,100,2000)}], 
  
- "s-444-2000-1138-0": [{"type": "text","sub_type": "message","message":  'Knockup (Bait)',"message_TW": "左 蓄力(击飞)" }],  
+ "s-444-2000-1138-0": [{"type": "text","sub_type": "message","delay": 1300,"message":  'Knockup (Bait)',"message_TW": "击飞闪避" }],  
  "s-444-2000-1139-0": [{"type": "text","sub_type": "message","message":  'Dodge!!',"message_TW": "转圈 (击倒)" }],  
  "s-444-2000-1140-0": [{"type": "text","sub_type": "message","message":  'Waves (Right)',"message_TW": "右  (4连半月)" },{"type": "func","func":skilld_event.bind(null, 1140)}],  
  "s-444-2000-1141-0": [{"type": "text","sub_type": "message","message":  'Waves (Right) 3nd fast',"message_TW": "右  (4连半月)" },{"type": "func","func":skilld_event.bind(null, 1141)}],  
@@ -608,7 +649,7 @@ module.exports = {
       {"type": "func","func": Spawnitem2.bind(null,445,356,260,10,320,100,4000)}				
 				
  ],  
- "s-444-2000-2115-0": [{"type": "text","sub_type": "message","message":  'Knockup',"message_TW": "右 蓄力(击飞)" }],  
+ "s-444-2000-2115-0": [{"type": "text","sub_type": "message","delay": 234,"message":  'Knockup',"message_TW": "击飞闪避" }],  
  "s-444-2000-2116-0": [{"type": "text","sub_type": "message","message":  'Donuts',"message_TW": "甜甜圈" },
 	      {"type": "func","func": Spawnitem2.bind(null,445,0,0,8,290,100,6000)}			
  ],   
@@ -663,7 +704,7 @@ module.exports = {
 {"type": "text","sub_type": "message","message":  'Hammer back ',"message_TW": "后砸 " },
      {"type": "func","func": Spawnitem2.bind(null,445,180,500,8,480,100,2000)}], 
  
- "s-444-2000-2138-0": [{"type": "text","sub_type": "message","message":  'Knockup (Bait)',"message_TW": "左 蓄力(击飞)" }],  
+ "s-444-2000-2138-0": [{"type": "text","sub_type": "message","delay": 234,"message":  'Knockup (Bait)',"message_TW": "击飞闪避" }],  
  "s-444-2000-2139-0": [{"type": "text","sub_type": "message","message":  'Dodge!!',"message_TW": "转圈 (击倒)" }],  
  
  "s-444-2000-2140-0": [{"type": "text","sub_type": "message","message":  'Waves (Right)',"message_TW": "右  (4连半月)" },{"type": "func","func":skilld_event.bind(null, 2140)}],   
