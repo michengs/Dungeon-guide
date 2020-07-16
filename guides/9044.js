@@ -438,7 +438,12 @@ module.exports = {
      {"type": "func","func": Spawnitem2.bind(null,445,180,500,8,480,100,2000)}], 
  
  "s-444-1000-2138-0": [{"type": "text","sub_type": "message","delay": 234,"message":  'Knockup (Bait)',"message_TW": "击飞闪避" }],  
- "s-444-1000-2139-0": [{"type": "text","sub_type": "message","message":  'Dodge!!',"message_TW": "转圈 (击倒)" }],  
+ "s-444-1000-2139-0": [{"type": "text","sub_type": "message","message":  'Dodge!!',"message_TW": "转圈 (击倒)" },
+                       {"type": "func","func": SpawnCircle.bind(null,false,912,0,0,20,160,0,2000)},
+                       {"type": "func","func": SpawnCircle.bind(null,false,912,0,0,12,220,0,2000)},
+                       {"type": "func","func": SpawnCircle.bind(null,false,912,0,0,10,300,0,2000)},
+                       {"type": "func","func": SpawnCircle.bind(null,false,912,0,0,8,360,0,2000)}
+ ],  
  "s-444-1000-2140-0": [{"type": "text","sub_type": "message","message":  'Waves (Right)',"message_TW": "右  (4连半月)" },
   {"type": "func","func": SpawnMarker.bind(null,false,323,125,0,2533,false,["火神","safe"])},		
   {"type": "func","func": SpawnMarker.bind(null,false,217,125,0,2533,false,["火神","safe"])},		
@@ -493,7 +498,11 @@ module.exports = {
      {"type": "func","func": Spawnitem2.bind(null,445,180,500,8,480,100,2000)}], 
  
  "s-444-1000-1138-0": [{"type": "text","sub_type": "message","delay": 1300,"message":  'Knockup (Bait)',"message_TW": "击飞闪避" }],  
- "s-444-1000-1139-0": [{"type": "text","sub_type": "message","message":  'Dodge!!',"message_TW": "转圈 (击倒)" }],  
+ "s-444-1000-1139-0": [{"type": "text","sub_type": "message","message":  'Dodge!!',"message_TW": "转圈 (击倒)" },
+                       {"type": "func","func": SpawnCircle.bind(null,false,912,0,0,20,160,0,2000)},
+                       {"type": "func","func": SpawnCircle.bind(null,false,912,0,0,12,220,0,2000)},
+                       {"type": "func","func": SpawnCircle.bind(null,false,912,0,0,10,300,0,2000)},
+                       {"type": "func","func": SpawnCircle.bind(null,false,912,0,0,8,360,0,2000)}],  
  "s-444-1000-1140-0": [{"type": "text","sub_type": "message","message":  'Waves (Right)',"message_TW": "右  (4连半月)" },
   {"type": "func","func": SpawnMarker.bind(null,false,323,125,0,2533,false,["火神","safe"])},		
   {"type": "func","func": SpawnMarker.bind(null,false,217,125,0,2533,false,["火神","safe"])},	
