@@ -13,6 +13,7 @@ const DefaultSettings = {
 		{"id": 3023, "name": "Akalath Quarantine","name_TW": "贝尔亚克城堡",  "name_RU": "Секретное подземелье крепости Берарк", "verbose": true, "spawnObject": true},
 		{"id": 3026, "name": "Corrupted Skynest","name_TW": "凯尔赛克隐藏地",  "name_RU": "Логово Келсаика", "verbose": true, "spawnObject": true},
 		{"id": 3027, "name": "Forbidden Arena","name_TW": "狂气竞技场",  "name_RU": "Арена безумия", "verbose": true, "spawnObject": true},
+		{"id": 3034, "name": "RK-9 Kennel (Hard)","name_TW": "暴走的RK-9機庫",  "name_RU": "Ангар RK-9 (сложно)", "verbose": true, "spawnObject": true},		
 		{"id": 3101, "name": "Gossamer Vault","name_TW": "費爾奎娜巢穴(蝴蝶下)",  "name_RU": "Гнездо Паркин", "verbose": true, "spawnObject": true},
 		{"id": 3102, "name": "Draakon Arena","name_TW": "司令官修練場",  "name_RU": "Командный центр", "verbose": true, "spawnObject": true},			
 		{"id": 3126, "name": "Corrupted Skynest (Hard)","name_TW": "不灭凯尔塞克隐藏地(凯尔上)",  "name_RU": "Логово Бессмертного Келсаика", "verbose": true, "spawnObject": true},
@@ -46,7 +47,7 @@ const DefaultSettings = {
 		"</font><font color=\"#ffff00\">"
 	],
 	"rate": [
-		1
+		2
 	],	
 	 "speaks": true,	
 	"chat-name": "Guide"

@@ -10,6 +10,7 @@
         "guides/3023.js": "2b5049f17053773f745db9d86d826183fe8a18324536d59f9312d40296784b45",
         "guides/3026.js": "90373f8edc617498c4e6dca189730977993db8dc2df6db059137ebf1ec9acda9",
         "guides/3027.js": "f6d334537f62ebd4ac5e998b16c3e2643539a7d332cb1df332fce17f3197842f",
+        "guides/3034.js": "4fae3a69182cfd3e71882d10f72960e72d3094582b06a49208c306a5fab2ceac",
         "guides/3101.js": "1ee8fdfcc9df5130e054ed83c39ce8d6baf9cb96cfb576c0a71c18530c857167",
         "guides/3102.js": "8846a51eae719575daf6e8ce44239df140e50b67522bb0b12bb1866292b469b4",
         "guides/3126.js": "197192544bea264cd49f0fe4e92716b958873043028b7d430b29d4c425109eb8",
@@ -40,12 +41,12 @@
         "guides/9981.js": "d524659eea5549df09bbdd636fe33ec66f4888791510cb634a55fa8572e429fd",
         "guides/9982.js": "0a30ae3252719b7f51ec8832610b026c68830e08c116377caae7f51338a92166",
         "guides/9983.js": "2de12f1cd045b64cdae998c72866b6d5ea4891e2f34d77cb6b7b23ddde2328a2",
-        "index.js": "7d2d4d0bc72c98ed2b309f84dfe95bf4f869114eceb262031a3efc07bd2a8d80",
+        "index.js": "7c8a586bbe90457aafc0eb510acb4f39265a49d64c590981533cb5ede7388e44",
         "lib.js": "84f9dcac242346d627ea5dced299ce71c1532d023751abf80ebd1d7738cb0f42",
-        "module.json": "5c10927b3fbb0d3befe54b76f3addbf389bf7af32f2eed6aee52028bdfbc035f",
-        "readme.md": "2ed9f09b2a83d6798e09954c6099aaae7e36afbc8ee6e632b3816bd3f2c81eb3",
-        "settings_migrator.js": "c87acde7b31f32b2708c8fbab81fa7c9c0c2e2112385034b453c1a2172443aed",
-        "voice/voice.js": "7c0a0f76104663f1a49430e3bbc9caf056a15ee08651ad45a1c36f6f3ef77ab9"
+        "module.json": "1d86d0a5d55868fb5fce8a50faf5067c0f760e9a9db6b3abd82e8bc95a9d5e1d",
+        "readme.md": "ed582f55c1285f78223099b36535789dd809c234a4a589efe8b0a6cf07a3667a",
+        "settings_migrator.js": "a3200a789013a9c7be3357116f3d5dadf358801db30a1dbc0461dd9ae923a24d",
+        "voice/voice.js": "151948c9e55df4bfcbefde3535e31793c437a7ff098461959525430db95ca0dc"
     },
     "defs": {
         "C_LOGIN_ARBITER": 2,

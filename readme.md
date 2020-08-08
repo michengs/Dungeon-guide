@@ -100,6 +100,8 @@ RK9-机库               RK9 NM
  
 憤怒的司令官修練場(TEST ING)      Draakon Arena (Hard) 
 
+暴走的RK-9機庫          RK-9 Kennel (Hard)	                           
+
 Add Dungeon for other modules ....
 
 其他副本待添加....
