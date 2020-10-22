@@ -1,262 +1,128 @@
-﻿// RK9
-//made by michengs
+﻿// RK-9 Kennel
+//
+// made by michengs
 
-let notice_guide = true;
-let player, entity, library, effect;
-let power = false;
-let Level = 0;
-let notice = true;
-let powerMsg = null;
-let steptwo = false ;	
-const {SpawnMarker, SpawnVector, SpawnCircle,SpawnSemicircle} = require("../lib");
-function guid_voice(handlers) {   
-if(notice_guide) {
-handlers['text']({
-"sub_type": "message",
-"delay": 2000,
-"message_TW": "一层', '<font color=#FF0000>爆炸! 爆炸!</font>"
-});
+module.exports = (dispatch, handlers, guide, lang) => {
+	return {
+		// 1 BOSS
+		"nd-735-1000": [
+			{ type: "stop_timers" },
+			{ type: "despawn_all" }
+		],
+		"s-735-1000-111-0": [{ type: "text", sub_type: "message", message: "Back + Front", message_RU: "Удар назад + вперед" }],
+		"s-735-1000-112-0": [{ type: "text", sub_type: "message", message: "Back", message_RU: "Удар назад" }],
+		"s-735-1000-304-0": [{ type: "text", sub_type: "message", message: "Out", message_RU: "От него" }],
+		"s-735-1000-305-0": [{ type: "text", sub_type: "message", message: "In", message_RU: "К нему" }],
+		"s-735-1000-306-0": [{ type: "text", sub_type: "message", message: "Bombs", message_RU: "Бомбы" }],
+		"s-735-1000-307-0": [{ type: "text", sub_type: "message", message: "Pull", message_RU: "Стяжка" }],
+		"s-735-1000-309-0": [{ type: "text", sub_type: "message", message: "Four Missile", message_RU: "Запуск 4 ракет" }],
 
-handlers['text']({
-"sub_type": "notification",
-"delay": 2000,
-"message_TW": "一层', '<font color=#FF0000>爆炸! 爆炸!</font>"
-});
-}
-notice_guide = false;
+		// 2 BOSS
+		"nd-735-2000": [
+			{ type: "stop_timers" },
+			{ type: "despawn_all" }
+		],
+		"s-735-2000-102-0": [
+			{ type: "text", sub_type: "message", message: "Pizza Cutter", message_RU: "Пила (Эвейд)" },
+			{ type: "spawn", func: "circle", args: [true, 553, 0, 300, 12, 228, 0, 3000] }
+		],
+		"s-735-2000-105-0": [
+			{ type: "text", sub_type: "message", message: "360", message_RU: "Крутилка (откид)" },
+			{ type: "spawn", func: "circle", args: [false, 553, 0, 0, 10, 278, 0, 4000] }
+		],
+		"s-735-2000-108-0": [
+			{ type: "text", sub_type: "message", message: "Back Swipe", message_RU: "Откид назад" },
+			{ type: "spawn", func: "vector", args: [553, 0, 0, 240, 380, 0, 2000] },
+			{ type: "spawn", func: "vector", args: [553, 0, 0, 120, 380, 0, 2000] }
+		],
+		"s-735-2000-301-0": [{ type: "text", sub_type: "message", message: "Throwing Orb", message_RU: "Бомба" }],
+		"s-735-2000-304-0": [
+			{ type: "text", sub_type: "message", message: "Get Out", message_RU: "От него" },
+			{ type: "spawn", func: "circle", args: [false, 553, 0, 0, 8, 400, 0, 4000] }
+		],
+		"s-735-2007-201-0": [
+			{ type: "spawn", func: "vector", args: [912, 0, 0, 0, 500, 0, 4000] },
+			{ type: "spawn", func: "vector", args: [912, 0, 0, 90, 500, 0, 4000] },
+			{ type: "spawn", func: "vector", args: [912, 0, 0, 180, 500, 0, 4000] },
+			{ type: "spawn", func: "vector", args: [912, 0, 0, 270, 500, 0, 4000] }
+		],
+		"s-735-2007-306-0": [
+			{ type: "spawn", func: "vector", args: [912, 0, 0, 0, 500, 0, 4000] },
+			{ type: "spawn", func: "vector", args: [912, 0, 0, 90, 500, 0, 4000] },
+			{ type: "spawn", func: "vector", args: [912, 0, 0, 180, 500, 0, 4000] },
+			{ type: "spawn", func: "vector", args: [912, 0, 0, 270, 500, 0, 4000] }
+		],
+		"s-735-2007-307-0": [
+			{ type: "spawn", func: "vector", args: [912, 0, 0, 0, 500, 0, 4000] },
+			{ type: "spawn", func: "vector", args: [912, 0, 0, 90, 500, 0, 4000] },
+			{ type: "spawn", func: "vector", args: [912, 0, 0, 180, 500, 0, 4000] },
+			{ type: "spawn", func: "vector", args: [912, 0, 0, 270, 500, 0, 4000] }
+		],
 
-}	
-// 	召喚光柱 ，告示牌提示（  角度 距离   延迟时间 时间）
-function SpawnThing( degrees, radius, delay, times, handlers, event, entity ) {
-	let shield_loc = entity['loc'].clone();
-	shield_loc.w = entity['loc'].w;			
-   let angle =  Math.PI * degrees / 180 
-        handlers['spawn']({
-			"sub_type": "build_object",
-        	"id": 1,
-			"delay": delay,			
-        	"sub_delay": times,
-        	"distance": radius,
-        	"offset": angle,
-			"ownerName": "SAFE SPOT",
-			"message": "SAFE"
-        }, {loc: shield_loc});  
-        handlers['spawn']({
-			"sub_type": "item",
-        	"id": 88850,
-			"delay": delay,			
-        	"sub_delay": times,
-        	"distance": radius,
-        	"offset": angle
-        }, {loc: shield_loc});	
-}
-
-	//构建直线（提示标志 偏移角度 偏移距离  角度 最远距离   时间）
-function Spawnitem1(item,degree,distance,angles, maxRadius, times, handlers, event, entity) {
-	
-	let shield_loc = entity['loc'].clone();
-	shield_loc.w = entity['loc'].w;	
-    let	degrees = 360 - degree;	
-	applyDistance(shield_loc, distance, degrees);		
-    let angle = angles * Math.PI/180
-    for (let radius=50 ; radius<=maxRadius; radius+=50) {
-        handlers['spawn']({
-        	"id": item,
-        	"sub_delay": times,
-        	"distance": radius,
-        	"offset": angle
-        }, {loc: shield_loc});
-    }
-}
-	function  applyDistance(loc, distance, degrees) {
-        let r = loc.w; //(loc.w / 0x8000) * Math.PI;
-     	let	rads = (degrees * Math.PI/180);
-	    let	finalrad = r - rads;
-        loc.x += Math.cos(finalrad) * distance;
-        loc.y += Math.sin(finalrad) * distance;
-        return loc;
-    }
-	//构建圆形范围提示    （提示标志  偏移角度 偏移距离 间隔 半径 延迟 时间）
-function Spawnitem2(item,degree,distance, intervalDegrees, radius, delay, times, handlers, event, entity ) {
-	let shield_loc = entity['loc'].clone();
-	shield_loc.w = entity['loc'].w;
-    let	degrees = 360 - degree;	
-	applyDistance(shield_loc, distance, degrees);
-    for (let angle = -Math.PI; angle <= Math.PI; angle +=  Math.PI * intervalDegrees / 180) {
-        handlers['spawn']({
-			"sub_type": "item",			
-        	"id": item,
-			"delay": delay,			
-        	"sub_delay": times,
-        	"distance": radius,
-        	"offset": angle
-        }, {loc: shield_loc});
-    }
-}
-
-function SpawnThingobject( degrees, radius, delay, times, handlers, event, entity ) {
-	let shield_loc = entity['loc'].clone();
-	shield_loc.w = entity['loc'].w;			
-   let angle =  Math.PI * degrees / 180 
-        handlers['spawn']({
-			"sub_type": "build_object",
-        	"id": 1,
-			"delay": delay,			
-        	"sub_delay": times,
-        	"distance": radius,
-        	"offset": angle,
-			"ownerName": "巴哈勒",
-			"message": "王坐方向"
-        }, {loc: shield_loc});  
-}
-
-
-
-
-
-
-let skills_hand = {
-	1112:  {truth: 'Truth -> Break shield',     lie: 'Lie -> Puddles (run away)'},
-	1111:  {truth: 'Truth -> Break shield',     lie: 'Lie -> Puddles (run away)'},	
-	1305:  {truth: 'Truth -> Break shield',     lie: 'Lie -> Puddles (run away)'},	
-	1304:  {truth: 'Truth -> Break shield',     lie: 'Lie -> Puddles (run away)'}	
-	
-};
-//let debuff_tracker_started = false;	
-
-function start_skills(handlers, event, entity, dispatch) {
-	const skill_change = (added, event) => {
-		if ((player.isMe(event.target) || player.playersInParty.includes(event.target.toString())) && skills_hand[event.id]) {
-
-			
-					handlers['text']({
-			        	"sub_type": "notification",
-						"message": skills_hand[event.id].lie
-			        });
-			
-
-		}
+		// 3 BOSS
+		"nd-735-3000": [
+			{ type: "stop_timers" },
+			{ type: "despawn_all" }
+		],
+		"s-735-3000-116-0": [{ type: "text", sub_type: "message", message: "Right Safe", message_RU: "Справа сейф" },
+			{ type: "spawn", func: "point", args: [553, 120, 250, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 130, 240, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 140, 230, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 150, 220, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 160, 210, 0, 3000] },
+			{ type: "spawn", func: "vector", args: [553, 170, 210, 180, 290, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 300, 250, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 310, 240, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 320, 230, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 330, 220, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 340, 210, 0, 3000] },
+			{ type: "spawn", func: "vector", args: [553, 350, 210, 0, 290, 0, 3000] }
+		],
+		"s-735-3000-117-0": [{ type: "text", sub_type: "message", message: "Left Safe", message_RU: "Слева сейф" },
+			{ type: "spawn", func: "vector", args: [553, 10, 210, 0, 290, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 20, 210, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 30, 220, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 40, 230, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 50, 240, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 60, 250, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 240, 250, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 230, 240, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 220, 230, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 210, 220, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 200, 210, 0, 3000] },
+			{ type: "spawn", func: "vector", args: [553, 190, 210, 180, 290, 0, 3000] }
+		],
+		"s-735-3000-118-0": [{ type: "text", sub_type: "message", message: "Left Safe", message_RU: "Слева сейф" },
+			{ type: "spawn", func: "vector", args: [553, 10, 210, 0, 290, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 20, 210, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 30, 220, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 40, 230, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 50, 240, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 60, 250, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 240, 250, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 230, 240, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 220, 230, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 210, 220, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 200, 210, 0, 3000] },
+			{ type: "spawn", func: "vector", args: [553, 190, 210, 180, 290, 0, 3000] }
+		],
+		"s-735-3000-119-0": [{ type: "text", sub_type: "message", message: "Right Safe", message_RU: "Справа сейф" },
+			{ type: "spawn", func: "point", args: [553, 120, 250, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 130, 240, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 140, 230, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 150, 220, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 160, 210, 0, 3000] },
+			{ type: "spawn", func: "vector", args: [553, 170, 210, 180, 290, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 300, 250, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 310, 240, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 320, 230, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 330, 220, 0, 3000] },
+			{ type: "spawn", func: "point", args: [553, 340, 210, 0, 3000] },
+			{ type: "spawn", func: "vector", args: [553, 350, 210, 0, 290, 0, 3000] }
+		],
+		"s-735-3000-129-0": [{ type: "text", class_position: "tank", sub_type: "message", message: "Dodge", message_RU: "Эвейд" }],
+		"s-735-3000-305-0": [{ type: "spawn", func: "circle", args: [false, 553, 0, 0, 8, 300, 0, 7000] }],
+		"s-735-3000-321-0": [{ type: "text", sub_type: "message", message: "Shield!", message_RU: "Щит!" }],
+		"s-735-3000-324-0": [{ type: "text", sub_type: "message", message: "Dodge", message_RU: "Эвейд" }]
 	};
-		dispatch.hook('S_ACTION_STAGE',9, skill_change.bind(null, true));
-}
-
-
-
-
-
-
-
-function skilld_event(skillid, handlers, event, entity, dispatch) {
-	
-	
-if ([1123].includes(skillid)) {
-
-	
-	if 	(notice = false)  return;
-	
-	SpawnMarker(false,323,125,0,253300,false,["火神","safe"],handlers,event,entity);	
-	SpawnMarker(false,217,125,0,253300,false,["火神","safe"],handlers,event,entity);	
-    SpawnVector(553,270,75,0,500,0,253300,handlers,event,entity);//左前直线
-    SpawnVector(551,270,50,0,500,0,2533,handlers,event,entity);//左前直线	
-	SpawnVector(551,90,50,0,500,2533,800,handlers,event,entity);//右前直线	
-    SpawnVector(551,270,50,0,500,3333,500,handlers,event,entity);//左前直线		
-	SpawnVector(551,90,50,0,500,3833,2000,handlers,event,entity);//右前直线	
-	
-    SpawnVector(553,270,75,180,500,0,253300,handlers,event,entity);//左后直线		
-    SpawnVector(551,270,50,180,500,0,2533,handlers,event,entity);//左后直线	
-	SpawnVector(551,90,50,180,500,2533,800,handlers,event,entity);//右后直线	
-    SpawnVector(551,270,50,180,500,3333,500,handlers,event,entity);//左后直线		
-	SpawnVector(551,90,50,180,500,3833,2000,handlers,event,entity);//右后直线	
-	
-	
-SpawnSemicircle(0,180,912,0,0,20,160,0,200000,handlers,event,entity);
-SpawnSemicircle(0,180,912,0,0,12,220,0,200000,handlers,event,entity);
-SpawnSemicircle(0,180,912,0,0,10,300,0,200000,handlers,event,entity);
-SpawnSemicircle(0,180,912,0,0,8,360,0,200000,handlers,event,entity)	;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    handlers['text']({"type": "text","sub_type": "message","delay": 60000,"message":  'Waves soon...',"message_TW": "半月准备"}); 
-	notice = false;
-}	
-	
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports = {
-	
-	load(dispatch) {
-		({ player, entity, library, effect } = dispatch.require.library);
-	},
-
-
-
-   // "h-735-1000-100": [{"type": "func","func":skilld_event.bind(null, 1123)}],	
-
-
-    "s-735-1000-111-0": [{"type": "text","sub_type": "message","message": "BACK ATTACK","message_TW": "BOSS 攻击身后打手请注意！" }],	
-    "s-735-1000-112-0": [{"type": "text","sub_type": "message","message": "BACK ATTACK","message_TW": "BOSS 攻击身后打手请注意！" }],
-    "s-735-1000-205-0": [{"type": "text","sub_type": "message","message": "wind","message_TW": "即将开启通风系统，请离开中间！" }],	
-   // "s-735-1000-304-0": [{"type": "text","sub_type": "message","message": "OUT","message_TW": "出去！" },{"type": "func","func":skilld_event.bind(null, 1123)}],
-   // "s-735-1000-305-0": [{"type": "text","sub_type": "message","message": "IN","message_TW": "进！" },{"type": "func","func":skilld_event.bind(null, 1123)}],	
-    "s-735-1000-306-0": [{"type": "text","sub_type": "message","message": "Incoming Summon","message_TW": "召唤地雷！快打！" }], 	
-    "s-735-1000-307-0": [{"type": "text","sub_type": "message","message": "PULL","message_TW": "BOSS 拉人，注意无敌躲避！" }],	
-	
-    "s-735-1000-309-0": [ 
-      {"type": "text","sub_type": "message","message": "Four missile launches were initiated","message_TW": "开始发射4次导弹！！" },
-      {"type": "text","sub_type": "message","delay": 7000,"message": "5", "message_TW": "5"},
-      {"type": "text","sub_type": "message","delay": 8000,"message": "4", "message_TW": "4"},
-      {"type": "text","sub_type": "message","delay": 9000,"message": "3", "message_TW": "3"},
-      {"type": "text","sub_type": "message","delay": 10000,"message": "2", "message_TW": "2"},
-      {"type": "text","sub_type": "message","delay": 11000,"message": "1", "message_TW": "1"},
-      {"type": "text","sub_type": "message","delay": 12000,"message": "JUMP", "message_TW": "快跳！"}
-],
-//------------------------------------2王
-
-"s-735-2000-102-0": [{"type": "text","class_position":"tank","sub_type": "message","message": "front","message_TW": "前砸注意躲避"}],
-"s-735-2000-108-0": [{"type": "text","sub_type": "message","message": "back","message_TW": "后踢打手補师注意"}],
-"s-735-2000-301-0": [{"type": "text","sub_type": "message","message": "throws","message_TW": "boss扔溜溜球，注意躲避"}],
-"s-735-2000-304-0": [{"type": "text","sub_type": "message","message": "OUT","message_TW": "快跑远"}],
-//------------------------------------3王
-//s拳
-"s-735-3000-116-0": [{"type": "text","sub_type": "message","message": "RIGHT →↘","message_TW": "S拳秒杀躲避右边 →↘"}],
-"s-735-3000-119-0": [{"type": "text","sub_type": "message","message": "RIGHT →↘","message_TW": "S拳秒杀躲避右边 →↘"}],
-"s-735-3000-118-0": [{"type": "text","sub_type": "message","message": "LEFT ←↙","message_TW": "S拳秒杀躲避 左边 ←↙"}],	 
-"s-735-3000-117-0": [{"type": "text","sub_type": "message","message": "LEFT ←↙","message_TW": "S拳秒杀躲避 左边 ←↙"}],
-"s-735-3000-129-0": [{"type": "text","class_position":"tank","sub_type": "message","message": "dodge","message_TW": "坦无敌闪"}],	
-
-  "s-735-3000-321-0": [
-		  {"type": "text","sub_type": "message","message": "SHIELD!","message_TW": "BOSS护盾 快打，不然灭团!" },
-          {"type": "text","sub_type": "message","delay": 90000,"message": "After 10s SHIELD! ", "message_TW": "10S后准备破盾！"}	    
-		 ],
-
-
-//出去	 
-"s-735-3000-324-0": [{"type": "text","sub_type": "message","message": "get out↓","message_TW": "出去"}]
-
 };
