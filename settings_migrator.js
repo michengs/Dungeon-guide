@@ -51,36 +51,11 @@ module.exports = function MigrateSettings(from_ver, to_ver, settings) {
 		settings = Object.assign(DefaultSettings, {});
 
 		to_ver = Math.round(to_ver * 100) / 100;
-
-		switch (to_ver) {
+		if (to_ver < 1.15 ) {	
+		remove(["dbg.json", "lib.js", "dispatch.js", "voice/voice.js", "voice"]);		
 			
-			case 1.08:
-				remove(["dbg.json", "lib.js", "dispatch.js", "voice/voice.js", "voice"]);
-				break;			
-
-			case 1.12:
-				for (const option in oldsettings) {
-					if (option == "dungeons") {
-						settings[option] = {};
-						for (const element of oldsettings[option]) {
-							let id = element.id;
-							delete element.id;
-							settings[option][id] = element;
-						}
-						continue;
-					} else {
-						settings[option] = oldsettings[option];
-					}
-				}
-				return settings;
-
-			case 1.13:
-				remove(["dbg.json", "lib.js", "dispatch.js", "voice/index.js", "voice"]);
-				break;
-
-			case 1.14:
-				oldsettings["debug"] = settings["debug"];
-				break;
+		}
+		switch (to_ver) {
 
 			case 1.15:
 				for (const option in oldsettings) {
