@@ -100,7 +100,12 @@ RK9-机库               RK9 NM
  
 憤怒的司令官修練場(TEST ING)      Draakon Arena (Hard) 
 
-暴走的RK-9機庫          RK-9 Kennel (Hard)	                           
+暴走的RK-9機庫          RK-9 Kennel (Hard)	
+
+狂氣競技場 [永恆的鬥神] Forbidden Arena [Undying Warlord
+
+狂氣競技場 [不滅的鬥神] Forbidden Arena [Nightmare Undying Warlord]
+                         
 
 Add Dungeon for other modules ....
 

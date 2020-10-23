@@ -40,7 +40,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 			// к нему (бублик вокруг босса) -> от него (круг перед боссом) -> к нему (бублик перед боссом)
 			if (purple && !boss_thirty) {
 				handlers.event([
-					{ type: "text", sub_type: "message", message: "In > Out > In", message_RU: "К нему > От него > К нему" },
+					{ type: "text", sub_type: "message", message: "In > Out > In", message_RU: "К нему > От него > К нему", message_TW: "进 > 出 > 进" },
 					// бублик перед боссом
 					{ type: "spawn", func: "circle", args: [true, 912, 0, 150, 8, 280, 5000, 3000] }, // 3
 					{ type: "spawn", func: "circle", args: [true, 912, 0, 150, 4, 570, 5000, 3000] } // 3
@@ -53,8 +53,8 @@ module.exports = (dispatch, handlers, guide, lang) => {
 			// к нему (бублик вокруг босса) -> от него (круг перед боссом) -> [волны] -> к нему (бублик перед боссом)
 			} else if (purple && boss_thirty) {
 				handlers.event([
-					{ type: "text", sub_type: "message", message: "In > Out", message_RU: "К нему > От него > (К нему)" },
-					{ type: "text", sub_type: "message", delay: 5000, message: "In", message_RU: "К нему" },
+					{ type: "text", sub_type: "message", message: "In > Out", message_RU: "К нему > От него > (К нему)", message_TW: "进 > 出" },
+					{ type: "text", sub_type: "message", delay: 5000, message: "In", message_RU: "К нему", message_TW: "进" },
 					// бублик перед боссом
 					{ type: "spawn", func: "circle", args: [true, 912, 0, 150, 8, 280, 5000, 5000] }, // 3
 					{ type: "spawn", func: "circle", args: [true, 912, 0, 150, 4, 570, 5000, 5000] } // 3
@@ -70,7 +70,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 			// от него (круг перед боссом) -> к нему (бублик вокруг босса) -> от него (большой круг перед боссом)
 			if (green && !boss_thirty) {
 				handlers.event([
-					{ type: "text", sub_type: "message", message: "Out > In > Out", message_RU: "От него > К нему > От него" },
+					{ type: "text", sub_type: "message", message: "Out > In > Out", message_RU: "От него > К нему > От него", message_TW: "出 > 进 > 出" },
 					// большой круг перед боссом
 					{ type: "spawn", func: "circle", args: [true, 912, 0, 200, 8, 450, 5000, 3000] } // 3
 				]);
@@ -81,7 +81,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 			// к нему (бублик вокруг босса) -> от него (круг перед боссом) -> от него (большой круг перед боссом)
 			} else if (purple && !boss_thirty) {
 				handlers.event([
-					{ type: "text", sub_type: "message", message: "In > Out > Out", message_RU: "К нему > От него > От него" },
+					{ type: "text", sub_type: "message", message: "In > Out > Out", message_RU: "К нему > От него > От него", message_TW: "进 > 出 > 出" },
 					// большой круг перед боссом
 					{ type: "spawn", func: "circle", args: [true, 912, 0, 200, 8, 450, 5000, 3000] } // 3
 				]);
@@ -93,8 +93,8 @@ module.exports = (dispatch, handlers, guide, lang) => {
 			// от него (круг перед боссом) -> к нему (бублик вокруг босса) -> [волны] -> от него (большой круг перед боссом)
 			} else if (green && boss_thirty) {
 				handlers.event([
-					{ type: "text", sub_type: "message", message: "Out > In", message_RU: "От него > К нему > (От него)" },
-					{ type: "text", sub_type: "message", delay: 5000, message: "Out", message_RU: "От него" },
+					{ type: "text", sub_type: "message", message: "Out > In", message_RU: "От него > К нему > (От него)", message_TW: "出> 进" },
+					{ type: "text", sub_type: "message", delay: 5000, message: "Out", message_RU: "От него", message_TW: "右手" },
 					// большой круг перед боссом
 					{ type: "spawn", func: "circle", args: [true, 912, 0, 200, 8, 450, 5000, 5000] } // 3
 				]);
@@ -106,8 +106,8 @@ module.exports = (dispatch, handlers, guide, lang) => {
 			// к нему (бублик вокруг босса) -> от него (круг перед боссом) -> [волны] -> от него (большой круг перед боссом)
 			} else if (purple && boss_thirty) {
 				handlers.event([
-					{ type: "text", sub_type: "message", message: "In > Out", message_RU: "К нему > От него > (От него)" },
-					{ type: "text", sub_type: "message", delay: 5000, message: "Out", message_RU: "От него" },
+					{ type: "text", sub_type: "message", message: "In > Out", message_RU: "К нему > От него > (От него)", message_TW: "进 > 出" },
+					{ type: "text", sub_type: "message", delay: 5000, message: "Out", message_RU: "От него", message_TW: "出" },
 					// большой круг перед боссом
 					{ type: "spawn", func: "circle", args: [true, 912, 0, 200, 8, 450, 5000, 5000] } // 3
 				]);
@@ -119,10 +119,10 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		// Прыжок
 		if (skillid == 127) {
 			if (boss_thirty)
-				handlers.text({ sub_type: "message", message: "Jump | Get Out", message_RU: "Прыжок | От него" });
+				handlers.text({ sub_type: "message", message: "Jump | Get Out", message_RU: "Прыжок | От него", message_TW: "跳 | 远离" });
 			else
 				handlers.event([
-					{ type: "text", sub_type: "message", message: "Jump | Get In", message_RU: "Прыжок | К нему" },
+					{ type: "text", sub_type: "message", message: "Jump | Get In", message_RU: "Прыжок | К нему", message_TW: "跳 | 靠近" },
 					{ type: "spawn", func: "circle", args: [true, 553, 0, 0, 15, 200, 250, 1000] },
 					{ type: "spawn", func: "circle", args: [true, 553, 0, 0, 10, 300, 1000, 4000] }
 				]);
@@ -139,8 +139,8 @@ module.exports = (dispatch, handlers, guide, lang) => {
 
 	let debuff_tracker_started = false;
 	let debuffs_targe = {
-		30209101: { message: "Lightning", message_RU: "Молния (эвейд)" },
-		30209102: { message: "Witch", message_RU: "Ведьма (эвейд)" }
+		30209101: { message: "Lightning", message_RU: "Молния (эвейд)", message_TW: "闪电" },
+		30209102: { message: "Witch", message_RU: "Ведьма (эвейд)", message_TW: "魔女" }
 	};
 
 	let debuff_call_event = null;
@@ -160,7 +160,8 @@ module.exports = (dispatch, handlers, guide, lang) => {
 							handlers.text({
 								sub_type: "alert",
 								message: debuffs_targe[event.id].message,
-								message_RU: debuffs_targe[event.id].message_RU
+								message_RU: debuffs_targe[event.id].message_RU,
+								message_TW: debuffs_targe[event.id].message_TW
 							});
 
 							debuff_call_event = null;
@@ -184,12 +185,12 @@ module.exports = (dispatch, handlers, guide, lang) => {
 
 		// 1 BOSS
 		"s-3020-1900-104-0": [
-			{ type: "text", sub_type: "message", message: "Suction (Dodge)", message_RU: "Высасывание (Выйти)" },
+			{ type: "text", sub_type: "message", message: "Suction (Dodge)", message_RU: "Высасывание (Выйти)", message_TW: "吸蓝" },
 			{ type: "spawn", func: "circle", args: [true, 553, 0, 0, 15, 450, 200, 6000] }
 		],
 
 		// 2 BOSS
-		"s-3020-1200-103-0": [{ type: "text", sub_type: "message", message: "Suction (Dodge)", message_RU: "Высасывание" }],
+		"s-3020-1200-103-0": [{ type: "text", sub_type: "message", message: "Suction (Dodge)", message_RU: "Высасывание", message_TW: "吸蓝" }],
 
 		// 3 BOSS
 		"nd-3020-2200": [
@@ -237,7 +238,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		"s-3020-2200-123-0": [{ type: "func", func: boss_mech_event, args: [123] }], // "Ощути силу взрыва"
 
 		"s-3020-2200-108-0": [
-			{ type: "text", sub_type: "message", message: "Front Stun", message_RU: "Стан" },
+			{ type: "text", sub_type: "message", message: "Front Stun", message_RU: "Стан", message_TW: "前晕" },
 			{ type: "spawn", func: "circle", args: [true, 553, 0, 170, 20, 120, 200, 2000] }
 		],
 		//"s-3020-9101-122-0": [{ type: "text", sub_type: "message", message: "Jump", "message_TW": "强袭" }],
@@ -252,26 +253,26 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		//"s-3020-6103-202-0": [{ type: "text", sub_type: "message", message: 'Left swipe', "message_TW": "6103-202" }, { type: "spawn", func: "marker", args: [false, 0, 0, 100, 2000, true, null] }],  
 		//"s-3020-6103-201-0": [{ type: "text", sub_type: "message", message: 'Left swipe', "message_TW": "6103-201" }, { type: "spawn", func: "marker", args: [false, 0, 0, 100, 2000, true, null] }],   
 		"s-3020-2200-127-0": [{ type: "func", func: boss_mech_event, args: [127] }],
-		"s-3020-2200-128-0": [{ type: "text", sub_type: "message", message: "Uppercut (Knockup)", message_RU: "Черкаш (подлет)" }],
+		"s-3020-2200-128-0": [{ type: "text", sub_type: "message", message: "Uppercut (Knockup)", message_RU: "Черкаш (подлет)", message_TW: "强袭" }],
 		"s-3020-2200-129-0": [
-			{ type: "text", sub_type: "message", message: "Hammer Toss ~ Skull", message_RU: "Полоса в цель" },
+			{ type: "text", sub_type: "message", message: "Hammer Toss ~ Skull", message_RU: "Полоса в цель", message_TW: "点名蓄力" },
 			{ type: "spawn", func: "vector", args: [553, 90, 100, 0, 500, 200, 2000] },
 			{ type: "spawn", func: "vector", args: [553, 270, 100, 0, 500, 200, 2000] }
 		],
 		//"s-3020-2200-131-0": [{ type: "text", sub_type: "message", message: "Jump", message_RU: "Прыжок" }],
 		"s-3020-2200-133-1": [
-			{ type: "text", sub_type: "message", message: "Donuts", message_RU: "Бублики" },
+			{ type: "text", sub_type: "message", message: "Donuts", message_RU: "Бублики", message_TW: "点名扩散圈" },
 			{ type: "spawn", func: "circle", args: [true, 445, 0, 0, 10, 300, 200, 5000] },
 			{ type: "spawn", func: "circle", args: [true, 445, 0, 0, 6, 600, 200, 5000] },
 			{ type: "spawn", func: "circle", args: [true, 445, 0, 0, 4, 900, 200, 5000] }
 		],
-		"s-3020-2200-135-0": [{ type: "text", sub_type: "message", message: "Puddles Inc (Jump)", message_RU: "Волны х5" }],
+		"s-3020-2200-135-0": [{ type: "text", sub_type: "message", message: "Puddles Inc (Jump)", message_RU: "Волны х5", message_TW: "准备跳" }],
 
-		"s-3020-2200-137-0": [{ type: "text", sub_type: "message", message: "Outward Pluse", message_RU: "Волна от" }],
-		"s-3020-2200-139-0": [{ type: "text", sub_type: "message", message: "Inward Succ", message_RU: "Волна к" }],
+		"s-3020-2200-137-0": [{ type: "text", sub_type: "message", message: "Outward Pluse", message_RU: "Волна от", message_TW: "扩散圈" }],
+		"s-3020-2200-139-0": [{ type: "text", sub_type: "message", message: "Inward Succ", message_RU: "Волна к", message_TW: "收缩圈" }],
 
 		"s-3020-2200-202-0": [{ type: "text", sub_type: "message", message: "Defence 3 seconds", message_RU: "Защита 3 сек." }],
 		"s-3020-2200-203-0": [{ type: "text", sub_type: "message", message: "Defence 10 seconds", message_RU: "Защита 10 сек." }],
-		"s-3020-2200-204-0": [{ type: "text", sub_type: "message", message: "30% (transformation)", message_RU: "30% (видоизменение)" }]
+		"s-3020-2200-204-0": [{ type: "text", sub_type: "message", message: "30% (transformation)", message_RU: "30% (видоизменение)", message_TW: "暴走变身" }]
 	};
 };
