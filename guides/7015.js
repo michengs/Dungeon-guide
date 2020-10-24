@@ -29,6 +29,6 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		"s-620-1005-303-0": [{ type: "alias", id: "s-620-1001-303-0" }],
 
 		"s-620-1000-129-0": [{ type: "text", sub_type: "message", message: "Fireballs", message_RU: "Шары", message_TW: "火球" }],
-		"s-620-1000-106-0": [{ type: "text", sub_type: "message", message: "Random Jump", message_RU: "Случайный прыжок", message_TW: "随机跳" }],
+		"s-620-1000-106-0": [{ type: "text", sub_type: "message", message: "Random Jump", message_RU: "Случайный прыжок", message_TW: "随跳" }],
 	};
 };

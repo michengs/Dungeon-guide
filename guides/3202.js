@@ -55,7 +55,8 @@ module.exports = (dispatch, handlers, guide, lang) => {
 			{ type: "spawn", func: "vector", args: [912, 0, 0, 120, 450, 0, 4000] },
 			{ type: "spawn", func: "vector", args: [912, 0, 0, 250, 450, 0, 4000] },
 			{ type: "spawn", func: "vector", args: [912, 0, 0, 300, 450, 0, 4000] },
-			{ type: "text", sub_type: "message", delay: 1500, message: "Dodge!", message_RU: "Эвейд!", message_TW: "闪避" }
+			{ type: "text", sub_type: "message", delay: 1500, message: "Dodge!", message_RU: "Эвейд!", message_TW: "闪避" },
+			{ type: "text", sub_type: "message", delay: 4000, message: "扩散圈!" }
 		],
 		"s-3202-1000-122-0": [{ type: "spawn", func: "marker", args: [false, 0, 100, 500, 3000, true, null] }],
 		"s-3202-1000-123-0": [
@@ -79,7 +80,8 @@ module.exports = (dispatch, handlers, guide, lang) => {
 			{ type: "spawn", func: "vector", args: [912, 0, 0, 120, 450, 0, 4000] },
 			{ type: "spawn", func: "vector", args: [912, 0, 0, 250, 450, 0, 4000] },
 			{ type: "spawn", func: "vector", args: [912, 0, 0, 300, 450, 0, 4000] },
-			{ type: "text", sub_type: "message", delay: 1500, message: "Dodge!", message_RU: "Эвейд!", message_TW: "闪避" }
+			{ type: "text", sub_type: "message", delay: 1500, message: "Dodge!", message_RU: "Эвейд!", message_TW: "闪避" },
+			{ type: "text", sub_type: "message", delay: 4000, message: "收缩圈!" }
 		],
 		"s-3202-1000-125-0": [{ type: "spawn", func: "marker", args: [false, 0, 300, 500, 3000, true, null] }],
 		"s-3202-1000-126-0": [

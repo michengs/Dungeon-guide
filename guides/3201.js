@@ -60,7 +60,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 			{ type: "spawn", func: "vector", args: [553, 270, 139, -173, 800, 0, 3000] }
 		],
 		"s-3201-1000-111-0": [
-			{ type: "text", sub_type: "message", message: "Back Wave", message_RU: "Волна назад", message_TW: "后波" },
+			{ type: "text", sub_type: "message", message: "Back Wave", message_RU: "Волна назад", message_TW: "后喷" },
 			{ type: "spawn", func: "vector", args: [553, 0, 100, 112, 800, 0, 3000] },
 			{ type: "spawn", func: "vector", args: [553, 0, 100, -112, 800, 0, 3000] }
 		],
@@ -91,8 +91,8 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		],
 		//"s-3201-1000-128-0": [{ type: "text", class_position:"tank", sub_type: "message", message: "Triple Attack", message_RU: "Комба" }],
 		"s-3201-1000-131-0": [
-			{ type: "text", class_position:"dps", sub_type: "message", message: "Back Wave", message_RU: "Волна назад (фаст)", message_TW: "后波" },
-			{ type: "text", class_position:"heal", sub_type: "message", message: "Back Wave", message_RU: "Волна назад (фаст)", message_TW: "后波" },
+			{ type: "text", class_position:"dps", sub_type: "message", message: "Back Wave", message_RU: "Волна назад (фаст)", message_TW: "后喷" },
+			{ type: "text", class_position:"heal", sub_type: "message", message: "Back Wave", message_RU: "Волна назад (фаст)", message_TW: "后喷" },
 			{ type: "spawn", func: "vector", args: [553, 0, 100, 112, 800, 0, 3000] },
 			{ type: "spawn", func: "vector", args: [553, 0, 100, -112, 800, 0, 3000] }
 		],
@@ -135,12 +135,12 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		"s-3201-1000-151-0": [{ type: "text", sub_type: "message", message: "Stun Attack", message_RU: "Стан!", message_TW: "眩晕攻击" }],
 		"s-3201-1000-305-0": [{ type: "text", sub_type: "message", message: "Pizza", message_RU: "Pizza", message_TW: "披萨" }],
 		"s-3201-1000-311-0": [
-			{ type: "text", sub_type: "message", message_RU: "Мёд!", message_TW: "后波" },
-			{ type: "text", sub_type: "message", delay: 4000, message: "pull", message_RU: "Откид!", message_TW: "拉" }
+			{ type: "text", sub_type: "message", message_RU: "Мёд!", message_TW: "远程打手注意" },
+			{ type: "text", sub_type: "message", delay: 4000, message: "pull", message_RU: "Откид!", message_TW: "拉垮" }
 		],
 		"s-3201-1000-312-0": [
 			{ type: "text", sub_type: "message", message_RU: "Мёд (фаст)!", message_TW: "!!" },
-			{ type: "text", sub_type: "message", delay: 2000, message: "pull", message_RU: "Откид!", message_TW: "拉" }
+			{ type: "text", sub_type: "message", delay: 2000, message: "pull", message_RU: "Откид!", message_TW: "拉垮" }
 		],
 		"s-3201-1000-313-0": [
 			{ type: "text", sub_type: "message", message: "Circles (Slow)", message_RU: "Кольцо", message_TW: "炸圈(慢)" },
@@ -176,10 +176,10 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		"s-3201-2000-230-0": [{ type: "text", sub_type: "message", message: "AOE", message_RU: "AOE!!" }],
 
 		"s-3201-2000-231-0": [
-			{ type: "text", sub_type: "message", message: "Out Safe", message_RU: "От него", message_TW: "外面安全" },
+			{ type: "text", sub_type: "message", message: "Out Safe", message_RU: "От него", message_TW: "出" },
 			{ type: "spawn", func: "circle", args: [false, 553, 0, 0, 10, 300, 0, 3000] }
 		],
-		"s-3201-2000-232-0": [{ type: "text", sub_type: "message", message: "In Safe", message_RU: "К нему", message_TW: "里面安全" },
+		"s-3201-2000-232-0": [{ type: "text", sub_type: "message", message: "In Safe", message_RU: "К нему", message_TW: "进" },
 			{ type: "spawn", func: "circle", args: [false, 553, 0, 0, 10, 300, 0, 3000] },
 			{ type: "spawn", func: "circle", args: [false, 553, 0, 0, 3, 1000, 0, 3000] }
 		],

@@ -133,8 +133,8 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		"s-920-2000-2112-0": [{ type: "text", sub_type: "message", message: "Right Slash", message_RU: "Правая полоса", message_TW: "右" }],
 
 		// Special attacks
-		"s-920-2000-3119-0": [{ type: "text", sub_type: "message", message: "Red: Out safe", message_RU: "Красный: Наружу сейф", message_TW: "红色: 外面安全" }],
-		"s-920-2000-3220-0": [{ type: "text", sub_type: "message", message: "Blue: In safe", message_RU: "Синий: Внутрь сейф", message_TW: "蓝色: 里面安全" }],
+		"s-920-2000-3119-0": [{ type: "text", sub_type: "message", message: "Red: Out safe", message_RU: "Красный: Наружу сейф", message_TW: "红色: 出" }],
+		"s-920-2000-3220-0": [{ type: "text", sub_type: "message", message: "Blue: In safe", message_RU: "Синий: Внутрь сейф", message_TW: "蓝色: 进" }],
 		"s-920-2000-3116-0": [{ type: "text", sub_type: "message", message: "Circles", message_RU: "Круги", message_TW: "圈" }],
 
 

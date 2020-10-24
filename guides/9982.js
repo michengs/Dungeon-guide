@@ -108,7 +108,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		"s-982-1000-307-0": [{ type: "text", sub_type: "message", message: "Cage", message_RU: "Клетка", message_TW: "笼子禁锢" }],
 		"s-982-1000-309-0": [{ type: "text", sub_type: "message", message: "1 Flower", message_RU: "1 цветок!", message_TW: "1朵花" }],
 		"s-982-1000-310-0": [{ type: "text", sub_type: "message", message: "2 Flower", message_RU: "2 цветка!", message_TW: "2朵花" }],
-		"s-982-1000-116-0": [{ type: "text", sub_type: "message", message: "Big AoE Attack!", message_RU: "AOE!!", message_TW: "全屏攻击" }],
+		"s-982-1000-116-0": [{ type: "text", sub_type: "message", message: "Big AoE Attack!", message_RU: "AOE!!", message_TW: "AoE！！" }],
 		"s-982-1000-312-0": [{ type: "text", sub_type: "message", message: "Golden Flower!", message_RU: "Золотой цветок!!", message_TW: "金色花" }],
 
 		// 2 BOSS

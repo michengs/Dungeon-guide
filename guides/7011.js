@@ -28,7 +28,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		],
 		"s-622-1000-124-0": [{ type: "text", sub_type: "message", message: "Circles (Horizontal)", message_RU: "Круги (горизонтально)", message_TW: "水平圈" }],
 		"s-622-1000-123-0": [{ type: "text", sub_type: "message", message: "Circles (Vertical)", message_RU: "Круги (вертикально)", message_TW: "垂直圈" }],
-		"s-622-1000-117-0": [{ type: "text", sub_type: "message", message: "Kicks", message_RU: "Удары", message_TW: "踢" }],
+		"s-622-1000-117-0": [{ type: "text", sub_type: "message", message: "Kicks", message_RU: "Удары", message_TW: "前方连续攻击" }],
 		"am-622-1000-622001": [{ type: "text", sub_type: "message", message: "Circles (Target)", message_RU: "Круги (таргет)", message_TW: "目标圈" }],
 		"qb-622-1000-622004": [{ type: "text", sub_type: "message", message: "Explosive Waves", message_RU: "Волны", message_TW: "爆炸波" }]
 	};

@@ -22,18 +22,31 @@ DO NOT INSTALLED IT AS "library-master" MAKE SURE IT'S NAMED "library"
 Note: All commands starts with "guide"
 
 
-    - guide - module on/off(default system notification, notification color yellow)
-    - guide spawnObject - spawn Ground object (DEFAULT: ON)
-    - guide spawnObject id - spawn area marker objects for specified by id dungeon on/off
-    - guide verbose id	- messaging for specified by id dungeon on/off
-    - guide voice - text-to-speech (DEFAULT: ON)
-    - guide lNotice - Virtual commander Notice on/off(DEFAULT: OFF)
-    - guide gNotice - Virtual captain  notifie on/off (DEFAULT: OFF)
-    - guide 1to10 - settings Voice speed (DEFAULT: 1)
-    - guide cr to cw - settings message color (DEFAULT: yellow)
-    - guide stream - streamer mode (hide all messages and objects) on/off
-    - guide dungeons - list of all supported dungeons and its ids	
-    - guide help - show what commands are there in the tera-guide guide module
+			["guide, module on/off", "PRMSG"],
+			["guide gui, show module GUI", "PRMSG"],
+			["guide voice, text-to-speech (TTS) messages on/off", "PRMSG"],
+			["guide lNotice, send notices to chat instead of screen messages on/off", "PRMSG"],
+			["guide gNotice, send messages to party chat channel on/off", "PRMSG"],
+			["guide male~female, to settings TTS speech voice gender (if available)", "PRMSG"],
+			["guide 1~10, to settings TTS speech rate", "PRMSG"],
+			["guide spawnObject, spawn marker objects on/off", "PRMSG"],
+			["guide stream, streamer mode (hiding messages and objects) on/off", "PRMSG"],
+			["guide dungeons, list of all supported dungeons", "PRMSG"],
+			["verbose id, send notices for specified dungeon on/off", "PRMSG"],
+			["guide spawnObject id, spawn marker objects for specified dungeon on/off", "PRMSG"],
+			["guide cr, message color is RED", "CRMSG"],
+			["guide co, message color is ORANGE", "COMSG"],
+			["guide cy, message color is YELLOW", "CYMSG"],
+			["guide cg, message color is GREEN", "CGMSG"],
+			["guide cdb, message color is DARK BLUE", "CDBMSG"],
+			["guide cb, message color is BLUE", "CBMSG"],
+			["guide cv, message color is VIOLET", "CVMSG"],
+			["guide cp, message color is PINK", "CPMSG"],
+			["guide clp, message color is LIGHT PINK", "CLPMSG"],
+			["guide clb, message color is LIGHT BLUE", "CLBMSG"],
+			["guide cbl, message color is BLACK", "CBLMSG"],
+			["guide cgr, message color is GRAY", "CGRMSG"],
+			["guide cw, message color is WHITE", "CWMSG"],
 
 
 proxy频道输入:補助 help，获取更多使用信息。 
