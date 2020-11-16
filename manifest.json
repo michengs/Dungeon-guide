@@ -6,7 +6,7 @@
 		"guides/3026.js": "3571b826286d08222a95c0c1eb4acb032e4289918edb56392a68e591bfa0ffb7",
 		"guides/3027.js": "1a1df2a05ee5a4d4c7f5c3a3611e3dcd1e49fd338aab3d7549d7b8532a40c928",
 		"guides/3034.js": "cda85742bb7a8515704f12c684008747501992013337846f50a762b9f43a35d8",
-		"guides/3036.js": "646c441d3d93f9ff4f9fdd42efe5e5d9c88fb448d3eb84b62b6d37b5910dd154",
+		"guides/3036.js": "11a4d717ca391f812a76d7c7153d9ea7660c8c15a02b764a7bed8ef22711988e",
 		"guides/3102.js": "441c3fd65c1cfee37f19e0e2c6bcefc74bb5000a88ae734d0e8e1809373a840c",
 		"guides/3103.js": "c9fb82ccdb2c10ede96c8a1665c2e54e00e8865cbeabbbd5be298899f22c1d31",
 		"guides/3126.js": "47bf33317d3ccde66c60777134d648c08a2a6b9c524a35ad3d68cdd87a668a88",
@@ -127,7 +127,7 @@
 		"guides_TW/3026.js": "e2ed7f794656b5a3841868556861da39155a162f21b8091292661e7baff0d237",
 		"guides_TW/3027.js": "ad5d969e947b68fd246225a2986faa55b7c585ac21f00db37111be77f6200e1e",
 		"guides_TW/3034.js": "69a5018b0592e3c6df8da6c585fbd9c16a344f6a981a5db2e1742ce5ffd6d64e",
-		"guides_TW/3036.js": "646c441d3d93f9ff4f9fdd42efe5e5d9c88fb448d3eb84b62b6d37b5910dd154",
+		"guides_TW/3036.js": "11a4d717ca391f812a76d7c7153d9ea7660c8c15a02b764a7bed8ef22711988e",
 		"guides_TW/3102.js": "d88ecb0d72cd669ec883771e2161a0fb345e3791bda2aab5ec6fc7ed66a844dc",
 		"guides_TW/3103.js": "30e95b260c879cbaf7367d3f98bd2ac64a518fec996f96a6170421e3d6f280d9",
 		"guides_TW/3126.js": "4b5c0b5f31014bd1045c67a6a9b5f35bcb7315dc748ddb08355c081920300b16",
@@ -147,11 +147,14 @@
 		"lang/dungeons.js": "d9de1df1abffb55e3ae08fe843ce9ad2712f377ee954b2066a1e8853db8d1340",
 		"lang/strings.js": "64470a8dfefc057f3bc2f34b274d492efe4235266d3e92854506298fcb1300ed",
 		"module.json": "559fae89cba1cbe63ce9188a2b45417dbb38980256966539126a540d63e39c74",
-		"readme.md": "b2aeb62e485fa5ec3d24cb3c6ca3007e2a0761f0b6e4bd6ccadc9c5c31a03100",
+		"readme.md": "bb10dcbc39c0091a6dd977d38a8e3e72d57573b8d7ee249bb01b2e8d698b3bbb",
 		"settings_migrator.js": "70b3c65233a07cc7fc13542ec457c78b6243e5b145ce0951b0f9c90f95ddb929"
 	},
 	"defs": {
 		"S_ABNORMALITY_BEGIN": 4,
-		"S_ABNORMALITY_END": 1
+		"S_ABNORMALITY_END": 1,
+		"S_BOSS_GAGE_INFO": 3,
+		"S_NPC_STATUS": 2,
+		"S_QUEST_BALLOON": 1
 	}
 }
