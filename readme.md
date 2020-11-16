@@ -118,6 +118,8 @@ RK9-机库               RK9 NM
 狂氣競技場 [永恆的鬥神] Forbidden Arena [Undying Warlord
 
 狂氣競技場 [不滅的鬥神] Forbidden Arena [Nightmare Undying Warlord]
+
+熾熱艾爾凱拉斯號
                          
 
 Add Dungeon for other modules ....
