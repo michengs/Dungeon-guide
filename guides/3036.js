@@ -22,15 +22,18 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		if (counter >= 2) {
 			handlers.text({
 				sub_type: "message",
-				message: "Back Attack"
+				message: (Triple_Attack ? "!" : "Back Attack")
 			});
 		}                                                                                   //1965
                                                                                            //1970     2040
-		timer_two = dispatch.setTimeout(() => counter = 0, wasEnraged ? 2000 : 2040);     //1980 2010 
+		timer_two = dispatch.setTimeout(() => counter = 0, wasEnraged ? 2050 : 2140);     //1980 2010 
 	}	 
 	function start_boss() {
 		steptwo = 1;
-	}	 
+	}
+	function start_boss_h() {
+		steptwo = 0;
+	}		
 	function start_dungeon_event() {
 		function sBossGageInfo(event) {
 			if (!boss_ID || (boss_ID!=event.id)) boss_ID = event.id;	
@@ -131,6 +134,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 			{ type: "stop_timers" },
 			{ type: "despawn_all" }
 		],
+		"h-3036-1000-100": [{ type: "func", func: start_boss_h }],			
 		"h-3036-1000-94": [{ type: "text", sub_type: "message", message: "---------------94%----------------" }],		
 		"h-3036-1000-79": [{ type: "text", sub_type: "message", message: "---------------79%----------------" },{ type: "func", func: start_boss }],
 		"s-3036-1000-1103-0": [{ type: "func", func: boss_backattack_event }],//1103,1106,
@@ -145,52 +149,18 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		"s-3036-1000-1402-0": [{ type: "func", func: skilld_event, args: [1402] }],
 		"s-3036-1000-1701-0": [{ type: "func", func: skilld_event, args: [1701] }],//右
 		"s-3036-1000-1702-0": [{ type: "func", func: skilld_event, args: [1702] }],//左
-		"s-3036-1000-1805-0": [{ type: "text", sub_type: "message", message: "between-in-all-out" },
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 20, 50, 0, 1620]},//内
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 18, 150, 10, 1620]},								   							   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 16, 250, 0, 1620]},
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 12, 450, 0, 1620]},//S外						   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 10, 550, 0, 1620]},								   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 8, 650, 0, 1620]},						
-				               { type: "spawn", func: "circle", args: [false, 912, 0, 0, 16,  250, 1620, 900]}, //外						   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 14, 350, 1620, 900]},	
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 12, 450, 1620, 900]},							   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 10, 550, 1620, 900]},						   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 8, 650, 1620, 1900]},						
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 20,  50, 2520, 1830]}, //全						   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 18, 150, 2520, 1830]},							   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 16, 250, 2520, 1830]},							   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 14, 350, 2520, 1830]},						   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 12, 450, 2520, 1830]},					   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 10, 550, 2520, 1830]},								   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 8, 650, 2520, 1830]},			
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 20, 50, 4350, 2000]},//内
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 18, 150, 4350, 2000]},								   							   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 16, 250, 4350, 2000]}],  //650
-		"s-3036-1000-1806-0": [{ type: "text", sub_type: "message", message: "in-between-all-in" },//中 2120 ,3020 4850ms        1620 2520  4350 
-				               { type: "spawn", func: "circle", args: [false, 912, 0, 0, 16,  250, 0, 1620]}, //外						   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 14, 350, 0, 1620]},	
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 12, 450, 0, 1620]},							   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 10, 550, 0, 1620]},						   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 8, 650, 0, 1620]},
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 20, 50, 1620, 900]},//内
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 18, 150, 1620, 900]},								   							   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 16, 250, 1620, 900]},
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 12, 450, 1620, 900]},//S外						   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 10, 550, 1620, 900]},								   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 8, 650, 1620, 900]},
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 20,  50, 2520, 1830]}, //全						   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 18, 150, 2520, 1830]},							   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 16, 250, 2520, 1830]},							   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 14, 350, 2520, 1830]},						   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 12, 450, 2520, 1830]},					   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 10, 550, 2520, 1830]},								   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 8, 650, 2520, 1830]},
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 16,  250, 4350, 2000]}, //外					   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 14, 350, 4350, 2000]},							   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 12, 450, 4350, 2000]},					   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 10, 550, 4350, 2000]},						   
-		                       { type: "spawn", func: "circle", args: [false, 912, 0, 0, 8, 650, 4350, 2000]}],
+		"s-3036-1000-1805-0": [{ type: "text", sub_type: "message", message: "beween" },	
+                               { type: "text", sub_type: "message", delay: 2150, message: "IN" },	
+                               { type: "text", sub_type: "message", delay: 3050, message: "all | OUT" },		
+ //                              { type: "text", sub_type: "message", delay: 3500, message: "OUT" },							   
+		                       { type: "spawn", func: "circle", args: [false, 553, 0, 0, 8, 250, 0, 6000]},
+		                       { type: "spawn", func: "circle", args: [false, 553, 0, 0, 6, 450, 0, 6000]}],  //650	
+		"s-3036-1000-1806-0": [{ type: "text", sub_type: "message", message: "IN" },	
+                               { type: "text", sub_type: "message", delay: 2150, message: "beween" },	
+                               { type: "text", sub_type: "message", delay: 3050, message: "all | IN" },		
+ //                              { type: "text", sub_type: "message", delay: 3500, message: "IN" },							   
+		                       { type: "spawn", func: "circle", args: [false, 553, 0, 0, 8, 250, 0, 6000]},
+		                       { type: "spawn", func: "circle", args: [false, 553, 0, 0, 6, 450, 0, 6000]}], 	
 		"s-3036-1000-2103-0": [{ type: "func", func: boss_backattack_event }],
 		"s-3036-1000-2106-0": [{ type: "func", func: boss_backattack_event }],
 		"s-3036-1000-2112-0": [{ type: "text", sub_type: "message", message: "back move" }],
