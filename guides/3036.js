@@ -5,10 +5,16 @@ module.exports = (dispatch, handlers, guide, lang) => {
 	guide.type = SP;
  let Triple_Attack = false,
    	 enrage = 0,	
-	 steptwo = 0,	
+	 hp_79 = 0,	
 	 counter = 0,
-	 timer = null,	
-	 timer_two = null;	
+	 time1 = null,	
+	 time2 = null,
+	 num = null;	
+    let start_enraged_time_A = null;  	
+    let start_enraged_time_B = null;  
+    let start_enraged_time_C = null; 	
+    let	total_time1 = null;		 
+    let	total_time2 = null;		 
 	const mech_messages = {
 		0: { message: "Three Split Strikes" },
 		1: { message: "Four Split Strikes"}
@@ -22,48 +28,75 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		1: { message: "right"}
 	};		
 	function boss_backattack_event() {
-		dispatch.clearTimeout(timer_two);
+		dispatch.clearTimeout(time2);
 		counter++;
 		if (counter >= 2) {
 			handlers.text({
 				sub_type: "message",
 				message: "Back Attack",
 				message_RU: "Задний",
-				message_TW: (Triple_Attack ? "!" : "后方")
+				message_TW: (Triple_Attack ? "!" : "back")
 			});
 		}                                                                                   //1965
-		timer_two = dispatch.setTimeout(() => counter = 0, (enrage ==1) ? 2050 : 2140);     //1980 2010 
-	}	   
-	function skilld_event(skillid, ent) {                                               //1401  1701  右劈            1402 1702 左
-		if ([1401, 1701,1402,1702].includes(skillid)) {		
-			const bossskill = (skillid % 2 + enrage) % 2
+		time2 = dispatch.setTimeout(() => counter = 0, (enrage ==1) ? 2000 : 2200);     //1980 2010 
+	}
+		
+		function enraged_change() {
+				    start_enraged_time_B = new Date();			
+					total_time1 = (start_enraged_time_B - start_enraged_time_A - 36000)					
+				    handlers.text({
+					sub_type: "MSG",
+					message: "End of Enrage" + `${total_time1}` 
+				});	
+	           }                                                                                   //   1702 左
+	
+	function skilld_event(skillid, ent) {                                               //1401  1701  右劈0-180            1402 1702 左 180-360
+		if ([1401, 1701,1402,1702].includes(skillid)) {
+			    start_enraged_time_C = new Date();
+				total_time2 = (start_enraged_time_C - start_enraged_time_A)	    //if total_time2 = 35500   enrage = 1     预判900ms后愤怒状态              修正值增加
+				if (total_time2 >= 35100) {
+				enrage = 0	
+				} else {
+				enrage = 1		
+				}
+				switch (skillid) {
+				case 1401: // 
+				case 1402: //				
+		         num = (skillid % 2 + enrage  ) % 2	
+					break;
+				case 1701: // 
+				case 1702: // 				
+		         num = skillid % 2   
+					break;
+			}		
 			handlers.event([ 			
-            { type: "text", sub_type: "message", message:  (Triple_Attack ? `${mech_messages[steptwo].message}` + `${mech_direction[bossskill].message}` : "Two Split Strikes" + `${mech_direction[bossskill].message}`)},			
+            { type: "text", sub_type: "message", message:  (Triple_Attack ? `${mech_messages[hp_79].message}` + `${mech_direction[num].message}` : "Two Split Strikes" + `${mech_direction[num].message}`)	},			
 			{ type: "spawn", func: "vector", args: [553, 358, 0, 180, 500, 100, 1500] },
-			{ type: "spawn", func: "vector", args: [553, 358, 0, 0, 500, 100, 1500] },	
-			{ type: "spawn", func: "semicircle", args: [mech_num[bossskill].degree1, mech_num[bossskill].degree2, 912, 0, 0, 28, 50, 0, 1500] },  
-			{ type: "spawn", func: "semicircle", args: [mech_num[bossskill].degree1, mech_num[bossskill].degree2, 912, 0, 0, 25, 100, 0, 1500] },			
-			{ type: "spawn", func: "semicircle", args: [mech_num[bossskill].degree1, mech_num[bossskill].degree2, 912, 0, 0, 20, 160, 0, 1500] },  
-			{ type: "spawn", func: "semicircle", args: [mech_num[bossskill].degree1, mech_num[bossskill].degree2, 912, 0, 0, 12, 220, 0, 1500] },
-			{ type: "spawn", func: "semicircle", args: [mech_num[bossskill].degree1, mech_num[bossskill].degree2, 912, 0, 0, 10, 300, 0, 1500] },
-			{ type: "spawn", func: "semicircle", args: [mech_num[bossskill].degree1, mech_num[bossskill].degree2, 912, 0, 0, 8, 360, 0, 1500] }]);	
+			{ type: "spawn", func: "vector", args: [553, 358, 0, 0, 500, 100, 1500] },
+           // { type: "text", sub_type: "MSG", message: "距愤怒使用该技能持续时间" + `${total_time2}` + "-" + `${enrage}`  },			
+			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 28, 50, 0, 1500] },  
+			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 25, 100, 0, 1500] },			
+			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 20, 160, 0, 1500] },  
+			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 12, 220, 0, 1500] },
+			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 10, 300, 0, 1500] },
+			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 8, 360, 0, 1500] }]);	
             }
 		if ([3036039, 3036040, 3036041].includes(skillid)) {	
-				dispatch.clearTimeout(timer);
+				dispatch.clearTimeout(time1);
 				Triple_Attack = true;
-				timer = dispatch.setTimeout(() => Triple_Attack = false, 3500);	
+				time1 = dispatch.setTimeout(() => Triple_Attack = false, 3500);	
 		}	
-	      }
+	     }
 	return {
-		"rb-3036-1000": [{ type: "func", func: () => enrage = 1 },{ type: "text", sub_type: "message", message: "Enrage Up" }],
-		"re-3036-1000": [{ type: "func", func: () => enrage = 0 },{ type: "text", sub_type: "message", message: "End of Enrage" }],		
-		"ns-3036-1000": [{ type: "text", sub_type: "speech", message: "enter Sky Cruiser (Hard)" }],	
+		"rb-3036-1000": [{ type: "func", func: () => enrage = 1 },{ type: "func", func: () => start_enraged_time_A = new Date() },{ type: "text", sub_type: "message", message: "Enrage Up" }],
+		"re-3036-1000": [{ type: "func", func: () => enrage = 0 },{ type: "text", sub_type: "message", message: "End of Enrage" },{ type: "func", func: enraged_change }],		
+	//	"ns-3036-1000": [{ type: "text", sub_type: "speech", message: "进入熾熱艾爾凱拉斯號" }],	
 		"nd-3036-1001": [{ type: "stop_timers" },{ type: "despawn_all" }],
 		"s-3036-1001-1112-0": [{ type: "text", sub_type: "message", message: "Back Jump" }],
 		"nd-3036-1000": [{ type: "stop_timers" },{ type: "despawn_all" }],
-		"h-3036-1000-100": [{ type: "func", func: () => steptwo = 0 }],		
+		"h-3036-1000-100": [{ type: "func", func: () => hp_79 = 0 }],		
 		"h-3036-1000-94": [{ type: "text", sub_type: "message", message: "---------------94%----------------" }],		
-		"h-3036-1000-79": [{ type: "text", sub_type: "message", message: "---------------79%----------------" }, { type: "func", func: () => steptwo = 1 }],
+		"h-3036-1000-79": [{ type: "text", sub_type: "message", message: "---------------79%----------------" }, { type: "func", func: () => hp_79 = 1 }],
 		"s-3036-1000-1103-0": [{ type: "func", func: boss_backattack_event }],//1103,1106,
 		"s-3036-1000-1106-0": [{ type: "func", func: boss_backattack_event }],
 		"s-3036-1000-1112-0": [{ type: "text", sub_type: "message", message: "back move" }],
@@ -89,7 +122,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		"s-3036-1000-2103-0": [{ type: "func", func: boss_backattack_event }],
 		"s-3036-1000-2106-0": [{ type: "func", func: boss_backattack_event }],
 		"s-3036-1000-2112-0": [{ type: "text", sub_type: "message", message: "back move" }],
-		"s-3036-1000-2117-0": [{ type: "text", sub_type: "message", message: "front " }],
+		"s-3036-1000-2117-0": [{ type: "text", sub_type: "message", message: "front" }],
 		"s-3036-1000-2118-0": [{ type: "text", sub_type: "message", message: "Front Cut | Dodge" }],		
 		"qb-3036-1000-3036039": [{ type: "func", func: skilld_event, args: [3036039]}],		
 		"qb-3036-1000-3036040": [{ type: "func", func: skilld_event, args: [3036040]}],			
