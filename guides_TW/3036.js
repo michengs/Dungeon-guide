@@ -9,12 +9,10 @@ module.exports = (dispatch, handlers, guide, lang) => {
 	 counter = 0,
 	 time1 = null,	
 	 time2 = null,
-	 num = null;	
-    let start_enraged_time_A = null;  	
-    let start_enraged_time_B = null;  
-    let start_enraged_time_C = null; 	
-    let	total_time1 = null;		 
-    let	total_time2 = null;		 
+	 num = null,	
+     start_enraged_time_A = null, 	
+     start_enraged_time_C = null, 		 
+     total_time2 = null;		 
 	const mech_messages = {
 		0: { message: "3连劈" },
 		1: { message: "4连劈"}
@@ -30,31 +28,19 @@ module.exports = (dispatch, handlers, guide, lang) => {
 	function boss_backattack_event() {
 		dispatch.clearTimeout(time2);
 		counter++;
-		if (counter >= 2) {
+		if (counter >= 2 && !Triple_Attack) {
 			handlers.text({
 				sub_type: "message",
-				message: "Back Attack",
-				message_RU: "Задний",
-				message_TW: (Triple_Attack ? "!" : "后方")
+				message: "后方"
 			});
 		}                                                                                   //1965
-		time2 = dispatch.setTimeout(() => counter = 0, (enrage ==1) ? 2000 : 2200);     //1980 2010 
+		time2 = dispatch.setTimeout(() => counter = 0, (enrage ==1) ? 2200  : 2500  );     //1980 2010 
 	}
-		
-		function enraged_change() {
-				    start_enraged_time_B = new Date();			
-					total_time1 = (start_enraged_time_B - start_enraged_time_A - 36000)					
-				    handlers.text({
-					sub_type: "MSG",
-					message: "愤怒结束" + `${total_time1}` 
-				});	
-	           }                                                                                   //   1702 左
-	
 	function skilld_event(skillid, ent) {                                               //1401  1701  右劈0-180            1402 1702 左 180-360
 		if ([1401, 1701,1402,1702].includes(skillid)) {
 			    start_enraged_time_C = new Date();
 				total_time2 = (start_enraged_time_C - start_enraged_time_A)	    //if total_time2 = 35500   enrage = 1     预判900ms后愤怒状态              修正值增加
-				if (total_time2 >= 35100) {
+				if (total_time2 >= 35100 ) {
 				enrage = 0	
 				} else {
 				enrage = 1		
@@ -72,8 +58,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 			handlers.event([ 			
             { type: "text", sub_type: "message", message:  (Triple_Attack ? `${mech_messages[hp_79].message}` + `${mech_direction[num].message}` : "2连劈" + `${mech_direction[num].message}`)	},			
 			{ type: "spawn", func: "vector", args: [553, 358, 0, 180, 500, 100, 1500] },
-			{ type: "spawn", func: "vector", args: [553, 358, 0, 0, 500, 100, 1500] },
-            { type: "text", sub_type: "MSG", message: "距愤怒使用该技能持续时间" + `${total_time2}` + "-" + `${enrage}`  },			
+			{ type: "spawn", func: "vector", args: [553, 358, 0, 0, 500, 100, 1500] },		
 			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 28, 50, 0, 1500] },  
 			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 25, 100, 0, 1500] },			
 			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 20, 160, 0, 1500] },  
@@ -89,8 +74,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 	     }
 	return {
 		"rb-3036-1000": [{ type: "func", func: () => enrage = 1 },{ type: "func", func: () => start_enraged_time_A = new Date() },{ type: "text", sub_type: "message", message: "boss愤怒" }],
-		"re-3036-1000": [{ type: "func", func: () => enrage = 0 },{ type: "text", sub_type: "message", message: "愤怒结束" },{ type: "func", func: enraged_change }],		
-		"ns-3036-1000": [{ type: "text", sub_type: "speech", message: "进入熾熱艾爾凱拉斯號" }],	
+		"re-3036-1000": [{ type: "func", func: () => enrage = 0 },{ type: "text", sub_type: "message", message: "愤怒结束" }],			
 		"nd-3036-1001": [{ type: "stop_timers" },{ type: "despawn_all" }],
 		"s-3036-1001-1112-0": [{ type: "text", sub_type: "message", message: "后跳" }],
 		"nd-3036-1000": [{ type: "stop_timers" },{ type: "despawn_all" }],
@@ -118,10 +102,13 @@ module.exports = (dispatch, handlers, guide, lang) => {
                                { type: "text", sub_type: "message", delay: 2100, message: "中" },	
                                { type: "text", sub_type: "message", delay: 3050, message: "全 | 内" },								   
 		                       { type: "spawn", func: "circle", args: [false, 553, 0, 0, 8, 250, 0, 6000]},
-		                       { type: "spawn", func: "circle", args: [false, 553, 0, 0, 6, 450, 0, 6000]}], 							   
+		                       { type: "spawn", func: "circle", args: [false, 553, 0, 0, 6, 450, 0, 6000]}], 
+		"s-3036-1000-1801-0": [{ type: "text", sub_type: "message", message: "----沉默------" }],
+		"s-3036-1000-2115-0": [{ type: "text", sub_type: "message", delay: 3500,  message: "闪" }],		
+		"s-3036-1000-1115-0": [{ type: "text", sub_type: "message", delay: 3500,  message: "闪" }],			
 		"s-3036-1000-2103-0": [{ type: "func", func: boss_backattack_event }],
 		"s-3036-1000-2106-0": [{ type: "func", func: boss_backattack_event }],
-		"s-3036-1000-2112-0": [{ type: "text", sub_type: "message", message: "后退" }],
+		"s-3036-1000-2112-0": [{ type: "text", sub_type: "message", message: "后退" }],	
 		"s-3036-1000-2117-0": [{ type: "text", sub_type: "message", message: "前方 " }],
 		"s-3036-1000-2118-0": [{ type: "text", sub_type: "message", message: "砍击| 闪" }],		
 		"qb-3036-1000-3036039": [{ type: "func", func: skilld_event, args: [3036039]}],		
