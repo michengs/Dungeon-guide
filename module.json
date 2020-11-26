@@ -1,9 +1,9 @@
 {
     "disableAutoUpdate": false,
-    "name": "tera-guide",
+    "name": "Dungeon-guide",
     "options": {
         "niceName": "Guide",
-        "guiName": "TERA-Guide",
+        "guiName": "Dungeon-Guide",
         "settingsFile": "config.json",
         "settingsMigrator": "settings_migrator.js",
         "settingsVersion": 1.15
@@ -16,5 +16,5 @@
         "library": "https://raw.githubusercontent.com/tera-toolbox-mods/library/master/module.json",
         "guide-core": "https://raw.githubusercontent.com/michengs/guide-core/master/module.json"
     },
-    "version": "10/19/2020"
+    "version": "11/26/2020"
 }

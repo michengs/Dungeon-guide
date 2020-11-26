@@ -57,8 +57,8 @@ module.exports = (dispatch, handlers, guide, lang) => {
 			}		
 			handlers.event([ 			
             { type: "text", sub_type: "message", message:  (Triple_Attack ? `${mech_messages[hp_79].message}` + `${mech_direction[num].message}` : "2连劈" + `${mech_direction[num].message}`)	},			
-			{ type: "spawn", func: "vector", args: [553, 358, 0, 180, 500, 100, 1500] },
-			{ type: "spawn", func: "vector", args: [553, 358, 0, 0, 500, 100, 1500] },		
+			{ type: "spawn", func: "vector", args: [553, 358, 0, 180, 1100, 100, 1500] },
+			{ type: "spawn", func: "vector", args: [553, 358, 0, 0, 1100, 100, 1500] },		
 			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 28, 50, 0, 1500] },  
 			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 25, 100, 0, 1500] },			
 			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 20, 160, 0, 1500] },  
@@ -104,8 +104,8 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		                       { type: "spawn", func: "circle", args: [false, 553, 0, 0, 8, 250, 0, 6000]},
 		                       { type: "spawn", func: "circle", args: [false, 553, 0, 0, 6, 450, 0, 6000]}], 
 		"s-3036-1000-1801-0": [{ type: "text", sub_type: "message", message: "----沉默------" }],
-		"s-3036-1000-2115-0": [{ type: "text", sub_type: "message", delay: 3500,  message: "闪" }],		
-		"s-3036-1000-1115-0": [{ type: "text", sub_type: "message", delay: 3500,  message: "闪" }],			
+		"s-3036-1000-2115-0": [{ type: "text", sub_type: "message", delay: 3200,  message: "闪" }],		
+		"s-3036-1000-1115-0": [{ type: "text", sub_type: "message", delay: 3200,  message: "闪" }],			
 		"s-3036-1000-2103-0": [{ type: "func", func: boss_backattack_event }],
 		"s-3036-1000-2106-0": [{ type: "func", func: boss_backattack_event }],
 		"s-3036-1000-2112-0": [{ type: "text", sub_type: "message", message: "后退" }],	
