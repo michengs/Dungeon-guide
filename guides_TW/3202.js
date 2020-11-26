@@ -10,7 +10,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		],
 
 		// Ress bait / range check
-		"s-3202-1000-107-0": [{ type: "text", sub_type: "message", message: "Spectral Throw (Bait)", message_RU: "Спектральный бросок (байт)", message_TW: "小李飞刀" }],
+		"s-3202-1000-107-0": [{ type: "text", sub_type: "message", message: "Spectral Throw (Bait)", message_RU: "Спектральный бросок (байт)", message_TW: "点名(飞刀)" }],
 
 		// Basic attacks
 		"s-3202-1000-103-0": [{ type: "text", sub_type: "message", message: "2 Hits | Bleed", message_RU: "2 удара | Кровоток", message_TW: "2连击 | 流血" }],
@@ -40,7 +40,11 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		"s-3202-1000-109-0": [
 			{ type: "text", sub_type: "message", message: "Knockdown + Spin", message_RU: "Опрокид + Крутилка", message_TW: "击倒 + 旋转" },
 			{ type: "spawn", func: "circle", args: [true, 553, 0, 100, 10, 420, 0, 1000] },
-			{ type: "spawn", func: "circle", args: [true, 553, 0, 150, 10, 420, 1000, 2000] }
+			{ type: "spawn", func: "circle", args: [true, 553, 0, 150, 10, 420, 1000, 2000] },
+			{ type: "spawn", func: "circle", args: [true, 912, 0, 0, 20, 160, 0, 2000] },
+			{ type: "spawn", func: "circle", args: [true, 912, 0, 0, 12, 220, 0, 2000] },
+			{ type: "spawn", func: "circle", args: [true, 912, 0, 0, 10, 300, 0, 2000] },
+			{ type: "spawn", func: "circle", args: [true, 912, 0, 0, 8, 360, 0, 2000] }
 		],
 		"s-3202-1000-304-0": [{ type: "text", sub_type: "message", message: "Shield!", message_RU: "ЩИТ!", message_TW: "破盾" }],
 		"ab-3202-1000-32021006": [{ type: "text", sub_type: "message", message: "Plague/Regress", message_RU: "Чума/регресс", message_TW: "补师解" }],
