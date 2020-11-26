@@ -3,6 +3,7 @@
 // made by Emilia-s2
 
 module.exports = (dispatch, handlers, guide, lang) => {
+///
 	return {
 		"nd-622-1000": [
 			{ type: "stop_timers" },
