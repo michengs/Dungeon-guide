@@ -52,10 +52,10 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		}
 			handlers.text({
 				sub_type: "message",
-				message:  (is_one_back ? '后方!!' : '!!!') 
+				message:  (is_one_back ? '后方!!!' : '!!!') 
 			});
 		}                                                                                   //1965
-		dispatch.setTimeout(() => print = false,  2500  );     //1980 2010 
+		dispatch.setTimeout(() => print = false,  3500  );     //1980 2010 
 	}	
 	function skilld_event(skillid, ent) {                                               //1401  1701  右劈0-180            1402 1702 左 180-360
 		if ([1401, 1701,1402,1702].includes(skillid)) {
@@ -78,8 +78,8 @@ module.exports = (dispatch, handlers, guide, lang) => {
 			}		
 			handlers.event([ 			
             { type: "text", sub_type: "message", message:  (Triple_Attack ? `${mech_messages[hp_79].message}` + `${mech_direction[num].message}` : "2连劈" + `${mech_direction[num].message}`)	},			
-			{ type: "spawn", func: "vector", args: [553, 358, 0, 180, 1100, 100, 1500] },
-			{ type: "spawn", func: "vector", args: [553, 358, 0, 0, 1100, 100, 1500] },		
+			{ type: "spawn", func: "vector", args: [553, 358, 0, 180, 900, 100, 1500] },
+			{ type: "spawn", func: "vector", args: [553, 358, 0, 0, 900, 100, 1500] },		
 			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 28, 50, 0, 1500] },  
 			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 25, 100, 0, 1500] },			
 			{ type: "spawn", func: "semicircle", args: [mech_num[num].degree1, mech_num[num].degree2, 912, 0, 0, 20, 160, 0, 1500] },  
