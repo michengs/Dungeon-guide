@@ -12,7 +12,11 @@ module.exports = (dispatch, handlers, guide, lang) => {
 	 num = null,	
      start_enraged_time_A = null, 	
      start_enraged_time_C = null, 		 
-     total_time2 = null;		 
+     total_time2 = null,
+     back_time = 0,
+	 end_back_time = 0,
+	 is_one_back = false ,
+     print	= false ;     	 
 	const mech_messages = {
 		0: { message: "3连劈" },
 		1: { message: "4连劈"}
@@ -31,11 +35,28 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		if (counter >= 2 && !Triple_Attack) {
 			handlers.text({
 				sub_type: "message",
-				message: "后方"
+				message: "后方连击"
 			});
 		}                                                                                   //1965
 		time2 = dispatch.setTimeout(() => counter = 0, (enrage ==1) ? 2200  : 2500  );     //1980 2010 
 	}
+	function boss_backattack() {
+        end_back_time  = new Date() - back_time
+		if (!print) {
+			print = true
+        if ( 0 < end_back_time && end_back_time < 1500)
+        {
+        is_one_back = true ;
+        } else {
+        is_one_back = false ;				
+		}
+			handlers.text({
+				sub_type: "message",
+				message:  (is_one_back ? '后方!!' : '!!!') 
+			});
+		}                                                                                   //1965
+		dispatch.setTimeout(() => print = false,  2500  );     //1980 2010 
+	}	
 	function skilld_event(skillid, ent) {                                               //1401  1701  右劈0-180            1402 1702 左 180-360
 		if ([1401, 1701,1402,1702].includes(skillid)) {
 			    start_enraged_time_C = new Date();
@@ -73,30 +94,46 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		}	
 	     }
 	return {
+			"ns-3036-1001": [
+			{ type: "spawn", func: "marker", args: [false, 281, -500, 100, 60000000, false, ["達鲁坎", "安全区"]] },
+			{ type: "spawn", func: "point", args: [513, 261, 500, 100, 60000000] }
+		],
+			"ns-3036-1000": [
+			{ type: "spawn", func: "marker", args: [false, 281, -500, 100, 60000000, false, ["達鲁坎", "安全区"]] },
+			{ type: "spawn", func: "point", args: [513, 261, 500, 100, 60000000] }
+		],		
 		"rb-3036-1000": [{ type: "func", func: () => enrage = 1 },{ type: "func", func: () => start_enraged_time_A = new Date() },{ type: "text", sub_type: "message", message: "boss愤怒" }],
 		"re-3036-1000": [{ type: "func", func: () => enrage = 0 },{ type: "text", sub_type: "message", message: "愤怒结束" }],			
 		"nd-3036-1001": [{ type: "stop_timers" },{ type: "despawn_all" }],
 		"s-3036-1001-1112-0": [{ type: "text", sub_type: "message", message: "后跳" }],
 		"nd-3036-1000": [{ type: "stop_timers" },{ type: "despawn_all" }],
-		"h-3036-1000-100": [{ type: "func", func: () => hp_79 = 0 }],		
+		"h-3036-1000-100": [{ type: "func", func: () => hp_79 = 0 }],			
 		"h-3036-1000-94": [{ type: "text", sub_type: "message", message: "---------------94%----------------" }],		
 		"h-3036-1000-79": [{ type: "text", sub_type: "message", message: "---------------79%----------------" }, { type: "func", func: () => hp_79 = 1 }],
+		"h-3036-1000-35": [{ type: "text", sub_type: "message", message: "---------------注意倒计时--------------" }],	
+		"h-3036-1000-34": [{ type: "text", sub_type: "message", message: "---------------第三层缩圈准备--------------" }],			
+		"h-3036-1000-65": [{ type: "text", sub_type: "message", message: "----------------第二层缩圈准备--------------" }],	
+		
+		"s-3036-1000-1102-0": [{ type: "func", func: () => back_time = new Date() }],
+		"s-3036-1000-1101-0": [{ type: "func", func: boss_backattack }],
+		"s-3036-1000-2102-0": [{ type: "func", func: () => back_time = new Date() }],
+		"s-3036-1000-2101-0": [{ type: "func", func: boss_backattack }],		
 		"s-3036-1000-1103-0": [{ type: "func", func: boss_backattack_event }],//1103,1106,
 		"s-3036-1000-1106-0": [{ type: "func", func: boss_backattack_event }],
 		"s-3036-1000-1112-0": [{ type: "text", sub_type: "message", message: "后退" }],
 		
 		"s-3036-1000-1114-0": [{ type: "text", sub_type: "message", message: "隐形火坑" },			
-			                   { type: "spawn", func: "vector", args: [912, 90, 150, 0, 1300, 0, 8830]},
-                               { type: "spawn", func: "vector", args: [912, 90, 75, 0, 1300, 0, 8830]},
-                               { type: "spawn", func: "vector", args: [912, 0, 0, 0, 1300, 0, 8830]},							   
-			                   { type: "spawn", func: "vector", args: [912, 270, 75, 0, 1300, 0, 8830]},
-                               { type: "spawn", func: "vector", args: [912, 270, 150, 0, 1300, 0, 8830]}],		//6830    8830ms
-		"s-3036-1000-2114-0": [{ type: "text", sub_type: "message", message: "隐形形火坑" },
-			                   { type: "spawn", func: "vector", args: [912, 90, 150, 0, 1300, 0, 8830]},
-                               { type: "spawn", func: "vector", args: [912, 90, 75, 0, 1300, 0, 8830]},
-                               { type: "spawn", func: "vector", args: [912, 0, 0, 0, 1300, 0, 8830]},							   
-			                   { type: "spawn", func: "vector", args: [912, 270, 75, 0, 1300, 0, 8830]},
-                               { type: "spawn", func: "vector", args: [912, 270, 150, 0, 1300, 0, 8830]}],		//6830    8830ms		
+			                   { type: "spawn", func: "vector", args: [912, 90, 150, 0, 1300, 0, 5830]},
+                               { type: "spawn", func: "vector", args: [912, 90, 75, 0, 1300, 0, 5830]},
+                               { type: "spawn", func: "vector", args: [912, 0, 0, 0, 1300, 0, 5830]},							   
+			                   { type: "spawn", func: "vector", args: [912, 270, 75, 0, 1300, 0, 5830]},
+                               { type: "spawn", func: "vector", args: [912, 270, 150, 0, 1300, 0, 5830]}],		//6830    5830ms
+		"s-3036-1000-2114-0": [{ type: "text", sub_type: "message", message: "隐形火坑" },
+			                   { type: "spawn", func: "vector", args: [912, 90, 150, 0, 1300, 0, 5830]},
+                               { type: "spawn", func: "vector", args: [912, 90, 75, 0, 1300, 0, 5830]},
+                               { type: "spawn", func: "vector", args: [912, 0, 0, 0, 1300, 0, 5830]},							   
+			                   { type: "spawn", func: "vector", args: [912, 270, 75, 0, 1300, 0, 5830]},
+                               { type: "spawn", func: "vector", args: [912, 270, 150, 0, 1300, 0, 5830]}],		//6830    5830ms		
 		"s-3036-1000-1117-0": [{ type: "text", sub_type: "message", message: "前方" }],
 		"s-3036-1000-1118-0": [{ type: "text", sub_type: "message", message: "砍击| 闪" },
 			                   { type: "spawn", func: "semicircle", args: [0, 60, 912, 0, 0, 15, 60, 0, 2000] },		
@@ -125,8 +162,14 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		                       { type: "spawn", func: "circle", args: [false, 553, 0, 0, 8, 250, 0, 6000]},
 		                       { type: "spawn", func: "circle", args: [false, 553, 0, 0, 6, 430, 0, 6000]}], 
 		"s-3036-1000-1801-0": [{ type: "text", sub_type: "message", message: "----沉默------" }],
-		"s-3036-1000-2115-0": [{ type: "text", sub_type: "message", delay: 3200,  message: "闪" }],		
-		"s-3036-1000-1115-0": [{ type: "text", sub_type: "message", delay: 3200,  message: "闪" }],			
+		"s-3036-1000-2115-0": [{ type: "text", sub_type: "message", delay: 3200,  message: "闪" },
+		                       { type: "text", sub_type: "message", message: "3" },		
+		                       { type: "text", sub_type: "message", delay: 1000,  message: "2" },
+		                       { type: "text", sub_type: "message", delay: 2000,  message: "1" }],		
+		"s-3036-1000-1115-0": [{ type: "text", sub_type: "message", delay: 3200,  message: "闪" },
+		                       { type: "text", sub_type: "message", message: "3" },		
+		                       { type: "text", sub_type: "message", delay: 1000,  message: "2" },
+		                       { type: "text", sub_type: "message", delay: 2000,  message: "1" }],			
 		"s-3036-1000-2103-0": [{ type: "func", func: boss_backattack_event }],
 		"s-3036-1000-2106-0": [{ type: "func", func: boss_backattack_event }],
 		"s-3036-1000-2112-0": [{ type: "text", sub_type: "message", message: "后退" }],	
