@@ -182,7 +182,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 								{ type: "spawn", func: "semicircle", args: [305, 360, 912, 0, 0, 15, 160, 0, 2000] },
 								{ type: "spawn", func: "semicircle", args: [310, 360, 912, 0, 0, 10, 250, 0, 2000] },
 								{ type: "spawn", func: "semicircle", args: [315, 360, 912, 0, 0, 10, 340, 0, 2000] }],		
-		"qb-3036-1000-3036039": [{ type: "func", func: skilld_event, args: [3036039]}],		
+		"qb-3036-1000-3036039": [{ type: "func", func: skilld_event, args: [3036039]},{ type: "text", sub_type: "message", delay: 75000,  message: (hp_79 ? 'Four Split Strikes coming soon!!!' : 'Three Split Strikes coming soon!!!') }],		
 		"qb-3036-1000-3036040": [{ type: "func", func: skilld_event, args: [3036040]}],			
 		"qb-3036-1000-3036041": [{ type: "func", func: skilld_event, args: [3036041]}],					
 	};
