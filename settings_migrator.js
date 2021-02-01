@@ -13,7 +13,7 @@ const DefaultSettings = {
 		"gender": "female"
 	},
 	"cc": [
-		"</font><font color=\"#ffff00\">"
+		"</font><font color=\"#bfff00\">"
 	],
 	"language": "auto",
 	"dungeons": {},
@@ -29,6 +29,8 @@ const DefaultSettings = {
 		"h": false,
 		"ns": false,
 		"nd": false,
+		"rb": false,
+		"re": false,		
 		"dm": false,
 		"qb": false
 	}
@@ -51,10 +53,6 @@ module.exports = function MigrateSettings(from_ver, to_ver, settings) {
 		settings = Object.assign(DefaultSettings, {});
 
 		to_ver = Math.round(to_ver * 100) / 100;
-		if (to_ver < 1.15 ) {	
-		remove(["dbg.json", "lib.js", "dispatch.js", "voice/voice.js", "voice"]);		
-			
-		}
 		switch (to_ver) {
 
 			case 1.15:
@@ -68,6 +66,23 @@ module.exports = function MigrateSettings(from_ver, to_ver, settings) {
 					}
 				}
 				return settings;
+			case 1.16:
+				remove([
+					"guides/3027.js",
+					"guides/3034.js",
+					"guides/3036.js",
+					"guides/3201.js",
+					"guides/3202.js",
+					"guides/3203.js",
+					"guides/9053.js",
+					"guides/9056.js",
+					"guides/9735.js",
+					"guides/9739.js",
+					"guides/9781.js",
+					"guides/9920.js",
+					"guides/9982.js"
+				]);
+				break;				
 		}
 
 		for (const option in oldsettings) {

@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // Available strings for additional languages
 // If no language is found, the default language (English) will be displayed
