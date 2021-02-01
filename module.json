@@ -6,7 +6,7 @@
         "guiName": "Dungeon-Guide",
         "settingsFile": "config.json",
         "settingsMigrator": "settings_migrator.js",
-        "settingsVersion": 1.16
+        "settingsVersion": 1.17
     },
     "author": "Kasea/MC/HSDN/ZC/",
     "description": "副本教玩模块有TTS通知。在屏幕上提示，并绘制boss攻击和机制区域.",
@@ -16,5 +16,5 @@
         "library": "https://raw.githubusercontent.com/tera-toolbox-mods/library/master/module.json",
         "guide-core": "https://raw.githubusercontent.com/michengs/guide-core/master/module.json"
     },
-    "version": "01/28/2021"
+    "version": "02/01/2021"
 }
