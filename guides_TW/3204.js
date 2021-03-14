@@ -102,8 +102,8 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		],
 		"s-3204-1031-131-0": [{ type: "func", func: skilld_event, args: [131] }],		
 		"s-3204-1000-156-0": [{ type: "text", sub_type: "message", message: "吃buff", message_RU: "Черепа" }],
-		"s-3204-1000-157-0": [{ type: "text", sub_type: "message", message: "集中!", message_RU: "Собраться!", delay: 2000 }],
-		"s-3204-1000-158-0": [{ type: "text", sub_type: "message", message: "集中!", message_RU: "Собраться!", delay: 5000 }],
+		"s-3204-1000-157-0": [{ type: "text", sub_type: "message", message: "快速", message_RU: "Круговая" },{ type: "text", sub_type: "message", message: "集中!", message_RU: "Собраться!", delay: 2000 }],
+		"s-3204-1000-158-0": [{ type: "text", sub_type: "message", message: "慢速", message_RU: "Круговая" },{ type: "text", sub_type: "message", message: "集中!", message_RU: "Собраться!", delay: 5000 }],
 		"s-3204-1000-159-0": [
 			{ type: "text", sub_type: "message", message: "AOE", message_RU: "АОЕ" },
 			{ type: "marker_remove_all", delay: 3000 }
