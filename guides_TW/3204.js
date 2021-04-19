@@ -35,7 +35,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		"qb-3204-1000-32042000": [{ type: "text", sub_type: "message", message: "飞剑 + 贯穿", message_RU: "Стрелки + полоса" }],
 		"qb-3204-1000-32042006": [
 			{ type: "text", sub_type: "message", message: "禁锢", message_RU: "Клетка" },
-			{ type: "text", sub_type: "alert", message: "禁锢准备...", message_RU: "Скоро клетка...", delay: 100000 }
+			{ type: "text", sub_type: "alert", message: "禁锢倒计时准备...", message_RU: "Скоро клетка...", delay: 130000 }
 		],
 		"qb-3204-1000-32042009": [
 			{ type: "text", sub_type: "message", message: "骷髅", message_RU: "Скелеты" },

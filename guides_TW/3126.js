@@ -294,7 +294,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		"145-0": [{ type: "text", sub_type: "message", message: "Stun", message_RU: "Стан", message_TW: "晕" }],
 		"157-0": [{ type: "text", sub_type: "message", message: "Change", message_RU: "Смена", message_TW: "交换" }],
 		"103-0": [
-			{ type: "text", sub_type: "message", message: "Tail (Flying)", message_RU: "Хвост (полет)" },
+			{ type: "text", sub_type: "message", message: "尾巴(击飞)", message_RU: "Хвост (полет)" },
 			{ type: "text", sub_type: "message", message: "Arise!", message_RU: "Удочка!", delay: 1500, class_position: "priest" },
 			{ type: "spawn", func: "semicircle", args: [140, 260, 912, 0, 0, 10, 500, 0, 2000] },
 			{ type: "spawn", func: "vector", args: [912, 0, 0, 135, 500, 0, 2000] },
@@ -337,7 +337,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		"206-0": [{ type: "text", sub_type: "message", message: "Jump Back", message_RU: "Прыжок назад", message_TW: "后跳" }],
 		"206-2": [{ type: "spawn", func: "circle", args: [false, 553, 0, 0, 15, 350, 0, 3000] }],
 		"137-0": [{ type: "text", sub_type: "message", message: "Knockdown", message_RU: "Опрокидывание", message_TW: "击倒" }],
-		"138-0": [{ type: "text", sub_type: "message", message: "AOE", message_RU: "AOE" }],
+		"138-0": [{ type: "text", sub_type: "message", message: "AOE", message_RU: "AOE" },{ type: "text", sub_type: "message", delay: 2000,  message_TW: "闪避" }],
 		"139-0": [
 			{ type: "text", sub_type: "message", message: "60 degrees (Fire to all)", message_RU: "60° (Огонь всем)", message_TW: "温度60" },
 			{ type: "text", sub_type: "message", delay: 4000, message: "Lower the temp", message_RU: "Снизить температуру", message_TW: "降温" }

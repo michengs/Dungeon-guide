@@ -59,13 +59,17 @@ module.exports = (dispatch, handlers, guide, lang) => {
 	//	"s-3106-1000-216-0": [{ type: "text", sub_type: "message", message: "翻滚", message_RU: "Кувырок" }],
 		"s-3106-1000-508-0": [
 			{ type: "text", sub_type: "message", message: "扩散圈", message_RU: "Волны наружу" },
-			{ type: "spawn", func: "circle", args: [false, 445, 0, 0, 18, 157, 1500, 5000] },
-			{ type: "spawn", func: "circle", args: [false, 445, 0, 0, 12, 307, 1500, 5000] }
+			{ type: "spawn", func: "circle", args: [false, 445, 0, 0, 18, 180, 1500, 5000] },
+			{ type: "spawn", func: "circle", args: [false, 445, 0, 0, 12, 360, 1500, 5000] },
+			{ type: "spawn", func: "circle", args: [false, 445, 0, 0, 10, 550, 1500, 5000] },
+			{ type: "spawn", func: "circle", args: [false, 553, 0, 0, 8, 860, 1500, 5000] }
 		],
 		"s-3106-1000-509-0": [
 			{ type: "text", sub_type: "message", message: "收缩圈", message_RU: "Волны внутрь" },
-			{ type: "spawn", func: "circle", args: [false, 445, 0, 0, 18, 157, 1500, 5000] },
-			{ type: "spawn", func: "circle", args: [false, 445, 0, 0, 12, 307, 1500, 5000] }
+			{ type: "spawn", func: "circle", args: [false, 445, 0, 0, 18, 180, 1500, 5000] },
+			{ type: "spawn", func: "circle", args: [false, 445, 0, 0, 12, 360, 1500, 5000] },
+			{ type: "spawn", func: "circle", args: [false, 445, 0, 0, 10, 550, 1500, 5000] },
+			{ type: "spawn", func: "circle", args: [false, 553, 0, 0, 8, 860, 1500, 5000] }
 		],
 	//	"s-3106-1000-506-0": [{ type: "text", sub_type: "message", message: "点名 (晕)", message_RU: "Байт (стан)" }],
 		"s-3106-1000-507-0": [{ type: "text", sub_type: "message", message: "束缚 | 跳 (击倒)", message_RU: "Притяжка + прыжок (опрокид)" }],
