@@ -11,8 +11,8 @@ module.exports = (dispatch, handlers, guide, lang) => {
 	let mech_notice = false;
 
 	const mech_messages = {
-		0: { message: "Out", message_RU: "От него", message_TW: "出" },
-		1: { message: "In", message_RU: "К нему", message_TW: "进" },
+		0: { message: "Out", message_RU: "От него", message_TW: "近" },
+		1: { message: "In", message_RU: "К нему", message_TW: "远" },
 		2: { message: "Wave", message_RU: "Волна", message_TW: "全" },
 		3: { message: "?", message_RU: "?", message_TW: "?" }
 	};
@@ -78,6 +78,11 @@ module.exports = (dispatch, handlers, guide, lang) => {
 		if (skillid >= 0 && skillid < 3) {
 			msg_b = skillid;
 			print_mech(false, false);
+		if (skillid == 2 && mech_reverse) {
+            message_all()					
+		} else if (msg_a == 2 && !mech_reverse) {
+            message_all()					
+		}
 			msg_a = msg_b;
 			msg_b = 3;
 
@@ -97,6 +102,7 @@ module.exports = (dispatch, handlers, guide, lang) => {
 
 		if (next) {
 			message += "Next: ";
+            message_TW = "下次: ",				
 			message_RU += "Далее: ";
 			sub_type = "notification";
 		}
@@ -124,7 +130,15 @@ module.exports = (dispatch, handlers, guide, lang) => {
 			message_TW: message_TW			
 		});
 	}
-
+    function message_all(){	
+		handlers.text({
+			sub_type: "message",
+			delay: 3000,
+			message:"Dodge",
+            message_RU: "Эвейд",			
+			message_TW: "闪避"
+		});			
+	}
 	// S-attacks
 	function thirdboss_sattack_event(skillid) {
 		// Safe: 116/119 [R] + 222-0 [R] > 222-1 [L] > 222-2 [R] > 326/327
